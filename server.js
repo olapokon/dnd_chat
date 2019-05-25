@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo')(session);
 const bodyParser = require('body-parser');
 const io = require('socket.io')(http);
 const passportSocketIo = require('passport.socketio');
+const path = require('path');
 //const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
@@ -47,6 +48,13 @@ auth(app, db);
 
 //routes
 routes(app, db);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 //io
 io.use(
