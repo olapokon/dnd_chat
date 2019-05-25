@@ -1,0 +1,17 @@
+.diceRoller {
+  width: 9em;
+}
+
+.inputDiceWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.diceInput {
+  width: 3em;
+}
+
+.diceButton {
+  width: 3em;
+}

@@ -1,0 +1,60 @@
+.chatContainer {
+  /* width: 100vw; */
+  height: 95vh;
+
+  display: grid;
+  grid-template-columns: 1fr 5fr 9em;
+
+
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-between; */
+}
+
+.chatroom {
+  width: 60vw;
+  /* height: 95vh; */
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+
+  justify-self: end;
+
+
+
+  /* display: flex;
+  flex-direction: column; */
+}
+
+  .chatDisplay {
+    width: 100%;
+    height: 85vh;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    justify-self: end;
+  }
+
+  .sendBar {
+    display: flex;
+    /* height: 5vh; */
+    justify-content: space-between;
+  }
+
+.charSheet {
+
+}
+
+.diceRoller {
+
+}
+
+/* messages in chat display */
+.messageWrapper {
+  width: 100%
+}
+
+.message {
+  width: 100%;
+  word-wrap: break-word;
+}

@@ -1,0 +1,169 @@
+ul {
+  list-style-type: none;
+  padding-inline-start: 0.5em;
+}
+
+.smallInput {
+  width: 2.5em;
+}
+
+.midInput {
+  width: 6em;
+}
+
+input[type='checkbox'] {
+  width: 1em;
+}
+
+input {
+  margin: 0.2em 0.3em 0.3em 0.3em;
+  width: 10em;
+  border: none;
+  border-bottom: 1px solid;
+}
+
+input[type='number'] {
+  border: 1px solid gray;
+}
+
+input:read-only {
+  border: 1px solid lightgray;
+  text-align: right;
+}
+
+.classLevel input {
+  border: none;
+  border-bottom: 1px solid;
+}
+
+.classLevel input:read-only {
+  border: none;
+  text-align: left;
+  outline: none;
+  width: 6em;
+}
+
+.leftFloat {
+  float: left;
+}
+
+.abilityScores {
+  padding: 0.5em 0em 0 0em;
+  margin: 0em 0em 0 1em;
+}
+
+.savingThrows h3 {
+  text-align: center;
+}
+
+.skills {
+  padding: 0 1em 0 0;
+  margin: 0 1em 0 1em;
+}
+
+.attackWrapper select {
+  width: 4em;
+}
+
+.savingThrowsProf {
+  padding: 0.5em 1em 0 1em;
+  margin-bottom: 1em;
+}
+
+.acStatsWrapper {
+  height: 6em;
+}
+
+.acStatsList div {
+  width: 6em;
+  height: 4em;
+}
+
+.acStatsList input {
+  width: 4em;
+  height: 3em;
+  text-align: center;
+}
+
+.acStatsList li {
+  float: left;
+}
+
+#hpTemp {
+  width: 4em;
+}
+
+textarea {
+  display: block;
+  resize: none;
+  width: 30em;
+  height: 8em;
+  vertical-align: top;
+  margin-bottom: 1em;
+  margin-left: 0.6em;
+}
+
+.personalityBackground textarea {
+  height: 5.45em;
+}
+
+.wrapperSettings {
+  padding: 0em 1em 0em 1em;
+  margin-bottom: 1em;
+}
+
+.combatWrapper {
+  width: 37em;
+}
+
+.combatWrapper label {
+  margin-left: 0em !important;
+}
+
+.spellCastingWrapper label {
+  margin-left: 0em !important;
+}
+
+.wrapperSettings label {
+  margin-left: 0.6em;
+}
+
+.submitBtn {
+  width: 100%;
+}
+
+.feats {
+  height: 11em;
+}
+
+.moneyWrapper input {
+  width: 5.3em;
+}
+
+.expWrapper {
+  margin-left: 0.6em;
+}
+
+.attacksList li {
+  margin-bottom: 1em;
+}
+
+.featsAndTraits {
+  float: left;
+  margin-right: 1.5em;
+  height: 13em;
+}
+
+.deathSavesWrapper {
+  margin-top: 2.5em;
+}
+
+.noMargin {
+  margin-bottom: 0;
+}
+
+.topWrapper::after {
+  content: '';
+  clear: both;
+  display: table;
+}
