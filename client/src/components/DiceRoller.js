@@ -79,7 +79,7 @@ class DiceRoller extends Component {
         modifier,
         total: totalRoll + +modifier
       };
-      console.log(finalRoll);
+      //console.log(finalRoll);
 
       //send roll result to chatroom if applicable
       if (this.props.handleDiceRoll) {

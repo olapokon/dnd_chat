@@ -94,7 +94,7 @@ class App extends Component {
         //console.log(res.data);
         if (res.data.user) {
           if (!this.state.user || this.state.user.username !== res.data.user.username) {
-            console.log('User saved in the server session: ' + res.data.user.username);
+            //console.log('User saved in the server session: ' + res.data.user.username);
             this.updateUserAndOpenSocket(res.data.user);
           } else {
             this.updateUser(res.data.user);

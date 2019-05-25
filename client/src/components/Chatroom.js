@@ -25,7 +25,7 @@ class Chatroom extends Component {
   //lifecycle methods
   componentDidMount() {
     this.props.enterChatroom(this.props.chatroomKey);
-    console.log('chatroom component mount, chatroom name: ' + this.props.chatroomName);
+    //console.log('chatroom component mount, chatroom name: ' + this.props.chatroomName);
     this.props.addChatMessageHandler(this.appendMessage);
 
     this.scrollToBottom();
@@ -36,7 +36,7 @@ class Chatroom extends Component {
   }
 
   componentWillUnmount() {
-    console.log('chatroom component unmount, chatroom name: ' + this.props.chatroomName);
+    //console.log('chatroom component unmount, chatroom name: ' + this.props.chatroomName);
     this.props.removeChatMessageHandler();
     this.props.exitChatroom(this.props.chatroomKey);
   }
