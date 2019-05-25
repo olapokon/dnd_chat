@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 export default function() {
   //const socket = io('http://localhost:3001/');
-  const socket = io('http://dnd-chat123.herokuapp.com/');
+  const socket = io();
 
   function addChatMessageHandler(callback) {
     socket.on('chat message', callback);
