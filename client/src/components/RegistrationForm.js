@@ -21,7 +21,7 @@ class RegistrationForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.password === this.state.confirmPassword) {
+    if (this.state.password && this.state.password === this.state.confirmPassword) {
       axios
         .post('/register', {
           username: this.state.username,

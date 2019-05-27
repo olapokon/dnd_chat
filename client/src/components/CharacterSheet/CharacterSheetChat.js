@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import uuidv4 from 'uuid/v4';
+import './CharacterSheetChat.css';
 
 import CharacterInfo from './CharacterSheetComponents/CharacterInfo';
 import AbilityScores from './CharacterSheetComponents/AbilityScores';
@@ -39,7 +40,7 @@ class CharacterSheet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentToggle: [],
+      componentToggle: '',
       uuid: '',
       characterName: '',
       charClassArray: [{ class: '', level: 0 }],
@@ -54,7 +55,6 @@ class CharacterSheet extends Component {
       wis: 0,
       cha: 0,
       proficienciesArray: [],
-      otherProfs: '',
       armorClass: 0,
       initiative: 0,
       speed: 0,
@@ -505,17 +505,13 @@ class CharacterSheet extends Component {
   //toggle sections of the character sheet
   handleToggle(event) {
     const name = event.target.name;
-    if (!this.state.componentToggle.includes(name)) {
-      const newArray = [...this.state.componentToggle, name];
+    if (this.state.componentToggle !== name) {
       this.setState({
-        componentToggle: newArray
+        componentToggle: name
       });
     } else {
-      const newArray = [...this.state.componentToggle];
-      const index = newArray.indexOf(name);
-      newArray.splice(index, 1);
       this.setState({
-        componentToggle: newArray
+        componentToggle: ''
       });
     }
   }
@@ -524,130 +520,189 @@ class CharacterSheet extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
-
-        <button name="characterInfo" type="button" onClick={this.handleToggle}>
-          Character Info
-        </button>
         {this.state.componentToggle.includes('characterInfo') && (
-          <CharacterInfo
-            handleChange={this.handleChange}
-            characterName={this.state.characterName}
-            charClassArray={this.state.charClassArray}
-            handleChangeClass={this.handleChangeClass}
-            addClass={this.addClass}
-            removeClass={this.removeClass}
-            calculateTotalLevel={this.calculateTotalLevel}
-            exp={this.state.exp}
-            expAdd={this.state.expAdd}
-            addExperience={this.addExperience}
-            calculateExpToNextLevel={this.calculateExpToNextLevel}
-            race={this.state.race}
-            alignment={this.state.alignment}
-          />
+          <div className="chatSheetCompToggle" id="sheetCompCharInfo">
+            <CharacterInfo
+              handleChange={this.handleChange}
+              characterName={this.state.characterName}
+              charClassArray={this.state.charClassArray}
+              handleChangeClass={this.handleChangeClass}
+              addClass={this.addClass}
+              removeClass={this.removeClass}
+              calculateTotalLevel={this.calculateTotalLevel}
+              exp={this.state.exp}
+              expAdd={this.state.expAdd}
+              addExperience={this.addExperience}
+              calculateExpToNextLevel={this.calculateExpToNextLevel}
+              race={this.state.race}
+              alignment={this.state.alignment}
+            />
+          </div>
         )}
-
-        <button name="abilityScores" type="button" onClick={this.handleToggle}>
-          Ability Scores
-        </button>
         {this.state.componentToggle.includes('abilityScores') && (
-          <AbilityScores
-            handleChange={this.handleChange}
-            str={this.state.str}
-            dex={this.state.dex}
-            con={this.state.con}
-            int={this.state.int}
-            wis={this.state.wis}
-            cha={this.state.cha}
-            calculateModifier={this.calculateModifier}
-            charClassArray={this.state.charClassArray}
-            calculateProficiency={this.calculateProficiency}
-            inspiration={this.state.inspiration}
-            proficienciesArray={this.state.proficienciesArray}
-          />
+          <div className="chatSheetCompToggle" id="sheetCompScoreSaves">
+            <AbilityScores
+              handleChange={this.handleChange}
+              str={this.state.str}
+              dex={this.state.dex}
+              con={this.state.con}
+              int={this.state.int}
+              wis={this.state.wis}
+              cha={this.state.cha}
+              calculateModifier={this.calculateModifier}
+              charClassArray={this.state.charClassArray}
+              calculateProficiency={this.calculateProficiency}
+              inspiration={this.state.inspiration}
+              proficienciesArray={this.state.proficienciesArray}
+            />
+          </div>
         )}
-
-        <button name="skills" type="button" onClick={this.handleToggle}>
-          Skills
-        </button>
         {this.state.componentToggle.includes('skills') && (
-          <Skills
-            handleChange={this.handleChange}
-            str={this.state.str}
-            dex={this.state.dex}
-            con={this.state.con}
-            int={this.state.int}
-            wis={this.state.wis}
-            cha={this.state.cha}
-            calculateModifier={this.calculateModifier}
-            proficienciesArray={this.state.proficienciesArray}
-            otherProfs={this.state.otherProfs}
-          />
+          <div className="chatSheetCompToggle" id="sheetCompSkills">
+            <Skills
+              handleChange={this.handleChange}
+              str={this.state.str}
+              dex={this.state.dex}
+              con={this.state.con}
+              int={this.state.int}
+              wis={this.state.wis}
+              cha={this.state.cha}
+              calculateModifier={this.calculateModifier}
+              proficienciesArray={this.state.proficienciesArray}
+              otherProfs={this.state.otherProfs}
+            />
+          </div>
         )}
-
-        <button name="combatStats" type="button" onClick={this.handleToggle}>
-          Combat Stats
-        </button>
         {this.state.componentToggle.includes('combatStats') && (
-          <CombatStats
-            handleChange={this.handleChange}
-            armorClass={this.state.armorClass}
-            initiative={this.state.initiative}
-            hpMax={this.state.hpMax}
-            hitDice={this.state.hitDice}
-            speed={this.state.speed}
-            dsSuccesses={this.state.dsSuccesses}
-            deathSaves={this.deathSaves}
-            handleDeathSaves={this.handleDeathSaves}
-            dsFails={this.state.dsFails}
-            attacksArray={this.state.attacksArray}
-            handleChangeAttack={this.handleChangeAttack}
-            addAttack={this.addAttack}
-            removeAttack={this.removeAttack}
-          />
+          <div className="chatSheetCompToggle" id="sheetCompCombat">
+            <CombatStats
+              handleChange={this.handleChange}
+              armorClass={this.state.armorClass}
+              initiative={this.state.initiative}
+              hpMax={this.state.hpMax}
+              hitDice={this.state.hitDice}
+              speed={this.state.speed}
+              dsSuccesses={this.state.dsSuccesses}
+              deathSaves={this.deathSaves}
+              handleDeathSaves={this.handleDeathSaves}
+              dsFails={this.state.dsFails}
+              attacksArray={this.state.attacksArray}
+              handleChangeAttack={this.handleChangeAttack}
+              addAttack={this.addAttack}
+              removeAttack={this.removeAttack}
+            />
+          </div>
         )}
-
-        <button name="inventory" type="button" onClick={this.handleToggle}>
-          Inventory
-        </button>
         {this.state.componentToggle.includes('inventory') && (
-          <Inventory
-            handleChange={this.handleChange}
-            equipment={this.state.equipment}
-            inventory={this.state.inventory}
-            copper={this.state.copper}
-            silver={this.state.silver}
-            electrum={this.state.electrum}
-            gold={this.state.gold}
-            platinum={this.state.platinum}
-          />
+          <div className="chatSheetCompToggle" id="sheetCompInventory">
+            <Inventory
+              handleChange={this.handleChange}
+              equipment={this.state.equipment}
+              inventory={this.state.inventory}
+              copper={this.state.copper}
+              silver={this.state.silver}
+              electrum={this.state.electrum}
+              gold={this.state.gold}
+              platinum={this.state.platinum}
+            />
+          </div>
         )}
-
-        <button name="personalityBackground" type="button" onClick={this.handleToggle}>
-          Background
-        </button>
         {this.state.componentToggle.includes('personalityBackground') && (
-          <PersonalityBackground
-            handleChange={this.handleChange}
-            personality={this.state.personality}
-            ideals={this.state.ideals}
-            bonds={this.state.bonds}
-            flaws={this.state.flaws}
-            background={this.state.background}
-          />
+          <div className="chatSheetCompToggle" id="sheetCompBackground">
+            <PersonalityBackground
+              handleChange={this.handleChange}
+              personality={this.state.personality}
+              ideals={this.state.ideals}
+              bonds={this.state.bonds}
+              flaws={this.state.flaws}
+              background={this.state.background}
+            />
+          </div>
         )}
-
-        <button name="spellcasting" type="button" onClick={this.handleToggle}>
-          Spellcasting
-        </button>
         {this.state.componentToggle.includes('spellcasting') && (
-          <Spellcasting
-            spellsArray={this.state.spellsArray}
-            handleChangeSpells={this.handleChangeSpells}
-            spellCastingArray={this.state.spellCastingArray}
-            handleChangeSpellCasting={this.handleChangeSpellCasting}
-            addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
-          />
+          <div className="chatSheetCompToggle" id="sheetCompSpellcasting">
+            <Spellcasting
+              spellsArray={this.state.spellsArray}
+              handleChangeSpells={this.handleChangeSpells}
+              spellCastingArray={this.state.spellCastingArray}
+              handleChangeSpellCasting={this.handleChangeSpellCasting}
+              addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
+            />
+          </div>
         )}
+        <ul className="sheetComponents">
+          <li className="sheetListComponent">
+            <button
+              name="characterInfo"
+              className="sheetCompBtn"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Character Info
+            </button>
+          </li>
+          <li className="sheetListComponent">
+            <button
+              name="abilityScores"
+              className="sheetCompBtn"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Ability Scores
+            </button>
+          </li>
+          <li className="sheetListComponent">
+            <button
+              name="skills"
+              className="sheetCompBtn"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Skills
+            </button>
+          </li>
+          <li className="sheetListComponent">
+            <button
+              name="combatStats"
+              className="sheetCompBtn"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Combat Stats
+            </button>
+          </li>
+          <li className="sheetListComponent">
+            <button
+              name="inventory"
+              className="sheetCompBtn"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Inventory
+            </button>
+          </li>
+          <li className="sheetListComponent">
+            <button
+              name="personalityBackground"
+              className="sheetCompBtn"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Background
+            </button>
+          </li>
+          <li className="sheetListComponent">
+            <button
+              name="spellcasting"
+              className="sheetCompBtn"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Spellcasting
+            </button>
+          </li>
+        </ul>
+
         <div>
           <input type="submit" value="Save character" />
         </div>

@@ -1,0 +1,13 @@
+.sheetCompBtn {
+  width: 7em;
+  height: 3em;
+}
+
+.chatSheetCompToggle {
+  margin-left: 10em;
+  position: absolute;
+  display: inline-block;
+  background: white;
+  border: solid yellow 3px;
+  box-shadow: 2px 3px 28px 13px rgba(129,107,255,1);
+}
