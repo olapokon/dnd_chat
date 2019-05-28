@@ -28,12 +28,12 @@ class Chatroom extends Component {
 
   componentWillUpdate() {
     const node = this.node;
-    this.scrollMinusClientBeforeUpdate = node.scrollHeight - node.clientHeight;
+    this.scrollHeightMinusClientBeforeUpdate = node.scrollHeight - node.clientHeight;
   }
 
   componentDidUpdate() {
     const node = this.node;
-    if (this.scrollMinusClientBeforeUpdate === node.scrollTop) {
+    if (this.scrollHeightMinusClientBeforeUpdate === node.scrollTop) {
       node.scrollTop = node.scrollHeight;
     }
   }

@@ -519,7 +519,7 @@ class CharacterSheet extends Component {
 
   render() {
     return (
-      <form className="characterSheet" onSubmit={this.handleSubmit}>
+      <form className="characterSheetChat" onSubmit={this.handleSubmit}>
         <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
         {this.state.componentToggle.includes('characterInfo') && (
           <div className="chatSheetCompToggle" id="sheetCompCharInfo">
