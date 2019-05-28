@@ -1,79 +1,54 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-//import globalStyles from '../assets/global_styles/bootstrap.min.module.css';
-//import styles from './NavBar.module.css';
+import './NavBar.css';
 
 function NavBar(props) {
-  if (props.loggedIn) {
-    return (
-      <nav>
-        <ul>
+  return (
+    <nav id="mainNav" className="navbar navbar-expand">
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/">
+            Home
+          </NavLink>
+        </li>
+        {props.loggedIn && (
           <li>
-            <NavLink
-              exact
-              to="/"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              exact
-              to="/games"
-            >
+            <NavLink className="nav-link" exact to="/games">
               Games
             </NavLink>
           </li>
+        )}
+        {props.loggedIn && (
           <li>
-            <NavLink
-              exact
-              to="/profile"
-            >
+            <NavLink className="nav-link" exact to="/profile">
               Profile
             </NavLink>
           </li>
+        )}
+        {props.loggedIn && (
           <li>
-            <NavLink
-              to="/"
-              onClick={props.logout}
-            >
+            <NavLink className="nav-link" to="/" onClick={props.logout}>
               Logout
             </NavLink>
           </li>
-        </ul>
-      </nav>
-    );
-  } else {
-    return (
-      <nav>
-        <ul>
+        )}
+        {!props.loggedIn && (
           <li>
-            <NavLink
-              exact
-              to="/"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              exact
-              to="/login"
-            >
+            <NavLink className="nav-link" exact to="/login">
               Login
             </NavLink>
           </li>
+        )}
+        {!props.loggedIn && (
           <li>
-            <NavLink
-              to="/register"
-            >
+            <NavLink className="nav-link" to="/register">
               Register
             </NavLink>
           </li>
-        </ul>
-      </nav>
-    );
-  }
+        )}
+      </ul>
+    </nav>
+  );
 }
 
 export default NavBar;

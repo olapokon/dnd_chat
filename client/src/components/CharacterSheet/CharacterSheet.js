@@ -501,7 +501,7 @@ class CharacterSheet extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="characterSheet" onSubmit={this.handleSubmit}>
         <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
 
         <CharacterInfo
@@ -609,7 +609,7 @@ class CharacterSheet extends Component {
           addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
         />
         <div className="submitBtn leftFloat">
-          <input type="submit" value="Save" />
+          <input className="btn btn-primary" type="submit" value="Save" />
         </div>
       </form>
     );

@@ -1,0 +1,25 @@
+.chatroomSheetDiceChatContainer {
+  border: solid blue 1px;
+}
+
+.chatContainer {
+  height: 100%;
+  border: solid blue 1px;
+}
+
+.chatDisplay {
+  border: solid blue 1px;
+  height: 75vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#chatroomUsercount {
+  border: solid blue 1px;
+  text-align: center;
+  color: gold;
+}
+
+.charSheet {
+  margin-bottom: 1em;
+}

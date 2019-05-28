@@ -1,10 +1,11 @@
-.chatContainer {
+.chatroomSheetDiceChatContainer {
   /* width: 100vw; */
-  height: 95vh;
+  height: 90vh;
 
   display: grid;
   grid-template-columns: 1fr 5fr 9em;
 
+  border: solid blue 1px;
 
   /* display: flex;
   flex-direction: row;
@@ -14,13 +15,11 @@
 .chatroom {
   width: 60vw;
   /* height: 95vh; */
-  position: absolute;
+  /* position: absolute; */
   bottom: 0px;
   right: 0px;
 
   justify-self: end;
-
-
 
   /* display: flex;
   flex-direction: column; */
@@ -28,11 +27,14 @@
 
   .chatDisplay {
     width: 100%;
-    height: 85vh;
+    height: 80vh;
     overflow: scroll;
     overflow-x: hidden;
 
     justify-self: end;
+    display: relative;
+
+    border: solid blue 1px;
   }
 
   .sendBar {
@@ -57,4 +59,8 @@
 .message {
   width: 100%;
   word-wrap: break-word;
+}
+
+#chatroomUsercount {
+  border: solid blue 1px;
 }

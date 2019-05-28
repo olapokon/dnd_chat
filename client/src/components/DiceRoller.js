@@ -95,7 +95,7 @@ class DiceRoller extends Component {
           return (
             <div className="inputDiceWrapper" key={`${die.die}Wrapper`}>
               <input
-                className="diceInput"
+                id="diceInput"
                 key={`${die.die}Number`}
                 name={`${die.die}Number`}
                 type="number"
@@ -116,7 +116,7 @@ class DiceRoller extends Component {
                 {die.die}
               </button>
               <input
-                className="diceInput"
+                id="diceInput"
                 key={`${die.die}Modifier`}
                 name={`${die.die}Modifier`}
                 type="number"

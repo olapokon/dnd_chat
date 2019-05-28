@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
-//import './App.module.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 import socket from './socket';
 import NavBar from './components/NavBar';
@@ -342,8 +343,6 @@ class App extends Component {
                 );
               })}
 
-            {/* dokimastiko gia to charsheet   */}
-            {/* <Route exact path="/characterSheet" component={CharacterSheet} /> */}
             <Route
               exact
               path="/characterSheet"

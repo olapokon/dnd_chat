@@ -3,14 +3,6 @@ ul {
   padding-inline-start: 0.5em;
 }
 
-.smallInput {
-  width: 2.5em;
-}
-
-.midInput {
-  width: 6em;
-}
-
 input[type='checkbox'] {
   width: 1em;
 }
@@ -93,7 +85,7 @@ input:read-only {
   width: 4em;
 }
 
-textarea {
+.characterSheet textarea {
   display: block;
   resize: none;
   width: 30em;
@@ -166,4 +158,12 @@ textarea {
   content: '';
   clear: both;
   display: table;
+}
+
+.smallInput {
+  width: 2.5em;
+}
+
+.midInput {
+  width: 6em;
 }

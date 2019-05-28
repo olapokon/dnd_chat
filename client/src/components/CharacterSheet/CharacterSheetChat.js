@@ -4,6 +4,7 @@ import uuidv4 from 'uuid/v4';
 import './CharacterSheetChat.css';
 
 import CharacterInfo from './CharacterSheetComponents/CharacterInfo';
+import ClassLevel from './CharacterSheetComponents/ClassLevel';
 import AbilityScores from './CharacterSheetComponents/AbilityScores';
 import Skills from './CharacterSheetComponents/Skills';
 import CombatStats from './CharacterSheetComponents/CombatStats';
@@ -518,13 +519,18 @@ class CharacterSheet extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="characterSheet" onSubmit={this.handleSubmit}>
         <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
         {this.state.componentToggle.includes('characterInfo') && (
           <div className="chatSheetCompToggle" id="sheetCompCharInfo">
             <CharacterInfo
               handleChange={this.handleChange}
               characterName={this.state.characterName}
+              race={this.state.race}
+              alignment={this.state.alignment}
+            />
+            <ClassLevel
+              handleChange={this.handleChange}
               charClassArray={this.state.charClassArray}
               handleChangeClass={this.handleChangeClass}
               addClass={this.addClass}
@@ -534,8 +540,6 @@ class CharacterSheet extends Component {
               expAdd={this.state.expAdd}
               addExperience={this.addExperience}
               calculateExpToNextLevel={this.calculateExpToNextLevel}
-              race={this.state.race}
-              alignment={this.state.alignment}
             />
           </div>
         )}
@@ -569,7 +573,6 @@ class CharacterSheet extends Component {
               cha={this.state.cha}
               calculateModifier={this.calculateModifier}
               proficienciesArray={this.state.proficienciesArray}
-              otherProfs={this.state.otherProfs}
             />
           </div>
         )}
@@ -704,7 +707,7 @@ class CharacterSheet extends Component {
         </ul>
 
         <div>
-          <input type="submit" value="Save character" />
+          <input className="btn-sm btn-primary" type="submit" value="Save character" />
         </div>
       </form>
     );

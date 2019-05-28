@@ -8,8 +8,9 @@
   justify-content: center;
 }
 
-.diceInput {
+#diceInput {
   width: 3em;
+  margin: 0;
 }
 
 .diceButton {

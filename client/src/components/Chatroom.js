@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DiceRoller from './DiceRoller';
-import './Chatroom.css';
+// import './Chatroom.css';
+import './ChatroomBootstrap.css';
 
 import CharacterSheetChat from './CharacterSheet/CharacterSheetChat';
 
@@ -13,30 +14,31 @@ class Chatroom extends Component {
       chatInput: '',
       chatHistory: []
     };
-    this.scrollRef = React.createRef();
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.appendMessage = this.appendMessage.bind(this);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
     this.handleDiceRoll = this.handleDiceRoll.bind(this);
   }
 
   //lifecycle methods
   componentDidMount() {
     this.props.enterChatroom(this.props.chatroomKey);
-    //console.log('chatroom component mount, chatroom name: ' + this.props.chatroomName);
     this.props.addChatMessageHandler(this.appendMessage);
+  }
 
-    this.scrollToBottom();
+  componentWillUpdate() {
+    const node = this.node;
+    this.scrollMinusClientBeforeUpdate = node.scrollHeight - node.clientHeight;
   }
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    const node = this.node;
+    if (this.scrollMinusClientBeforeUpdate === node.scrollTop) {
+      node.scrollTop = node.scrollHeight;
+    }
   }
 
   componentWillUnmount() {
-    //console.log('chatroom component unmount, chatroom name: ' + this.props.chatroomName);
     this.props.removeChatMessageHandler();
     this.props.exitChatroom(this.props.chatroomKey);
   }
@@ -48,14 +50,15 @@ class Chatroom extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    const messageData = {
-      type: 'user message',
-      chatroomName: this.props.chatroomName,
-      message: this.state.chatInput
-    };
-    this.props.emitChatMessage(messageData);
-    this.setState({ chatInput: '' });
+    if (this.state.chatInput.trim()) {
+      const messageData = {
+        type: 'user message',
+        chatroomName: this.props.chatroomName,
+        message: this.state.chatInput
+      };
+      this.props.emitChatMessage(messageData);
+      this.setState({ chatInput: '' });
+    }
   }
 
   //emit result of dice roll from DiceRoller
@@ -77,70 +80,57 @@ class Chatroom extends Component {
     this.setState({ chatHistory: [...this.state.chatHistory, messageData] });
   }
 
-  scrollToBottom() {
-    this.scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-    //ReactDOM.findDOMNode(this.scrollRef.current).scrollTop = ReactDOM.findDOMNode(this.scrollRef.current).scrollHeight;
-    //this.scrollRef.current.scrollTop = this.scrollRef.current.scrollHeight;
-  }
-
   render() {
     return (
-      <div className="chatContainer">
-        <div className="charSheet">
-          <CharacterSheetChat user={this.props.user} updateUser={this.props.updateUser} />
-        </div>
-
-        <div className="chatroom">
-          <h3>
-            Chatroom: {this.props.chatroomName || 'Default chatroom'} User count:{' '}
-            {this.props.userList.length}
-          </h3>
-
-          <div className="chatDisplay">
-            <ul style={{ listStyleType: 'none' }}>
-              {this.state.chatHistory.map((message, i) => {
-                if (message.type === 'user message') {
-                  return (
-                    <li key={i}>
-                      <div className="messageWrapper">
-                        {/* <div class="icon">user icon</div>
-                        <div class="username">username</div> */}
-                        <div className="message">{`${message.username}: ${
-                          message.message
-                        }`}</div>
-                      </div>
-                    </li>
-                  );
-                } else if (message.type === 'dice roll') {
-                  return (
-                    <li key={i} style={{ color: 'blue' }}>{`${message.username} rolls ${
-                      message.message
-                    }.`}</li>
-                  );
-                } else if (message.type === 'chat notification') {
-                  return (
-                    <li key={i} style={{ color: 'orange' }}>{`${message.username} ${
-                      message.message
-                    }`}</li>
-                  );
-                } else {
-                  return (
-                    <li key={i}>
-                      <div className="messageWrapper">
-                        <div className="message">{`${message.username}: ${
-                          message.message
-                        }`}</div>
-                      </div>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-
-            {/* reference for scrolling */}
-            <div ref={this.scrollRef} />
+      <div className="chatroomSheetDiceChatContainer container-fluid px-0">
+        <div className="row mx-0">
+          <div className="col-sm-3">
+            <div className="charSheet">
+              <CharacterSheetChat user={this.props.user} updateUser={this.props.updateUser} />
+            </div>
+            <div className="diceRoller">
+              <DiceRoller handleDiceRoll={this.handleDiceRoll} />
+            </div>
           </div>
-          <div className="sendBar">
+          <div className="chatContainer col-9">
+            <div id="chatroomUsercount">
+              <h3>
+                Chatroom: {this.props.chatroomName || 'Default chatroom'} User count:{' '}
+                {this.props.userList.length}
+              </h3>
+            </div>
+            <div className="chatDisplay" ref={node => (this.node = node)}>
+                {this.state.chatHistory.map((message, i) => {
+                  if (message.type === 'user message') {
+                    return (
+                        <div className="messageWrapper">
+                          {/* <div class="icon">user icon</div>
+                        <div class="username">username</div> */}
+                          <div className="message">{`${message.username}: ${message.message}`}</div>
+                        </div>
+                    );
+                  } else if (message.type === 'dice roll') {
+                    return (
+                      <div key={i} style={{ color: 'blue' }}>{`${message.username} rolls ${
+                        message.message
+                      }.`}</div>
+                    );
+                  } else if (message.type === 'chat notification') {
+                    return (
+                      <div key={i} style={{ color: 'orange' }}>{`${message.username} ${
+                        message.message
+                      }`}</div>
+                    );
+                  } else {
+                    return (
+                        <div className="messageWrapper">
+                          <div className="message">{`${message.username}: ${message.message}`}</div>
+                        </div>
+                    );
+                  }
+                })}
+            </div>
+            {/* <div className="sendBar">
             <form
               action=""
               style={{
@@ -168,12 +158,26 @@ class Chatroom extends Component {
                 Send
               </button>
             </form>
-          </div>
-        </div>
+          </div> */}
 
-        <div className="diceRoller">
-          <DiceRoller handleDiceRoll={this.handleDiceRoll} />
+            <form className="input-group mb-3" onSubmit={this.handleSubmit}>
+              <input
+                value={this.state.chatInput}
+                onChange={this.handleChange}
+                type="text"
+                className="form-control"
+                aria-describedby="button-addon2"
+              />
+              <div className="input-group-append">
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2">
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>{' '}
+          {/* col end */}
         </div>
+        {/* row */}
       </div>
     );
   }
