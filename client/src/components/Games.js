@@ -27,16 +27,23 @@ class Games extends Component {
   render() {
     return (
       <div id="games">
-        <h2>Create chatroom</h2>
-        <input
-          name="chatroomName"
-          type="text"
-          value={this.state.chatroomName}
-          onChange={this.handleChange}
-        />
-        <button type="button" onClick={this.handleCreate}>
-          Create chatroom
-        </button>
+        <h1 id="header" className="display-4 mb-4">
+          Create a chatroom
+        </h1>
+        <p className="lead center">Enter chatroom name</p>
+        <p className="lead center">
+          <input
+            name="chatroomName"
+            type="text"
+            value={this.state.chatroomName}
+            onChange={this.handleChange}
+          />
+        </p>
+        <p className="text-center">
+          <button className="btn btn-primary btn-lg center" onClick={this.handleCreate}>
+            Create chatroom
+          </button>
+        </p>
       </div>
     );
   }

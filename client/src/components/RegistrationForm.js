@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import './RegistrationForm.css';
 
 class RegistrationForm extends Component {
   constructor() {
@@ -59,9 +60,9 @@ class RegistrationForm extends Component {
       return <Redirect to={{ pathname: this.state.redirect }} />;
     } else {
       return (
-        <div className="RegistrationForm">
-          <h1>Registration Form</h1>
-          <form>
+        <div id="registrationForm">
+          <h1 id="header">Registration Form</h1>
+          <form className="center">
             <div>
               <label>Username</label>
               <input
@@ -90,7 +91,7 @@ class RegistrationForm extends Component {
               />
             </div>
             <div>
-              <input type="submit" value="Register" onClick={this.handleSubmit} />
+              <input className="btn btn-primary btn-lg center" type="submit" value="Register" onClick={this.handleSubmit} />
             </div>
           </form>
         </div>

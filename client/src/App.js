@@ -13,6 +13,7 @@ import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import Games from './components/Games';
 import NotFound from './components/NotFound';
+import Loading from './components/Loading';
 
 //dokimastika
 import DiceRoller from './components/DiceRoller';
@@ -58,6 +59,7 @@ class App extends Component {
     this.updateUserAndOpenSocket = this.updateUserAndOpenSocket.bind(this);
     this.renderChatroomOrRedirect = this.renderChatroomOrRedirect.bind(this);
     this.renderProfileOrRedirect = this.renderProfileOrRedirect.bind(this);
+    this.renderGamesOrRedirect = this.renderGamesOrRedirect.bind(this);
     this.logout = this.logout.bind(this);
     this.updateUser = this.updateUser.bind(this);
     //error handling
@@ -252,6 +254,13 @@ class App extends Component {
     );
   }
 
+  renderGamesOrRedirect() {
+    if (!this.state.user) {
+      return <Redirect to="/" />;
+    }
+    return <Games Games createChatroom={this.state.socket.createChatroom} />;
+  }
+
   // renderError() {
   //   if(this.state.errorDisplay) {
   //     return (
@@ -265,7 +274,7 @@ class App extends Component {
       return (
         <div className="App">
           <NavBar loggedIn={this.state.loggedIn} logout={this.logout} />
-          <h1>Loading...</h1>
+          <Loading />
         </div>
       );
     } else {
@@ -296,7 +305,11 @@ class App extends Component {
           </div> */}
 
           <Switch>
-            <Route exact path="/" render={props => <Home user={this.state.user} />} />
+            <Route
+              exact
+              path="/"
+              render={props => <Home user={this.state.user} loggedIn={this.state.loggedIn} />}
+            />
             <Route
               exact
               path="/login"
@@ -317,11 +330,7 @@ class App extends Component {
                 />
               )}
             />
-            <Route
-              exact
-              path="/games"
-              component={() => <Games createChatroom={this.state.socket.createChatroom} />}
-            />
+            <Route exact path="/games" render={props => this.renderGamesOrRedirect()} />
             <Route exact path="/profile" render={props => this.renderProfileOrRedirect()} />
             {/* <ProtectedRoute path='/chatroom'
               loggedIn={this.state.loggedIn}

@@ -1,39 +1,71 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './Profile.css';
 
 function Profile(props) {
   return (
-    <div>
-      <h1>User {props.user.username}'s profile</h1>
-      <h2>{props.user.username}'s characters:</h2>
-      <ul>
-        <li>
-          <NavLink exact to={'/characterSheet'}>
-            Create New Character
-          </NavLink>
-        </li>
-        {props.user.characterSheets &&
-          props.user.characterSheets.map(charSheet => {
-            return (
-              <li key={charSheet.uuid}>
-                <NavLink
-                  exact
-                  to={'/characterSheet'}
-                  onClick={props.selectCharacter.bind(null, charSheet.uuid)}
-                >
-                  {charSheet.charClassArray.length > 1
-                    ? `${charSheet.characterName} ${charSheet.charClassArray[0].class}/${
-                        charSheet.charClassArray[1].class
-                      }`
-                    : `${charSheet.characterName} ${charSheet.charClassArray[0].class}`}
-                </NavLink>
-                <button onClick={props.deleteCharacter.bind(null, charSheet.uuid)}>
-                  Delete character
-                </button>
-              </li>
-            );
-          })}
-      </ul>
+    <div id="profile">
+      <h2 id="profileHeader">{props.user.username}'s characters</h2>
+      {props.user.characterSheets && (
+        <table id="characterTable">
+          <thead>
+            <tr>
+              <th scope="col">Character Name</th>
+              <th scope="col">Class</th>
+              <th scope="col">Total level</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.user.characterSheets.map(charSheet => {
+              return (
+                <tr key={charSheet.uuid}>
+                  <th scope="row">
+                    <NavLink
+                      exact
+                      to={'/characterSheet'}
+                      onClick={props.selectCharacter.bind(null, charSheet.uuid)}
+                    >
+                      {charSheet.characterName}
+                    </NavLink>
+                  </th>
+                  <td>
+                    {charSheet.charClassArray.length > 1
+                      ? (function() {
+                          let charClass = '';
+                          /* maximum 4 classes displayd for multiclass characters */
+                          const maximumClassesDisplayed =
+                            charSheet.charClassArray.length > 4
+                              ? 4
+                              : charSheet.charClassArray.length;
+                          for (let i = 0; i < maximumClassesDisplayed; i++) {
+                            charClass += charSheet.charClassArray[i].class + ' ';
+                          }
+                          return charClass.trim();
+                        })()
+                      : charSheet.charClassArray[0].class}
+                  </td>
+                  <td className="totalLevelCell">
+                    {charSheet.charClassArray.length > 1
+                      ? (function() {
+                          let totalLevel = 0;
+                          for (let i = 0; i < charSheet.charClassArray.length; i++) {
+                            totalLevel += +charSheet.charClassArray[i].level;
+                          }
+                          return totalLevel;
+                        })()
+                      : charSheet.charClassArray[0].level}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+      <div id="newCharacterButton">
+        <NavLink className="btn btn-primary btn-lg" exact to={'/characterSheet'}>
+          Create New Character
+        </NavLink>
+      </div>
     </div>
   );
 }
