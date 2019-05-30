@@ -26,10 +26,11 @@
 
 /* messages in chat display */
 .messageWrapper {
-  width: 100%
+  width: 100%;
 }
 
 .message {
   width: 100%;
   word-wrap: break-word;
+  padding-left: 5px;
 }

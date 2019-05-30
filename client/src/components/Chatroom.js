@@ -4,8 +4,6 @@ import './Chatroom.css';
 
 import CharacterSheetChat from './CharacterSheet/CharacterSheetChat';
 
-//validate input, prevent injected markup
-
 class Chatroom extends Component {
   constructor(props) {
     super(props);
@@ -108,13 +106,13 @@ class Chatroom extends Component {
                     );
                   } else if (message.type === 'dice roll') {
                     return (
-                      <div key={i} style={{ color: 'blue' }}>{`${message.username} rolls ${
+                      <div key={i} className="message" style={{ color: 'blue' }}>{`${message.username} rolls ${
                         message.message
                       }.`}</div>
                     );
                   } else if (message.type === 'chat notification') {
                     return (
-                      <div key={i} style={{ color: 'orange' }}>{`${message.username} ${
+                      <div key={i} className="message" style={{ color: 'orange' }}>{`${message.username} ${
                         message.message
                       }`}</div>
                     );
@@ -129,6 +127,7 @@ class Chatroom extends Component {
             </div>
             <form className="input-group mb-3" onSubmit={this.handleSubmit}>
               <input
+                autoFocus
                 value={this.state.chatInput}
                 onChange={this.handleChange}
                 maxLength="400"

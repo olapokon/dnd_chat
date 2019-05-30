@@ -11,6 +11,7 @@ function Spellcasting(props) {
               <label>
                 SpellCasting Class
                 <input
+                  maxLength="36"
                   type="text"
                   name="spellCastingClass"
                   onChange={function(event) {

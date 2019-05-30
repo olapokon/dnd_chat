@@ -8,6 +8,7 @@ function Inventory(props) {
         <label>
           Equiped Items:
           <textarea
+            maxlength="1600"
             name="equipment"
             className="equipment"
             value={props.equipment}
@@ -17,6 +18,7 @@ function Inventory(props) {
         <label>
           Inventory:
           <textarea
+            maxlength="1600"
             name="inventory"
             className="inventory"
             value={props.inventory}

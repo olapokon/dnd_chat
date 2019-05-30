@@ -7,6 +7,7 @@ function PersonalityBackground(props) {
         <div>
           <h3>Background: </h3>
           <textarea
+            maxlength="1600"
             name="background"
             className="noMargin"
             value={props.background}
@@ -16,19 +17,35 @@ function PersonalityBackground(props) {
         <h3> Personality </h3>
         <label>
           Traits:
-          <textarea name="personality" value={props.personality} onChange={props.handleChange} />
+          <textarea
+            maxlength="1600"
+            name="personality"
+            value={props.personality}
+            onChange={props.handleChange}
+          />
         </label>
         <label>
           Ideals:
-          <textarea name="ideals" value={props.ideals} onChange={props.handleChange} />
+          <textarea
+            maxlength="1600"
+            name="ideals"
+            value={props.ideals}
+            onChange={props.handleChange}
+          />
         </label>
         <label>
           Bonds:
-          <textarea name="bonds" value={props.bonds} onChange={props.handleChange} />
+          <textarea
+            maxlength="1600"
+            name="bonds"
+            value={props.bonds}
+            onChange={props.handleChange}
+          />
         </label>
         <label>
           Flaws:
           <textarea
+            maxlength="1600"
             name="flaws"
             className="noMargin"
             value={props.flaws}
