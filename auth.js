@@ -24,9 +24,9 @@ module.exports = function(app, db) {
       User.findOne({ username: username }, function(err, user) {
         console.log(`User ${username} attempted to log in.`);
         if (err) return done(err);
-        if (!user) return done(null, false, { authenticationError: 'Username does not exist' });
+        if (!user) return done(null, false, { authenticationError: 'Username does not exist', errorField: 'username' });
         if (!bcrypt.compareSync(password, user.password)) {
-          return done(null, false, { authenticationError: 'Incorrect password' });
+          return done(null, false, { authenticationError: 'Incorrect password', errorField: 'password' });
         }
         console.log(`User ${username} has logged in.`);
         return done(null, user);

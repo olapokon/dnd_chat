@@ -7,6 +7,10 @@
   src: url(./css/Plakat-Fraktur_Black.ttf);
 }
 
+a {
+  color: #8a2be2;
+}
+
 #header {
   font-family: med1;
   font-size: 64px;
@@ -17,4 +21,14 @@
 
 .center {
   text-align: center;
+}
+
+.registrationLoginError {
+  color: red;
+  margin: 0;
+}
+
+#registrationLoginErrorInput {
+  border: solid red 2px;
+  padding: 0px 3px 0px 3px;
 }

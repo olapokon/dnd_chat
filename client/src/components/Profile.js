@@ -62,7 +62,12 @@ function Profile(props) {
         </table>
       )}
       <div id="newCharacterButton">
-        <NavLink className="btn btn-primary btn-lg" exact to={'/characterSheet'}>
+        <NavLink
+          className="btn btn-primary btn-lg"
+          exact
+          to={'/characterSheet'}
+          onClick={props.selectCharacter.bind(null, 'new')}
+        >
           Create New Character
         </NavLink>
       </div>

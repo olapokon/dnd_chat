@@ -1,54 +1,27 @@
 .chatroomSheetDiceChatContainer {
-  /* width: 100vw; */
-  height: 90vh;
-
-  display: grid;
-  grid-template-columns: 1fr 5fr 9em;
-
   border: solid blue 1px;
-
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-between; */
 }
 
-.chatroom {
-  width: 60vw;
-  /* height: 95vh; */
-  /* position: absolute; */
-  bottom: 0px;
-  right: 0px;
-
-  justify-self: end;
-
-  /* display: flex;
-  flex-direction: column; */
+.chatContainer {
+  height: 100%;
+  border: solid blue 1px;
 }
 
-  .chatDisplay {
-    width: 100%;
-    height: 80vh;
-    overflow: scroll;
-    overflow-x: hidden;
+.chatDisplay {
+  border: solid blue 1px;
+  height: 75vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
 
-    justify-self: end;
-    display: relative;
-
-    border: solid blue 1px;
-  }
-
-  .sendBar {
-    display: flex;
-    /* height: 5vh; */
-    justify-content: space-between;
-  }
+#chatroomUsercount {
+  border: solid blue 1px;
+  text-align: center;
+  color: gold;
+}
 
 .charSheet {
-
-}
-
-.diceRoller {
-
+  margin-bottom: 1em;
 }
 
 /* messages in chat display */
@@ -59,8 +32,4 @@
 .message {
   width: 100%;
   word-wrap: break-word;
-}
-
-#chatroomUsercount {
-  border: solid blue 1px;
 }

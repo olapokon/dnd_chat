@@ -182,12 +182,15 @@ class CharacterSheet extends Component {
     this.handleChangeSpells = this.handleChangeSpells.bind(this);
     this.handleChangeSpellCasting = this.handleChangeSpellCasting.bind(this);
     this.addRemoveSpellCastingClass = this.addRemoveSpellCastingClass.bind(this);
-
     this.handleLoad = this.handleLoad.bind(this);
+    this.handleDeleteCharacter = this.handleDeleteCharacter.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.selectedCharacter) {
+    // checking is there is a selectedCharacter in the App state, which means a sheet is being loaded
+    if (this.props.selectedCharacter === 'new') {
+      return;
+    } else if (this.props.selectedCharacter) {
       for (let i = 0; i < this.props.user.characterSheets.length; i++) {
         if (this.props.user.characterSheets[i].uuid === this.props.selectedCharacter) {
           const charSheet = { ...this.props.user.characterSheets[i] };
@@ -499,6 +502,11 @@ class CharacterSheet extends Component {
     }
   }
 
+  handleDeleteCharacter() {
+    this.props.deleteCharacter(this.state.uuid);
+    this.setState({ ...this.initialState });
+  }
+
   render() {
     return (
       <form className="characterSheet" onSubmit={this.handleSubmit}>
@@ -608,9 +616,21 @@ class CharacterSheet extends Component {
           handleChangeSpellCasting={this.handleChangeSpellCasting}
           addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
         />
-        <div className="submitBtn leftFloat">
-          <input className="btn btn-primary" type="submit" value="Save" />
-        </div>
+        {this.state.characterName.trim() && (
+          <div className="submitBtn leftFloat">
+            <input className="btn btn-primary" type="submit" value="Save" />
+          </div>
+        )}
+        {this.state.uuid && (
+          <div className="leftFloat">
+            <input
+              className="btn btn-danger"
+              type="button"
+              onClick={this.handleDeleteCharacter}
+              value="Delete Character"
+            />
+          </div>
+        )}
       </form>
     );
   }

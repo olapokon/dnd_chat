@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import DiceRoller from './DiceRoller';
-// import './Chatroom.css';
-import './ChatroomBootstrap.css';
+import './Chatroom.css';
 
 import CharacterSheetChat from './CharacterSheet/CharacterSheetChat';
 
@@ -103,9 +102,7 @@ class Chatroom extends Component {
                 {this.state.chatHistory.map((message, i) => {
                   if (message.type === 'user message') {
                     return (
-                        <div className="messageWrapper">
-                          {/* <div class="icon">user icon</div>
-                        <div class="username">username</div> */}
+                        <div key={i} className="messageWrapper">
                           <div className="message">{`${message.username}: ${message.message}`}</div>
                         </div>
                     );
@@ -124,60 +121,29 @@ class Chatroom extends Component {
                   } else {
                     return (
                         <div className="messageWrapper">
-                          <div className="message">{`${message.username}: ${message.message}`}</div>
+                          <div key={i} className="message">{`${message.username}: ${message.message}`}</div>
                         </div>
                     );
                   }
                 })}
             </div>
-            {/* <div className="sendBar">
-            <form
-              action=""
-              style={{
-                background: 'rgb(192, 248, 252)',
-                padding: '3px',
-                // position: 'fixed',
-                // bottom: 0,
-                width: '100%'
-              }}
-              onSubmit={this.handleSubmit}
-            >
-              <input
-                value={this.state.chatInput}
-                onChange={this.handleChange}
-                style={{ border: 0, padding: '10px', width: '84%', marginRight: '.5%' }}
-              />
-              <button
-                style={{
-                  width: '12%',
-                  background: 'rgb(130, 224, 255)',
-                  border: 'none',
-                  padding: '8px'
-                }}
-              >
-                Send
-              </button>
-            </form>
-          </div> */}
-
             <form className="input-group mb-3" onSubmit={this.handleSubmit}>
               <input
                 value={this.state.chatInput}
                 onChange={this.handleChange}
+                maxLength="400"
                 type="text"
                 className="form-control"
                 aria-describedby="button-addon2"
               />
               <div className="input-group-append">
-                <button className="btn btn-outline-secondary" type="button" id="button-addon2">
+                <button className="btn btn-outline-secondary" type="submit" id="button-addon2">
                   Send
                 </button>
               </div>
             </form>
-          </div>{' '}
-          {/* col end */}
+          </div>
         </div>
-        {/* row */}
       </div>
     );
   }

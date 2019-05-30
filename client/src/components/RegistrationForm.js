@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import './RegistrationForm.css';
 
 class RegistrationForm extends Component {
   constructor() {
@@ -10,7 +9,11 @@ class RegistrationForm extends Component {
       username: '',
       password: '',
       confirmPassword: '',
-      redirect: null
+      redirect: null,
+      usernameError: false,
+      usernameErrorMessage: '',
+      passwordError: false,
+      confirmError: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,9 +23,27 @@ class RegistrationForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
-    if (this.state.password && this.state.password === this.state.confirmPassword) {
+    await this.setState({
+      usernameError: false,
+      passwordError: false,
+      confirmError: false
+    });
+    let registrationError = 0;
+    if (!this.state.password.trim()) {
+      this.setState({ passwordError: true });
+      registrationError = 1;
+    }
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({ confirmError: true });
+      registrationError = 1;
+    }
+    if (!this.state.username.trim()) {
+      this.setState({ usernameError: true, usernameErrorMessage: 'Invalid username' });
+      registrationError = 1;
+    }
+    if (!registrationError) {
       axios
         .post('/register', {
           username: this.state.username,
@@ -34,7 +55,8 @@ class RegistrationForm extends Component {
           if (!res.data.error) {
             this.props.updateUserAndOpenSocket(res.data.user);
           } else {
-            this.props.updateError(res.data.error);
+            //this.props.updateError(res.data.error);
+            this.setState({ usernameError: true, usernameErrorMessage: res.data.error });
             throw new Error(res.data.error);
           }
         })
@@ -49,9 +71,6 @@ class RegistrationForm extends Component {
             checkingLoginStatus: false
           });
         });
-    } else {
-      console.log('passwords do not match');
-      this.props.updateError('Passwords do not match');
     }
   }
 
@@ -64,34 +83,63 @@ class RegistrationForm extends Component {
           <h1 id="header">Registration Form</h1>
           <form className="center">
             <div>
-              <label>Username</label>
               <input
+                id={
+                  this.state.usernameError
+                    ? 'registrationLoginErrorInput'
+                    : 'registrationUsernameInput'
+                }
                 type="text"
                 name="username"
+                placeholder="Username"
                 value={this.state.username}
                 onChange={this.handleChange}
               />
+              {this.state.usernameError && (
+                <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
+              )}
             </div>
             <div>
-              <label>Password</label>
               <input
+                id={
+                  this.state.passwordError
+                    ? 'registrationLoginErrorInput'
+                    : 'registrationPasswordInput'
+                }
                 type="password"
                 name="password"
+                placeholder="Password"
                 value={this.state.password}
                 onChange={this.handleChange}
               />
+              {this.state.passwordError && (
+                <p className="registrationLoginError">Invalid password</p>
+              )}
             </div>
             <div>
-              <label>Confirm Password</label>
               <input
+                id={
+                  this.state.confirmError
+                    ? 'registrationLoginErrorInput'
+                    : 'registrationConfirmInput'
+                }
                 type="password"
                 name="confirmPassword"
+                placeholder="Confirm Password"
                 value={this.state.confirmPassword}
                 onChange={this.handleChange}
               />
+              {this.state.confirmError && (
+                <p className="registrationLoginError">Passwords do not match</p>
+              )}
             </div>
             <div>
-              <input className="btn btn-primary btn-lg center" type="submit" value="Register" onClick={this.handleSubmit} />
+              <input
+                className="btn btn-primary btn-lg center"
+                type="submit"
+                value="Register"
+                onClick={this.handleSubmit}
+              />
             </div>
           </form>
         </div>

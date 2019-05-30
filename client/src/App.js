@@ -87,7 +87,9 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    this.state.socket.removeChatroomListListener();
+    if (this.state.socket) {
+      this.state.socket.removeChatroomListListener();
+    }
   }
 
   getUser() {
@@ -361,6 +363,7 @@ class App extends Component {
                   selectedCharacter={this.state.selectedCharacter}
                   selectCharacter={this.selectCharacter}
                   updateUser={this.updateUser}
+                  deleteCharacter={this.deleteCharacter}
                 />
               )}
             />
