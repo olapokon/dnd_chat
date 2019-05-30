@@ -19,7 +19,7 @@ function Profile(props) {
             {props.user.characterSheets.map(charSheet => {
               return (
                 <tr key={charSheet.uuid}>
-                  <th scope="row">
+                  <th id="characterLink" scope="row">
                     <NavLink
                       exact
                       to={'/characterSheet'}

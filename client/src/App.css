@@ -11,6 +11,11 @@ a {
   color: #8a2be2;
 }
 
+a:hover {
+  color: #8a2be2;
+  text-decoration: none;
+}
+
 #header {
   font-family: med1;
   font-size: 64px;
