@@ -70,7 +70,7 @@ class LoginForm extends Component {
     } else {
       return (
         <div id="LoginForm">
-          <h1 id="header">Login Form</h1>
+          <h1 id="header">Login</h1>
           <form className="center">
             <div>
               <input

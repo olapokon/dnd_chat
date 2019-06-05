@@ -80,7 +80,7 @@ class RegistrationForm extends Component {
     } else {
       return (
         <div id="registrationForm">
-          <h1 id="header">Registration Form</h1>
+          <h1 id="header">Register</h1>
           <form className="center">
             <div>
               <input
