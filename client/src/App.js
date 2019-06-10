@@ -14,9 +14,9 @@ import RegistrationForm from './components/RegistrationForm';
 import Games from './components/Games';
 import NotFound from './components/NotFound';
 import Loading from './components/Loading';
-
-//dokimastika
 import CharacterSheet from './components/CharacterSheet/CharacterSheet';
+
+//dokimastiko
 import CharacterSheetChat from './components/CharacterSheet/CharacterSheetChat';
 
 function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) {

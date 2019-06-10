@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class LoginForm extends Component {
@@ -8,7 +8,6 @@ class LoginForm extends Component {
     this.state = {
       username: '',
       password: '',
-      redirect: null,
       usernameError: false,
       usernameErrorMessage: '',
       passwordError: false,
@@ -52,9 +51,7 @@ class LoginForm extends Component {
         }
       })
       .then(() => {
-        this.setState({
-          redirect: '/'
-        });
+        this.props.history.push('/');
       })
       .catch(error => {
         console.log(error);
@@ -65,52 +62,48 @@ class LoginForm extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={{ pathname: this.state.redirect }} />;
-    } else {
-      return (
-        <div id="LoginForm">
-          <h1 id="header">Login</h1>
-          <form className="center">
-            <div>
-              <input
-                id={this.state.usernameError ? 'registrationLoginErrorInput' : 'loginUsernameInput'}
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-              {this.state.usernameError && (
-                <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
-              )}
-            </div>
-            <div>
-              <input
-                id={this.state.passwordError ? 'registrationLoginErrorInput' : 'loginPasswordInput'}
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-              {this.state.passwordError && (
-                <p className="registrationLoginError">{this.state.passwordErrorMessage}</p>
-              )}
-            </div>
-            <div>
-              <input
-                className="btn btn-primary btn-lg center"
-                type="submit"
-                value="Login"
-                onClick={this.handleSubmit}
-              />
-            </div>
-          </form>
-        </div>
-      );
-    }
+    return (
+      <div id="LoginForm">
+        <h1 id="header">Login</h1>
+        <form className="center">
+          <div>
+            <input
+              id={this.state.usernameError ? 'registrationLoginErrorInput' : 'loginUsernameInput'}
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+            {this.state.usernameError && (
+              <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
+            )}
+          </div>
+          <div>
+            <input
+              id={this.state.passwordError ? 'registrationLoginErrorInput' : 'loginPasswordInput'}
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            {this.state.passwordError && (
+              <p className="registrationLoginError">{this.state.passwordErrorMessage}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="btn btn-primary btn-lg center"
+              type="submit"
+              value="Login"
+              onClick={this.handleSubmit}
+            />
+          </div>
+        </form>
+      </div>
+    );
   }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

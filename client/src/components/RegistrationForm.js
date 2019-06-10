@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class RegistrationForm extends Component {
@@ -9,7 +9,6 @@ class RegistrationForm extends Component {
       username: '',
       password: '',
       confirmPassword: '',
-      redirect: null,
       usernameError: false,
       usernameErrorMessage: '',
       passwordError: false,
@@ -61,9 +60,7 @@ class RegistrationForm extends Component {
           }
         })
         .then(() => {
-          this.setState({
-            redirect: '/'
-          });
+          this.props.history.push('/');
         })
         .catch(error => {
           console.log(error);
@@ -75,77 +72,69 @@ class RegistrationForm extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={{ pathname: this.state.redirect }} />;
-    } else {
-      return (
-        <div id="registrationForm">
-          <h1 id="header">Register</h1>
-          <form className="center">
-            <div>
-              <input
-                id={
-                  this.state.usernameError
-                    ? 'registrationLoginErrorInput'
-                    : 'registrationUsernameInput'
-                }
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-              {this.state.usernameError && (
-                <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
-              )}
-            </div>
-            <div>
-              <input
-                id={
-                  this.state.passwordError
-                    ? 'registrationLoginErrorInput'
-                    : 'registrationPasswordInput'
-                }
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-              {this.state.passwordError && (
-                <p className="registrationLoginError">Invalid password</p>
-              )}
-            </div>
-            <div>
-              <input
-                id={
-                  this.state.confirmError
-                    ? 'registrationLoginErrorInput'
-                    : 'registrationConfirmInput'
-                }
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={this.state.confirmPassword}
-                onChange={this.handleChange}
-              />
-              {this.state.confirmError && (
-                <p className="registrationLoginError">Passwords do not match</p>
-              )}
-            </div>
-            <div>
-              <input
-                className="btn btn-primary btn-lg center"
-                type="submit"
-                value="Register"
-                onClick={this.handleSubmit}
-              />
-            </div>
-          </form>
-        </div>
-      );
-    }
+    return (
+      <div id="registrationForm">
+        <h1 id="header">Register</h1>
+        <form className="center">
+          <div>
+            <input
+              id={
+                this.state.usernameError
+                  ? 'registrationLoginErrorInput'
+                  : 'registrationUsernameInput'
+              }
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+            {this.state.usernameError && (
+              <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
+            )}
+          </div>
+          <div>
+            <input
+              id={
+                this.state.passwordError
+                  ? 'registrationLoginErrorInput'
+                  : 'registrationPasswordInput'
+              }
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            {this.state.passwordError && <p className="registrationLoginError">Invalid password</p>}
+          </div>
+          <div>
+            <input
+              id={
+                this.state.confirmError ? 'registrationLoginErrorInput' : 'registrationConfirmInput'
+              }
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={this.state.confirmPassword}
+              onChange={this.handleChange}
+            />
+            {this.state.confirmError && (
+              <p className="registrationLoginError">Passwords do not match</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="btn btn-primary btn-lg center"
+              type="submit"
+              value="Register"
+              onClick={this.handleSubmit}
+            />
+          </div>
+        </form>
+      </div>
+    );
   }
 }
 
-export default RegistrationForm;
+export default withRouter(RegistrationForm);
