@@ -16,24 +16,21 @@ import NotFound from './components/NotFound';
 import Loading from './components/Loading';
 
 //dokimastika
-import DiceRoller from './components/DiceRoller';
 import CharacterSheet from './components/CharacterSheet/CharacterSheet';
 import CharacterSheetChat from './components/CharacterSheet/CharacterSheetChat';
 
-//ISWS XREIAZETAI ALLAGES TO ROUTING GENIKA (react-router docs ktl)
-
-// function ProtectedRoute({ component: Component, ...rest }) {
-//   return (
-//     <Route {...rest} render={props =>
-//       props.loggedIn ? (
-//       <Component {...props} />
-//       ) : (
-//       <Redirect to='/' />
-//       )
-//     }
-//     />
-//   );
-// }
+function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) {
+  // console.log(path);
+  // console.log(rest);
+  return (
+    <Route
+      key={key}
+      exact
+      path={path}
+      render={() => (loggedIn ? <Component {...rest} /> : <Redirect to="/" />)}
+    />
+  );
+}
 
 class App extends Component {
   constructor(props) {
@@ -57,9 +54,6 @@ class App extends Component {
     };
     this.getUser = this.getUser.bind(this);
     this.updateUserAndOpenSocket = this.updateUserAndOpenSocket.bind(this);
-    this.renderChatroomOrRedirect = this.renderChatroomOrRedirect.bind(this);
-    this.renderProfileOrRedirect = this.renderProfileOrRedirect.bind(this);
-    this.renderGamesOrRedirect = this.renderGamesOrRedirect.bind(this);
     this.logout = this.logout.bind(this);
     this.updateUser = this.updateUser.bind(this);
     //error handling
@@ -218,51 +212,6 @@ class App extends Component {
     }
   }
 
-  //ta chatrooms den kanoun load sto state an den exei ginei login, opote to condition den isxyei pote pros to paron
-  renderChatroomOrRedirect(chatroom) {
-    if (!this.state.user) {
-      console.log('Redirected: Log in to access the chat');
-      return <Redirect to="/" />;
-    }
-    return (
-      <Chatroom
-        //chatrooms
-        user={this.state.user}
-        updateUser={this.updateUser}
-        chatroomKey={chatroom}
-        chatroomName={this.state.chatrooms[chatroom].name}
-        emitChatMessage={this.state.socket.emitChatMessage}
-        addChatMessageHandler={this.state.socket.addChatMessageHandler}
-        removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
-        //pass the users array of the particular chatroom as props
-        //from the chatroomList object in state
-        userList={this.state.chatrooms[chatroom].userList}
-        enterChatroom={this.state.socket.enterChatroom}
-        exitChatroom={this.state.socket.exitChatroom}
-      />
-    );
-  }
-
-  renderProfileOrRedirect() {
-    if (!this.state.user) {
-      return <Redirect to="/" />;
-    }
-    return (
-      <Profile
-        user={this.state.user}
-        selectCharacter={this.selectCharacter}
-        deleteCharacter={this.deleteCharacter}
-      />
-    );
-  }
-
-  renderGamesOrRedirect() {
-    if (!this.state.user) {
-      return <Redirect to="/" />;
-    }
-    return <Games Games createChatroom={this.state.socket.createChatroom} />;
-  }
-
   // renderError() {
   //   if(this.state.errorDisplay) {
   //     return (
@@ -298,14 +247,6 @@ class App extends Component {
             </div>
           )}
 
-          {/* chatrooms list render */}
-          {/* <div>
-            {this.state.chatrooms &&
-              this.state.chatroomsList.map(function(chatroom) {
-                return <h3 key={`${chatroom.name}name`}>{chatroom.name}</h3>;
-              })}
-          </div> */}
-
           <Switch>
             <Route
               exact
@@ -332,58 +273,66 @@ class App extends Component {
                 />
               )}
             />
-            <Route exact path="/games" render={props => this.renderGamesOrRedirect()} />
-            <Route exact path="/profile" render={props => this.renderProfileOrRedirect()} />
-            {/* <ProtectedRoute path='/chatroom'
+            <ProtectedRoute
+              path="/games"
+              component={Games}
               loggedIn={this.state.loggedIn}
-              emitChatMessage={this.state.socket.emitChatMessage}
-              addChatMessageHandler={this.state.socket.addChatMessageHandler}
-              removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
-              component={Chatroom}/> */}
+              createChatroom={this.state.socket && this.state.socket.createChatroom}
+            />
+            <ProtectedRoute
+              path="/profile"
+              component={Profile}
+              loggedIn={this.state.loggedIn}
+              user={this.state.user}
+              selectCharacter={this.selectCharacter}
+              deleteCharacter={this.deleteCharacter}
+            />
 
-            {/* chatrooms */}
             {this.state.chatrooms &&
               this.state.chatroomKeys.map(chatroom => {
                 return (
-                  <Route
+                  <ProtectedRoute
                     key={`${chatroom}route`}
                     exact
                     path={`/${chatroom}`}
-                    render={props => this.renderChatroomOrRedirect(chatroom, props)}
+                    component={Chatroom}
+                    loggedIn={this.state.loggedIn}
+                    user={this.state.user}
+                    updateUser={this.updateUser}
+                    chatroomKey={chatroom}
+                    chatroomName={this.state.chatrooms[chatroom].name}
+                    emitChatMessage={this.state.socket.emitChatMessage}
+                    addChatMessageHandler={this.state.socket.addChatMessageHandler}
+                    removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
+                    //pass the users array of the particular chatroom as props
+                    //from the chatroomList object in state
+                    userList={this.state.chatrooms[chatroom].userList}
+                    enterChatroom={this.state.socket.enterChatroom}
+                    exitChatroom={this.state.socket.exitChatroom}
                   />
                 );
               })}
-
-            <Route
-              exact
+            <ProtectedRoute
               path="/characterSheet"
-              render={props => (
-                <CharacterSheet
-                  user={this.state.user}
-                  selectedCharacter={this.state.selectedCharacter}
-                  selectCharacter={this.selectCharacter}
-                  updateUser={this.updateUser}
-                  deleteCharacter={this.deleteCharacter}
-                />
-              )}
+              component={CharacterSheet}
+              loggedIn={this.state.loggedIn}
+              user={this.state.user}
+              selectedCharacter={this.state.selectedCharacter}
+              selectCharacter={this.selectCharacter}
+              updateUser={this.updateUser}
+              deleteCharacter={this.deleteCharacter}
             />
-            <Route
-              exact
+            <ProtectedRoute
               path="/characterSheetChat"
-              render={props => (
-                <CharacterSheetChat
-                  user={this.state.user}
-                  selectedCharacter={this.state.selectedCharacter}
-                  selectCharacter={this.selectCharacter}
-                  updateUser={this.updateUser}
-                />
-              )}
+              component={CharacterSheetChat}
+              loggedIn={this.state.loggedIn}
+              user={this.state.user}
+              selectedCharacter={this.state.selectedCharacter}
+              selectCharacter={this.selectCharacter}
+              updateUser={this.updateUser}
             />
 
-            {/* dokimastiko gia dice roller */}
-            <Route exact path="/diceRoller" component={DiceRoller} />
-
-            {/* pithanws thelei allages to function kai conditions for to NotFound route */}
+            {/* pithanws thelei allages to function kai conditions to NotFound route */}
             <Route render={() => (!this.state.chatroomKeys ? null : <NotFound />)} />
           </Switch>
         </div>

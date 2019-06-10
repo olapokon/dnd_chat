@@ -218,7 +218,7 @@ function CombatStats(props) {
       <div className="featsAndTraits">
         <h3>Features and Traits: </h3>
         <textarea
-          maxlength="1600"
+          maxLength="1600"
           name="features"
           className="feats"
           value={props.features}
