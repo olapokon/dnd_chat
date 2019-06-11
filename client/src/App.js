@@ -14,9 +14,9 @@ import RegistrationForm from './components/RegistrationForm';
 import Games from './components/Games';
 import NotFound from './components/NotFound';
 import Loading from './components/Loading';
-
-//dokimastika
 import CharacterSheet from './components/CharacterSheet/CharacterSheet';
+
+//dokimastiko
 import CharacterSheetChat from './components/CharacterSheet/CharacterSheetChat';
 
 function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) {
@@ -40,14 +40,11 @@ class App extends Component {
       loggedIn: false,
       //socket: socket(),
       checkingLoginStatus: true,
-
       selectedCharacter: '',
-
       //chatrooms
       chatrooms: null,
       chatroomKeys: null,
       chatroomsList: null,
-
       //error handling
       errorDisplay: false,
       errorMessage: ''
@@ -56,13 +53,10 @@ class App extends Component {
     this.updateUserAndOpenSocket = this.updateUserAndOpenSocket.bind(this);
     this.logout = this.logout.bind(this);
     this.updateUser = this.updateUser.bind(this);
-    //error handling
-    this.updateError = this.updateError.bind(this);
-
     this.getChatrooms = this.getChatrooms.bind(this);
-
     this.selectCharacter = this.selectCharacter.bind(this);
     this.deleteCharacter = this.deleteCharacter.bind(this);
+    this.updateError = this.updateError.bind(this);
   }
 
   componentDidMount() {
@@ -107,12 +101,10 @@ class App extends Component {
           });
         }
       })
-
       //chatrooms
       .then(res => {
         this.getChatrooms();
       })
-
       .catch(error => {
         console.log(error);
         this.setState({
@@ -287,7 +279,6 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               deleteCharacter={this.deleteCharacter}
             />
-
             {this.state.chatrooms &&
               this.state.chatroomKeys.map(chatroom => {
                 return (
@@ -331,7 +322,6 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               updateUser={this.updateUser}
             />
-
             {/* pithanws thelei allages to function kai conditions to NotFound route */}
             <Route render={() => (!this.state.chatroomKeys ? null : <NotFound />)} />
           </Switch>
