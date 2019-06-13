@@ -6,7 +6,12 @@ module.exports = function(app, db) {
   //get user info
   app.get('/user', function(req, res, next) {
     if (req.user) {
-      return res.json({ user: req.user });
+      return res.json({
+        user: {
+          username: req.user.username,
+          characterSheets: req.user.characterSheets
+        }
+      });
     }
     return res.json({ user: null });
   });
@@ -21,7 +26,12 @@ module.exports = function(app, db) {
       }
       req.logIn(user, function(err) {
         if (err) return next(err);
-        return res.json({ user: req.user });
+        return res.json({
+          user: {
+            username: user.username,
+            characterSheets: user.characterSheets
+          }
+        });
       });
     })(req, res, next);
   });
@@ -47,7 +57,12 @@ module.exports = function(app, db) {
             if (err) {
               return next(err);
             }
-            return res.json({ user: user });
+            return res.json({
+              user: {
+                username: user.username,
+                characterSheets: user.characterSheets
+              }
+            });
           });
         });
       }
@@ -78,7 +93,13 @@ module.exports = function(app, db) {
             return next(err);
           }
           console.log('Updated user doc: ' + user);
-          res.json({ message: 'Character sheet saved', user: user  });
+          res.json({
+            message: 'Character sheet saved',
+            user: {
+              username: user.username,
+              characterSheets: user.characterSheets
+            }
+          });
         });
       }
     });
@@ -101,7 +122,13 @@ module.exports = function(app, db) {
           if (err) {
             return next(err);
           }
-          res.json({ message: 'Character sheet deleted', user: user });
+          res.json({
+            message: 'Character sheet deleted',
+            user: {
+              username: user.username,
+              characterSheets: user.characterSheets
+            }
+          });
         });
       }
     });
