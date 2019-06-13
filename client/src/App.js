@@ -53,7 +53,6 @@ class App extends Component {
     this.updateUserAndOpenSocket = this.updateUserAndOpenSocket.bind(this);
     this.logout = this.logout.bind(this);
     this.updateUser = this.updateUser.bind(this);
-    this.getChatrooms = this.getChatrooms.bind(this);
     this.selectCharacter = this.selectCharacter.bind(this);
     this.deleteCharacter = this.deleteCharacter.bind(this);
     this.updateError = this.updateError.bind(this);
@@ -101,25 +100,12 @@ class App extends Component {
           });
         }
       })
-      //chatrooms
-      .then(res => {
-        this.getChatrooms();
-      })
       .catch(error => {
         console.log(error);
         this.setState({
           checkingLoginStatus: false
         });
       });
-  }
-
-  //chatrooms
-  getChatrooms() {
-    this.state.socket.getChatrooms((err, chatrooms) => {
-      const chatroomsList = Object.values(chatrooms);
-      const chatroomKeys = Object.keys(chatrooms);
-      this.setState({ chatrooms, chatroomsList, chatroomKeys });
-    });
   }
 
   //update user and open new socket connection (for login etc.)
@@ -129,6 +115,13 @@ class App extends Component {
       loggedIn: true,
       checkingLoginStatus: false,
       socket: socket()
+    }, () => {
+      this.state.socket.removeChatroomListListener();
+      this.state.socket.addChatroomListListener(chatrooms => {
+        const chatroomsList = Object.values(chatrooms);
+        const chatroomKeys = Object.keys(chatrooms);
+        this.setState({ chatrooms, chatroomsList, chatroomKeys });
+      });
     });
   }
 

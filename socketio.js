@@ -28,12 +28,9 @@ function leaveChatroom(io, socket, chatroomToLeave) {
 module.exports = function(io) {
   io.on('connection', function(socket) {
     console.log(socket.request.user.username + ' has connected, socket id: ' + socket.id);
+    io.emit('chatroom list', chatroomList);
 
     let currentChatroom = '';
-
-    socket.on('chatroom list', function(_, callback) {
-      return callback(null, chatroomList);
-    });
 
     socket.on('enter chatroom', function(chatroomKey) {
       console.log(socket.request.user.username + ' entered ' + chatroomList[chatroomKey].name);

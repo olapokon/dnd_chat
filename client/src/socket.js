@@ -12,10 +12,6 @@ export default function() {
     socket.off('chat message');
   }
 
-  function getChatrooms(callback) {
-    socket.emit('chatroom list', null, callback);
-  }
-
   function enterChatroom(chatroomName) {
     socket.emit('enter chatroom', chatroomName);
   }
@@ -51,7 +47,6 @@ export default function() {
     removeChatMessageHandler,
 
     //chatrooms
-    getChatrooms,
     enterChatroom,
     exitChatroom,
     addChatroomListListener,
