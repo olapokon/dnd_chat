@@ -161,7 +161,11 @@ class App extends Component {
           this.setState({
             user: null,
             loggedIn: false,
-            checkingLoginStatus: false
+            checkingLoginStatus: false,
+            selectedCharacter: '',
+            chatrooms: null,
+            chatroomKeys: null,
+            chatroomsList: null
           });
         }
       })
