@@ -181,7 +181,6 @@ class App extends Component {
   }
 
   //pass to profile so it can send user characterSheet and load specific charsheet
-  //MALLON THA XREIASTEI NA GINETAI CLEARED O SELECTED SE DIAFORES PERIPTWSEIS (e.g. otan ginetai load allos xarakthras)
   selectCharacter(id) {
     this.setState({
       selectedCharacter: id
@@ -203,14 +202,6 @@ class App extends Component {
         });
     }
   }
-
-  // renderError() {
-  //   if(this.state.errorDisplay) {
-  //     return (
-  //       <div style={{ backgroundColor: 'fuchsia', color: 'yellow', fontSize: '1em', padding: '.5em' }}>{this.state.errorMessage}</div>
-  //     );
-  //   }
-  // }
 
   render() {
     if (this.state.checkingLoginStatus) {
