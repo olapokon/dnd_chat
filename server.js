@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const io = require('socket.io')(http);
 const passportSocketIo = require('passport.socketio');
 const path = require('path');
-//const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
 const auth = require('./auth.js');
@@ -59,7 +58,6 @@ if (process.env.NODE_ENV === 'production') {
 //io
 io.use(
   passportSocketIo.authorize({
-    //cookieparser: cookieParser,
     key: 'express.sid',
     secret: process.env.SESSION_SECRET,
     store: sessionStore
