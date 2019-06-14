@@ -2,6 +2,14 @@ const passport = require('passport');
 const User = require('./database/models/User');
 const bcrypt = require('bcrypt');
 
+function checkIfAuthenticatedMiddleware(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    return res.json({ error: 'Please log in to continue' });
+  }
+}
+
 module.exports = function(app, db) {
   //get user info
   app.get('/user', function(req, res, next) {
@@ -69,7 +77,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.post('/characterSheet', function(req, res, next) {
+  app.post('/characterSheet', checkIfAuthenticatedMiddleware, function(req, res, next) {
     User.findOne({ username: req.user.username }, function(err, user) {
       if (err) {
         return next(err);
@@ -105,7 +113,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.post('/characterSheetDelete', function(req, res, next) {
+  app.post('/characterSheetDelete', checkIfAuthenticatedMiddleware, function(req, res, next) {
     User.findOne({ username: req.user.username }, function(err, user) {
       if (err) {
         return next(err);
