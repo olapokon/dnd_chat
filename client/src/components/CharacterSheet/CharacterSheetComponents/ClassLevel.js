@@ -10,7 +10,7 @@ function ClassLevel(props) {
             return (
               <li key={idx}>
                 <label>
-                  Class:
+                  Class
                   <input
                     type="text"
                     name="class"
@@ -21,7 +21,7 @@ function ClassLevel(props) {
                   />
                 </label>
                 <label>
-                  Level:
+                  Level
                   <input
                     className="smallInput"
                     type="number"
@@ -48,7 +48,7 @@ function ClassLevel(props) {
         </ul>
         <div className="expWrapper">
           <label>
-            Total Level:
+            Total Level
             <input
               className="smallInput"
               type="number"
@@ -59,12 +59,12 @@ function ClassLevel(props) {
           </label>
           <div>
             <label>
-              Experience:
+              Experience
               <input type="number" name="exp" value={props.exp} onChange={props.handleChange} />
             </label>
             <div>
               <label>
-                Add Experience:
+                Add Experience
                 <input
                   type="number"
                   name="expAdd"
@@ -78,7 +78,7 @@ function ClassLevel(props) {
             </div>
             <div>
               <label>
-                Experience To Next Level:
+                Experience To Next Level
                 <input type="number" name="exp" value={props.calculateExpToNextLevel()} readOnly />
               </label>
             </div>
