@@ -8,7 +8,7 @@ function CombatStats(props) {
         <ul className="acStatsList">
           <li>
             <label>
-              Armor Class:
+              Armor Class
               <div>
                 <input
                   type="number"
@@ -22,7 +22,7 @@ function CombatStats(props) {
           </li>
           <li>
             <label>
-              Initiative:
+              Initiative
               <div>
                 <input
                   type="number"
@@ -36,7 +36,7 @@ function CombatStats(props) {
           </li>
           <li>
             <label>
-              Speed:
+              Speed
               <div>
                 <input
                   type="number"
