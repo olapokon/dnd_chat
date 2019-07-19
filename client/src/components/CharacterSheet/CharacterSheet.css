@@ -167,3 +167,11 @@ input:read-only {
 .midInput {
   width: 6em;
 }
+
+.characterSheet h3,h4{
+   font-family: "Times New Roman";
+}
+
+.characterSheet button{
+  height:2em;
+}
