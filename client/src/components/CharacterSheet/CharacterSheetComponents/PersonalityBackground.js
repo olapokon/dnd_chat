@@ -5,7 +5,7 @@ function PersonalityBackground(props) {
     <div className="personalityBackground wrapperSettings leftFloat">
       <div>
         <div>
-          <h3>Background: </h3>
+          <h3>Background</h3>
           <textarea
             maxLength="1600"
             name="background"
@@ -16,7 +16,7 @@ function PersonalityBackground(props) {
         </div>
         <h3> Personality </h3>
         <label>
-          Traits:
+          Traits
           <textarea
             maxLength="1600"
             name="personality"
@@ -25,7 +25,7 @@ function PersonalityBackground(props) {
           />
         </label>
         <label>
-          Ideals:
+          Ideals
           <textarea
             maxLength="1600"
             name="ideals"
@@ -34,7 +34,7 @@ function PersonalityBackground(props) {
           />
         </label>
         <label>
-          Bonds:
+          Bonds
           <textarea
             maxLength="1600"
             name="bonds"
@@ -43,7 +43,7 @@ function PersonalityBackground(props) {
           />
         </label>
         <label>
-          Flaws:
+          Flaws
           <textarea
             maxLength="1600"
             name="flaws"
