@@ -24,7 +24,7 @@ const skills = [
 function Skills(props) {
   return (
     <div className="skills leftFloat">
-      <h3> Skills: </h3>
+      <h3> Skills</h3>
       <ul>
         {skills.map(skill => {
           return (
