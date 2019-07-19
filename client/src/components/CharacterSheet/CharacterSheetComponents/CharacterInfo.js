@@ -4,7 +4,7 @@ function CharacterInfo(props) {
   return (
     <div id="characterInfo">
       <label>
-        Character Name:
+        Character Name
         <input
           type="text"
           name="characterName"
@@ -14,11 +14,11 @@ function CharacterInfo(props) {
       </label>
       <div>
         <label>
-          Race:
+          Race
           <input type="text" name="race" value={props.race} onChange={props.handleChange} />
         </label>
         <label>
-          Alignment:
+          Alignment
           <input
             type="text"
             name="alignment"
