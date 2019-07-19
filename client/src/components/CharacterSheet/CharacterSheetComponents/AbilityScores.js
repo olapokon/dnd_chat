@@ -13,11 +13,11 @@ function AbilityScores(props) {
   return (
     <div>
       <div className="abilityScores leftFloat">
-        <h3> Ability Scores: </h3>
+        <h3> Ability Scores</h3>
         <ul>
           <li>
             <div>
-              <label> STR: </label>
+              <label> STR</label>
             </div>
             <input
               className="abScore smallInput"
@@ -36,7 +36,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label> DEX: </label>
+              <label> DEX</label>
             </div>
             <input
               className="abScore smallInput"
@@ -55,7 +55,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label> CON: </label>
+              <label> CON</label>
             </div>
             <input
               className="abScore smallInput"
@@ -74,7 +74,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label> INT: </label>
+              <label> INT</label>
             </div>
             <input
               className="abScore smallInput"
@@ -93,7 +93,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label> WIS: </label>
+              <label> WIS</label>
             </div>
             <input
               className="abScore smallInput"
@@ -112,7 +112,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label> CHA: </label>
+              <label> CHA</label>
             </div>
             <input
               className="abScore smallInput"
@@ -134,7 +134,7 @@ function AbilityScores(props) {
 
       <div className="savingThrowsProf leftFloat">
         <div className="savingThrows">
-          <h3> Saving Throws: </h3>
+          <h3> Saving Throws</h3>
           <ul>
             {savingThrows.map(savingThrow => {
               return (
@@ -162,7 +162,7 @@ function AbilityScores(props) {
           </ul>
         </div>
         <div>
-          <label> Proficiency Bonus: </label>
+          <label> Proficiency Bonus</label>
           <input
             className="smallInput"
             type="number"
@@ -172,7 +172,7 @@ function AbilityScores(props) {
           />
         </div>
         <div>
-          <label> Inspiration: </label>
+          <label> Inspiration </label>
           <input
             className="smallInput"
             type="number"
@@ -183,7 +183,7 @@ function AbilityScores(props) {
         </div>
         <div>
           <label>
-            Passive Perception:
+            Passive Perception
             <input
               className="smallInput"
               type="number"
