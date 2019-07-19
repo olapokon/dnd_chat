@@ -6,7 +6,7 @@ function Inventory(props) {
       <div>
         <h3> Equipment </h3>
         <label>
-          Equiped Items:
+          Equiped Items
           <textarea
             maxLength="1600"
             name="equipment"
@@ -16,7 +16,7 @@ function Inventory(props) {
           />
         </label>
         <label>
-          Inventory:
+          Inventory
           <textarea
             maxLength="1600"
             name="inventory"
@@ -28,7 +28,7 @@ function Inventory(props) {
         <div className="moneyWrapper">
           <h3> Money </h3>
           <label>
-            CP:
+            CP
             <input
               type="number"
               name="copper"
@@ -38,7 +38,7 @@ function Inventory(props) {
             />
           </label>
           <label>
-            SP:
+            SP
             <input
               type="number"
               name="silver"
@@ -48,7 +48,7 @@ function Inventory(props) {
             />
           </label>
           <label>
-            EP:
+            EP
             <input
               type="number"
               name="electrum"
@@ -58,7 +58,7 @@ function Inventory(props) {
             />
           </label>
           <label>
-            GP:
+            GP
             <input
               type="number"
               name="gold"
@@ -68,7 +68,7 @@ function Inventory(props) {
             />
           </label>
           <label>
-            PP:
+            PP
             <input
               type="number"
               name="platinum"
