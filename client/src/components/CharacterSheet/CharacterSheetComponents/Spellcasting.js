@@ -3,7 +3,7 @@ import React from 'react';
 function Spellcasting(props) {
   return (
     <div className="spellCastingWrapper wrapperSettings leftFloat">
-      <h3> SpellCasting: </h3>
+      <h3> SpellCasting</h3>
       <ul className="midCol">
         {props.spellCastingArray.map((spellCasting, idx) => {
           return (
@@ -87,7 +87,7 @@ function Spellcasting(props) {
           );
         })}
       </ul>
-      <h3> Spells: </h3>
+      <h3> Spells </h3>
       <ul className="midCol">
         {props.spellsArray.map((spellLevel, idx) => {
           return (
