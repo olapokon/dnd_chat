@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -18,6 +19,8 @@ require('dotenv').config();
 
 const port = process.env.PORT || 3001;
 
+app.use(helmet());
+// app.use(helmet({ hidePoweredBy: { setTo: 'ADF1823Y3HASDF8132' } }));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
