@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -110,19 +110,22 @@ class App extends Component {
 
   //update user and open new socket connection (for login etc.)
   updateUserAndOpenSocket(user) {
-    this.setState({
-      user: user,
-      loggedIn: true,
-      checkingLoginStatus: false,
-      socket: socket()
-    }, () => {
-      this.state.socket.removeChatroomListListener();
-      this.state.socket.addChatroomListListener(chatrooms => {
-        const chatroomsList = Object.values(chatrooms);
-        const chatroomKeys = Object.keys(chatrooms);
-        this.setState({ chatrooms, chatroomsList, chatroomKeys });
-      });
-    });
+    this.setState(
+      {
+        user: user,
+        loggedIn: true,
+        checkingLoginStatus: false,
+        socket: socket()
+      },
+      () => {
+        this.state.socket.removeChatroomListListener();
+        this.state.socket.addChatroomListListener(chatrooms => {
+          const chatroomsList = Object.values(chatrooms);
+          const chatroomKeys = Object.keys(chatrooms);
+          this.setState({ chatrooms, chatroomsList, chatroomKeys });
+        });
+      }
+    );
   }
 
   //update user without opening a new socket connection (update character sheets in the user object etc.)
@@ -167,6 +170,7 @@ class App extends Component {
             chatroomKeys: null,
             chatroomsList: null
           });
+          this.props.history.push(`/`);
         }
       })
       .catch(error => {
@@ -319,4 +323,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

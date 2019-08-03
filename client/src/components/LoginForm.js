@@ -24,41 +24,54 @@ class LoginForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     await this.setState({ usernameError: false, passwordError: false });
-    axios
-      .post('/login', {
-        username: this.state.username,
-        password: this.state.password
-      })
-      .then(res => {
-        //console.log(res.data);
-        if (res.data.authenticationError) {
-          //this.props.updateError(res.data.authenticationError);
-          if (res.data.errorField === 'username') {
-            this.setState({
-              usernameError: true,
-              usernameErrorMessage: res.data.authenticationError
-            });
-          } else if (res.data.errorField === 'password') {
-            this.setState({
-              passwordError: true,
-              passwordErrorMessage: res.data.authenticationError
-            });
+
+    let loginError = 0;
+    if (!this.state.username.trim()) {
+      this.setState({ usernameError: true, usernameErrorMessage: 'Enter a valid username' });
+      loginError = 1;
+    }
+    if (!this.state.password.trim()) {
+      this.setState({ passwordError: true, passwordErrorMessage: 'Password cannot be blank' });
+      loginError = 1;
+    }
+
+    if (!loginError) {
+      axios
+        .post('/login', {
+          username: this.state.username,
+          password: this.state.password
+        })
+        .then(res => {
+          //console.log(res.data);
+          if (res.data.authenticationError) {
+            //this.props.updateError(res.data.authenticationError);
+            if (res.data.errorField === 'username') {
+              this.setState({
+                usernameError: true,
+                usernameErrorMessage: res.data.authenticationError
+              });
+            } else if (res.data.errorField === 'password') {
+              this.setState({
+                passwordError: true,
+                passwordErrorMessage: res.data.authenticationError
+              });
+            }
+            throw new Error(res.data.authenticationError);
           }
-          throw new Error(res.data.authenticationError);
-        }
-        if (res.data.user) {
-          this.props.updateUserAndOpenSocket(res.data.user);
-        }
-      })
-      .then(() => {
-        this.props.history.push('/');
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({
-          checkingLoginStatus: false
+          if (res.data.user) {
+            this.props.updateUserAndOpenSocket(res.data.user);
+          }
+        })
+        .then(() => {
+          this.props.history.push('/');
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({
+            checkingLoginStatus: false
+          });
         });
-      });
+    }
   }
 
   render() {

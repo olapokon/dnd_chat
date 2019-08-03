@@ -18,7 +18,8 @@ class Games extends Component {
     });
   }
 
-  handleCreate() {
+  handleCreate(event) {
+    event.preventDefault();
     const newUuid = uuidv4();
     this.props.createChatroom(newUuid, this.state.chatroomName);
     this.props.history.push(`/${newUuid}`);
@@ -26,7 +27,7 @@ class Games extends Component {
 
   render() {
     return (
-      <div id="games">
+      <form id="games">
         <h1 id="header" className="display-4 mb-4">
           Create a chatroom
         </h1>
@@ -40,11 +41,14 @@ class Games extends Component {
           />
         </p>
         <p className="text-center">
-          <button className="btn btn-primary btn-lg center" onClick={this.handleCreate}>
-            Create chatroom
-          </button>
+          <input
+            className="btn btn-primary btn-lg center"
+            type="submit"
+            value="Create chatroom"
+            onClick={this.handleCreate}
+          />
         </p>
-      </div>
+      </form>
     );
   }
 }

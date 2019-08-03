@@ -618,7 +618,7 @@ class CharacterSheet extends Component {
         />
         {this.state.characterName.trim() && (
           <div className="submitBtn leftFloat">
-            <input className="btn btn-primary" type="submit" value="Save" />
+            <input className="btn btn-primary" type="submit" value="Save character" />
           </div>
         )}
         {this.state.uuid && (

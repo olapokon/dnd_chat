@@ -706,9 +706,11 @@ class CharacterSheet extends Component {
           </li>
         </ul>
 
-        <div>
-          <input className="btn-sm btn-primary" type="submit" value="Save character" />
-        </div>
+        {this.state.characterName.trim() && (
+          <div>
+            <input className="btn-sm btn-primary" type="submit" value="Save" />
+          </div>
+        )}
       </form>
     );
   }

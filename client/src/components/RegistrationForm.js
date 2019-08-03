@@ -29,6 +29,7 @@ class RegistrationForm extends Component {
       passwordError: false,
       confirmError: false
     });
+
     let registrationError = 0;
     if (!this.state.password.trim()) {
       this.setState({ passwordError: true });
@@ -42,6 +43,7 @@ class RegistrationForm extends Component {
       this.setState({ usernameError: true, usernameErrorMessage: 'Invalid username' });
       registrationError = 1;
     }
+
     if (!registrationError) {
       axios
         .post('/register', {
