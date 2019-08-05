@@ -30,6 +30,16 @@ function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) 
   );
 }
 
+function ProtectedRouteChatroom({ path, component: Component, loggedIn, ...rest }) {
+  return (
+    <Route
+      exact
+      path={path}
+      render={props => (loggedIn ? <Component {...rest} {...props} /> : <Redirect to="/" />)}
+    />
+  );
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -39,11 +49,6 @@ class App extends Component {
       //socket: socket(),
       checkingLoginStatus: true,
       selectedCharacter: '',
-
-      //chatrooms
-      // chatrooms: null,
-      // chatroomKeys: null,
-      // chatroomsList: null,
 
       // refactor
       currentChatroom: null,
@@ -60,7 +65,7 @@ class App extends Component {
     this.selectCharacter = this.selectCharacter.bind(this);
     this.deleteCharacter = this.deleteCharacter.bind(this);
     this.updateError = this.updateError.bind(this);
-    this.updateCurrentChatroomKey = this.updateCurrentChatroomKey.bind(this);
+    // this.updateCurrentChatroomKey = this.updateCurrentChatroomKey.bind(this);
   }
 
   componentDidMount() {
@@ -158,9 +163,9 @@ class App extends Component {
   }
 
   // ==========================================================================
-  updateCurrentChatroomKey(currentChatroomKey) {
-    this.setState({ currentChatroomKey });
-  }
+  // updateCurrentChatroomKey(currentChatroomKey) {
+  //   this.setState({ currentChatroomKey });
+  // }
   // ==========================================================================
 
   logout(event) {
@@ -269,7 +274,7 @@ class App extends Component {
               component={Games}
               loggedIn={this.state.loggedIn}
               createChatroom={this.state.socket && this.state.socket.createChatroom}
-              updateCurrentChatroomKey={this.updateCurrentChatroomKey}
+              // updateCurrentChatroomKey={this.updateCurrentChatroomKey}
             />
             <ProtectedRoute
               path="/profile"
@@ -279,55 +284,38 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               deleteCharacter={this.deleteCharacter}
             />
-
-            {/* refactor */}
-            {this.state.currentChatroomKey && (
-              <ProtectedRoute
-                path="/chatroom"
+            {/* leitourgei */}
+            {/* <ProtectedRoute
+              path="/chatroom"
+              component={Chatroom}
+              loggedIn={this.state.loggedIn}
+              user={this.state.user}
+              updateUser={this.updateUser}
+              chatroomKey={this.state.currentChatroomKey}
+              currentChatroom={this.state.currentChatroom}
+              emitChatMessage={this.state.socket.emitChatMessage}
+              addChatMessageHandler={this.state.socket.addChatMessageHandler}
+              removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
+              enterChatroom={this.state.socket.enterChatroom}
+              exitChatroom={this.state.socket.exitChatroom}
+            /> */}
+            {this.state.socket && (
+              <ProtectedRouteChatroom
+                path="/chatroom/:chatroomKey"
                 component={Chatroom}
                 loggedIn={this.state.loggedIn}
                 user={this.state.user}
                 updateUser={this.updateUser}
                 chatroomKey={this.state.currentChatroomKey}
                 currentChatroom={this.state.currentChatroom}
-                // chatroomName={this.state.currentChatroom.name}
                 emitChatMessage={this.state.socket.emitChatMessage}
                 addChatMessageHandler={this.state.socket.addChatMessageHandler}
                 removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
-                //pass the users array of the particular chatroom as props
-                //from the chatroomList object in state
-
-                // userList={this.state.currentChatroom.userList}
                 enterChatroom={this.state.socket.enterChatroom}
                 exitChatroom={this.state.socket.exitChatroom}
               />
             )}
-
-            {/* {this.state.chatrooms &&
-              this.state.chatroomKeys.map(chatroom => {
-                return (
-                  <ProtectedRoute
-                    key={`${chatroom}route`}
-                    exact
-                    path={`/${chatroom}`}
-                    component={Chatroom}
-                    loggedIn={this.state.loggedIn}
-                    user={this.state.user}
-                    updateUser={this.updateUser}
-                    chatroomKey={chatroom}
-                    chatroomName={this.state.chatrooms[chatroom].name}
-                    emitChatMessage={this.state.socket.emitChatMessage}
-                    addChatMessageHandler={this.state.socket.addChatMessageHandler}
-                    removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
-                    //pass the users array of the particular chatroom as props
-                    //from the chatroomList object in state
-                    userList={this.state.chatrooms[chatroom].userList}
-                    enterChatroom={this.state.socket.enterChatroom}
-                    exitChatroom={this.state.socket.exitChatroom}
-                  />
-                );
-              })} */}
-
+            )} */}
             <ProtectedRoute
               path="/characterSheet"
               component={CharacterSheet}
@@ -347,8 +335,7 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               updateUser={this.updateUser}
             />
-            {/* pithanws thelei allages to function kai conditions to NotFound route */}
-            <Route render={() => (!this.state.chatroomKeys ? null : <NotFound />)} />
+            <Route render={() => <NotFound />} />
           </Switch>
         </div>
       );

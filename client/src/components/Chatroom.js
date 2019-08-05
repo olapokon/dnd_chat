@@ -19,7 +19,10 @@ class Chatroom extends Component {
 
   //lifecycle methods
   componentDidMount() {
-    this.props.enterChatroom(this.props.chatroomKey);
+    if (this.props.match.params.chatroomKey) {
+      console.log(`parameters: ${this.props.match.params.chatroomKey}`);
+    }
+    this.props.enterChatroom(this.props.match.params.chatroomKey);
     this.props.addChatMessageHandler(this.appendMessage);
   }
 
@@ -37,7 +40,7 @@ class Chatroom extends Component {
 
   componentWillUnmount() {
     this.props.removeChatMessageHandler();
-    this.props.exitChatroom(this.props.chatroomKey);
+    this.props.exitChatroom(this.props.match.params.chatroomKey);
   }
 
   //other methods
@@ -92,10 +95,11 @@ class Chatroom extends Component {
           <div className="chatContainer col-9">
             <div id="chatroomUsercount">
               <h3>
-                Chatroom:{' '}
-                {this.props.currentChatroom ? this.props.currentChatroom.name : 'Default chatroom'}{' '}
-                User count:{' '}
-                {this.props.currentChatroom && this.props.currentChatroom.userList.length}
+                Chatroom: {this.props.currentChatroom ? this.props.currentChatroom.name : ''} User
+                count:{' '}
+                {this.props.currentChatroom &&
+                  this.props.currentChatroom.userList &&
+                  this.props.currentChatroom.userList.length}
               </h3>
             </div>
             <div className="chatDisplay" ref={node => (this.node = node)}>
