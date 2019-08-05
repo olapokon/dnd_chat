@@ -39,10 +39,16 @@ class App extends Component {
       //socket: socket(),
       checkingLoginStatus: true,
       selectedCharacter: '',
+
       //chatrooms
-      chatrooms: null,
-      chatroomKeys: null,
-      chatroomsList: null,
+      // chatrooms: null,
+      // chatroomKeys: null,
+      // chatroomsList: null,
+
+      // refactor
+      currentChatroom: null,
+      currentChatroomKey: null,
+
       //error handling
       errorDisplay: false,
       errorMessage: ''
@@ -54,6 +60,7 @@ class App extends Component {
     this.selectCharacter = this.selectCharacter.bind(this);
     this.deleteCharacter = this.deleteCharacter.bind(this);
     this.updateError = this.updateError.bind(this);
+    this.updateCurrentChatroomKey = this.updateCurrentChatroomKey.bind(this);
   }
 
   componentDidMount() {
@@ -63,10 +70,9 @@ class App extends Component {
   componentDidUpdate() {
     if (this.state.socket) {
       this.state.socket.removeChatroomListListener();
-      this.state.socket.addChatroomListListener(chatrooms => {
-        const chatroomsList = Object.values(chatrooms);
-        const chatroomKeys = Object.keys(chatrooms);
-        this.setState({ chatrooms, chatroomsList, chatroomKeys });
+      this.state.socket.addChatroomListListener(chatroom => {
+        const currentChatroom = chatroom;
+        this.setState({ currentChatroom });
       });
     }
   }
@@ -117,10 +123,9 @@ class App extends Component {
       },
       () => {
         this.state.socket.removeChatroomListListener();
-        this.state.socket.addChatroomListListener(chatrooms => {
-          const chatroomsList = Object.values(chatrooms);
-          const chatroomKeys = Object.keys(chatrooms);
-          this.setState({ chatrooms, chatroomsList, chatroomKeys });
+        this.state.socket.addChatroomListListener(chatroom => {
+          const currentChatroom = chatroom;
+          this.setState({ currentChatroom });
         });
       }
     );
@@ -152,6 +157,12 @@ class App extends Component {
     );
   }
 
+  // ==========================================================================
+  updateCurrentChatroomKey(currentChatroomKey) {
+    this.setState({ currentChatroomKey });
+  }
+  // ==========================================================================
+
   logout(event) {
     event.preventDefault();
     axios
@@ -164,9 +175,7 @@ class App extends Component {
             loggedIn: false,
             checkingLoginStatus: false,
             selectedCharacter: '',
-            chatrooms: null,
-            chatroomKeys: null,
-            chatroomsList: null
+            currentChatroom: null
           });
           this.props.history.push(`/`);
         }
@@ -260,6 +269,7 @@ class App extends Component {
               component={Games}
               loggedIn={this.state.loggedIn}
               createChatroom={this.state.socket && this.state.socket.createChatroom}
+              updateCurrentChatroomKey={this.updateCurrentChatroomKey}
             />
             <ProtectedRoute
               path="/profile"
@@ -269,7 +279,31 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               deleteCharacter={this.deleteCharacter}
             />
-            {this.state.chatrooms &&
+
+            {/* refactor */}
+            {this.state.currentChatroomKey && (
+              <ProtectedRoute
+                path="/chatroom"
+                component={Chatroom}
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+                updateUser={this.updateUser}
+                chatroomKey={this.state.currentChatroomKey}
+                currentChatroom={this.state.currentChatroom}
+                // chatroomName={this.state.currentChatroom.name}
+                emitChatMessage={this.state.socket.emitChatMessage}
+                addChatMessageHandler={this.state.socket.addChatMessageHandler}
+                removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
+                //pass the users array of the particular chatroom as props
+                //from the chatroomList object in state
+
+                // userList={this.state.currentChatroom.userList}
+                enterChatroom={this.state.socket.enterChatroom}
+                exitChatroom={this.state.socket.exitChatroom}
+              />
+            )}
+
+            {/* {this.state.chatrooms &&
               this.state.chatroomKeys.map(chatroom => {
                 return (
                   <ProtectedRoute
@@ -292,7 +326,8 @@ class App extends Component {
                     exitChatroom={this.state.socket.exitChatroom}
                   />
                 );
-              })}
+              })} */}
+
             <ProtectedRoute
               path="/characterSheet"
               component={CharacterSheet}

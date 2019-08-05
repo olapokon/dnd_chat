@@ -63,7 +63,7 @@ class Chatroom extends Component {
     const modifier = rollData.modifier > 0 ? ` + ${rollData.modifier}` : '';
     const messageData = {
       type: 'dice roll',
-      chatroomName: this.props.chatroomName,
+      chatroomName: this.props.currentChatroom.name,
       message: `${rollData.rolls.length}${rollData.dieType}${modifier}: ${rollData.total}`
     };
     this.props.emitChatMessage(messageData);
@@ -92,38 +92,42 @@ class Chatroom extends Component {
           <div className="chatContainer col-9">
             <div id="chatroomUsercount">
               <h3>
-                Chatroom: {this.props.chatroomName || 'Default chatroom'} User count:{' '}
-                {this.props.userList.length}
+                Chatroom:{' '}
+                {this.props.currentChatroom ? this.props.currentChatroom.name : 'Default chatroom'}{' '}
+                User count:{' '}
+                {this.props.currentChatroom && this.props.currentChatroom.userList.length}
               </h3>
             </div>
             <div className="chatDisplay" ref={node => (this.node = node)}>
-                {this.state.chatHistory.map((message, i) => {
-                  if (message.type === 'user message') {
-                    return (
-                        <div key={i} className="messageWrapper">
-                          <div className="message">{`${message.username}: ${message.message}`}</div>
-                        </div>
-                    );
-                  } else if (message.type === 'dice roll') {
-                    return (
-                      <div key={i} className="message" style={{ color: 'blue' }}>{`${message.username} rolls ${
-                        message.message
-                      }.`}</div>
-                    );
-                  } else if (message.type === 'chat notification') {
-                    return (
-                      <div key={i} className="message" style={{ color: 'orange' }}>{`${message.username} ${
+              {this.state.chatHistory.map((message, i) => {
+                if (message.type === 'user message') {
+                  return (
+                    <div key={i} className="messageWrapper">
+                      <div className="message">{`${message.username}: ${message.message}`}</div>
+                    </div>
+                  );
+                } else if (message.type === 'dice roll') {
+                  return (
+                    <div key={i} className="message" style={{ color: 'blue' }}>{`${
+                      message.username
+                    } rolls ${message.message}.`}</div>
+                  );
+                } else if (message.type === 'chat notification') {
+                  return (
+                    <div key={i} className="message" style={{ color: 'orange' }}>{`${
+                      message.username
+                    } ${message.message}`}</div>
+                  );
+                } else {
+                  return (
+                    <div className="messageWrapper">
+                      <div key={i} className="message">{`${message.username}: ${
                         message.message
                       }`}</div>
-                    );
-                  } else {
-                    return (
-                        <div className="messageWrapper">
-                          <div key={i} className="message">{`${message.username}: ${message.message}`}</div>
-                        </div>
-                    );
-                  }
-                })}
+                    </div>
+                  );
+                }
+              })}
             </div>
             <form className="input-group mb-3" onSubmit={this.handleSubmit}>
               <input

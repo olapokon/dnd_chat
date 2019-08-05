@@ -1,5 +1,6 @@
 const chatroomList = {
   a8171404823y4uqweihwjdf1243: {
+    key: 'a8171404823y4uqweihwjdf1243',
     name: 'dokimastiko',
     userList: []
   }
@@ -16,7 +17,7 @@ function leaveChatroom(io, socket, chatroomToLeave) {
   }
 
   //emit updated list
-  io.emit('chatroom list', chatroomList);
+  io.to(chatroomToLeave).emit('chatroom data', chatroomToLeave); /////////=========================================================
   socket.broadcast.to(chatroomToLeave).emit('chat message', {
     username: socket.request.user.username,
     type: 'chat notification',
@@ -27,12 +28,13 @@ function leaveChatroom(io, socket, chatroomToLeave) {
 module.exports = function(io) {
   io.on('connection', function(socket) {
     console.log(socket.request.user.username + ' has connected, socket id: ' + socket.id);
-    io.emit('chatroom list', chatroomList);
+    // io.to().emit('chatroom data', chatroomList);
 
     let currentChatroom = '';
 
     socket.on('enter chatroom', function(chatroomKey) {
       console.log(socket.request.user.username + ' entered ' + chatroomList[chatroomKey].name);
+      console.log(chatroomList[chatroomKey]);
       if (currentChatroom && chatroomKey !== currentChatroom) {
         //if already in a room, leave current chatroom before joining new one
         leaveChatroom(io, socket, currentChatroom);
@@ -45,7 +47,9 @@ module.exports = function(io) {
         chatroomList[chatroomKey].userList.push(socket.request.user.username);
       }
       //emit updated list
-      io.emit('chatroom list', chatroomList);
+      io.to(currentChatroom).emit('chatroom data', chatroomList[currentChatroom]); /////////=========================================================
+      console.log('sending chatroom data');
+      console.log(chatroomList[currentChatroom]);
 
       //an yparxei to dwmatio sth lista, add user to userlist
       //an oxi, create neo chatroom sth lista
@@ -59,8 +63,8 @@ module.exports = function(io) {
 
     //send message to users in the same chatroom
     socket.on('chat message', function(messageData) {
-      console.log(`Message from ${socket.request.user.username}:`);
-      console.log(messageData);
+      // console.log(`Message from ${socket.request.user.username}:`);
+      // console.log(messageData);
       const { type, chatroomName, message } = messageData;
       io.to(currentChatroom).emit('chat message', {
         username: socket.request.user.username,
@@ -77,13 +81,19 @@ module.exports = function(io) {
     socket.on('create chatroom', function(chatroomInfo) {
       const { chatroomKey, chatroomName } = chatroomInfo;
       chatroomList[chatroomKey] = {
+        key: chatroomKey,
         name: chatroomName,
         userList: []
       };
       //emit updated list
-      io.emit('chatroom list', chatroomList);
+      io.to(chatroomKey).emit('chatroom data', chatroomKey); /////////=========================================================
       console.log(
         `-----creating new chatroom: ${chatroomName} ----- chatroom key: ${chatroomKey}-----`
+      );
+      console.log('active chatrooms: ');
+      console.log(chatroomList);
+      console.log(
+        '--------------------------------------------------------------------------------------'
       );
     });
 

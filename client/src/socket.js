@@ -25,13 +25,15 @@ export default function() {
     socket.emit('chat message', messageData);
   }
 
+  // ======================================================================
   function addChatroomListListener(callback) {
-    socket.on('chatroom list', callback);
+    socket.on('chatroom data', callback);
   }
 
   function removeChatroomListListener() {
-    socket.off('chatroom list');
+    socket.off('chatroom data');
   }
+  // ======================================================================
 
   function createChatroom(chatroomKey, chatroomName) {
     socket.emit('create chatroom', { chatroomKey, chatroomName });
