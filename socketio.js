@@ -7,7 +7,6 @@ const chatroomList = {
 
 function leaveChatroom(io, socket, chatroomToLeave) {
   socket.leave(chatroomToLeave);
-  //remove from users list if a room exists ------- error TypeError: Cannot read property 'indexOf' of undefined kapoia stigmh prin mpei to if
   if (chatroomList[chatroomToLeave]) {
     console.log(socket.request.user.username + ' left ' + chatroomList[chatroomToLeave].name);
     const index = chatroomList[chatroomToLeave].userList.indexOf(socket.request.user.username);

@@ -20,8 +20,6 @@ import CharacterSheet from './components/CharacterSheet/CharacterSheet';
 import CharacterSheetChat from './components/CharacterSheet/CharacterSheetChat';
 
 function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) {
-  // console.log(path);
-  // console.log(rest);
   return (
     <Route
       key={key}
