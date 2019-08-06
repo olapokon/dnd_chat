@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import DiceRoller from './DiceRoller';
 import './Chatroom.css';
 
@@ -24,6 +25,11 @@ class Chatroom extends Component {
     }
     this.props.enterChatroom(this.props.match.params.chatroomKey);
     this.props.addChatMessageHandler(this.appendMessage);
+    this.props.addChatroomErrorListener(errorMessage => {
+      // update main error?
+      console.log(errorMessage);
+      this.props.history.push('/');
+    });
   }
 
   componentWillUpdate() {
@@ -40,6 +46,7 @@ class Chatroom extends Component {
 
   componentWillUnmount() {
     this.props.removeChatMessageHandler();
+    this.props.removeChatroomErrorListener();
     this.props.exitChatroom(this.props.match.params.chatroomKey);
   }
 
@@ -156,4 +163,4 @@ class Chatroom extends Component {
   }
 }
 
-export default Chatroom;
+export default withRouter(Chatroom);

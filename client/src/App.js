@@ -313,6 +313,8 @@ class App extends Component {
                 removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
                 enterChatroom={this.state.socket.enterChatroom}
                 exitChatroom={this.state.socket.exitChatroom}
+                addChatroomErrorListener={this.state.socket.addChatroomErrorListener}
+                removeChatroomErrorListener={this.state.socket.removeChatroomErrorListener}
               />
             )}
             )} */}

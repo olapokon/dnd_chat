@@ -33,6 +33,14 @@ export default function() {
   function removeChatroomListListener() {
     socket.off('chatroom data');
   }
+
+  function addChatroomErrorListener(callback) {
+    socket.on('chatroom error', callback);
+  }
+
+  function removeChatroomErrorListener() {
+    socket.off('chatroom error');
+  }
   // ======================================================================
 
   function createChatroom(chatroomKey, chatroomName) {
@@ -47,13 +55,13 @@ export default function() {
     emitChatMessage,
     addChatMessageHandler,
     removeChatMessageHandler,
-
-    //chatrooms
     enterChatroom,
     exitChatroom,
     addChatroomListListener,
     removeChatroomListListener,
+    createChatroom,
 
-    createChatroom
+    addChatroomErrorListener,
+    removeChatroomErrorListener
   };
 }

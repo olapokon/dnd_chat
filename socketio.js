@@ -63,6 +63,8 @@ module.exports = function(io) {
       } else {
         // chatroom does not exist
         console.log(`there is no chatroom with the key: ${chatroomKey}`);
+        // io.to(`${socket.id}`).emit('chatroom not found');
+        socket.emit('chatroom error', 'chatroom does not exist');
       }
     });
 
