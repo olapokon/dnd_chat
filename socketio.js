@@ -28,6 +28,7 @@ function leaveChatroom(io, socket, chatroomToLeave) {
 module.exports = function(io) {
   io.on('connection', function(socket) {
     console.log(socket.request.user.username + ' has connected, socket id: ' + socket.id);
+    // console.log(socket);
     // io.to().emit('chatroom data', chatroomList);
 
     let currentChatroom = '';
@@ -113,5 +114,10 @@ module.exports = function(io) {
         leaveChatroom(io, socket, currentChatroom);
       }
     });
+
+    // other than running the listeners etc above, the module also returns a function to run in the github callback route
+    function githubSocketFunction() {
+      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa function');
+    }
   });
 };

@@ -15,6 +15,7 @@ class LoginForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGithubLogin = this.handleGithubLogin.bind(this);
   }
 
   handleChange(event) {
@@ -83,6 +84,17 @@ class LoginForm extends Component {
     // }
   }
 
+  handleGithubLogin(event) {
+    event.preventDefault();
+    window.open(
+      'http://localhost:3001/githubLogin',
+      '',
+      `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+scrollbars=no, resizable=no, copyhistory=no, width=${600}, 
+height=${600}, top=${window.innerHeight / 2 - 600 / 2}, left=${window.innerWidth / 2 - 600 / 2}`
+    );
+  }
+
   render() {
     return (
       <div id="LoginForm">
@@ -125,9 +137,16 @@ class LoginForm extends Component {
           </div>
           {/* github login */}
           <div>
-            <a href="http://localhost:3001/githubLogin">
+            {/* <a href="http://localhost:3001/githubLogin">
               <p>Github Login</p>
-            </a>
+            </a> */}
+            <button
+              onClick={this.handleGithubLogin}
+              type="button"
+              className="btn btn-primary btn-lg center"
+            >
+              Github Login
+            </button>
           </div>
         </form>
       </div>

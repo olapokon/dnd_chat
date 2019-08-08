@@ -46,7 +46,7 @@ class App extends Component {
     this.state = {
       user: null,
       loggedIn: false,
-      //socket: socket(),
+      // socket: socket(),
       checkingLoginStatus: true,
       selectedCharacter: '',
 
@@ -79,12 +79,16 @@ class App extends Component {
         const currentChatroom = chatroom;
         this.setState({ currentChatroom });
       });
+      this.state.socket.removeGithubLoginListener(); // ========================================
+      this.state.socket.addGithubLoginListener(); // ========================================
     }
   }
 
   componentWillUnmount() {
     if (this.state.socket) {
       this.state.socket.removeChatroomListListener();
+
+      this.state.socket.removeGithubLoginListener(); // ========================================
     }
   }
 

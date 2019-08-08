@@ -48,7 +48,7 @@ module.exports = function(app, db) {
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: '/github/callback'
+        callbackURL: 'http://localhost:3001/github/callback'
       },
       function(accessToken, refreshToken, profile, done) {
         User.findOne({ username: profile.username }, function(err, user) {

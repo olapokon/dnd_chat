@@ -10,7 +10,7 @@ function checkIfAuthenticatedMiddleware(req, res, next) {
   }
 }
 
-module.exports = function(app, db) {
+module.exports = function(app, dbs) {
   //get user info
   app.get('/user', function(req, res, next) {
     if (req.user) {
@@ -50,14 +50,42 @@ module.exports = function(app, db) {
   // =================================================================================================
   app.get('/githubLogin', passport.authenticate('github'));
 
-  app.get('/github/callback', passport.authenticate('github'), function(req, res) {
-    console.log(req.user);
-    return res.json({
-      user: {
-        username: user.username,
-        characterSheets: user.characterSheets
+  // app.get('/github/callback', passport.authenticate('github'), function(req, res) {
+  //   console.log(req.user);
+  //   return res.json({
+  //     user: {
+  //       username: user.username,
+  //       characterSheets: user.characterSheets
+  //     }
+  //   });
+  // });
+
+  app.get('/github/callback', function(req, res, next) {
+    passport.authenticate('github', function(err, user, info) {
+      console.log(`-----------------------user before github login----------------------`);
+      console.log(user);
+      console.log(`--------------------------------------------------------------------`);
+      // console.log(req);
+      if (err) {
+        return next(err);
       }
-    });
+      if (!user) {
+        return res.json(info);
+      }
+      req.logIn(user, function(err) {
+        console.log(`-----------------------user after github login----------------------`);
+        console.log(user);
+        console.log(`--------------------------------------------------------------------`);
+        if (err) return next(err);
+        return res.json({
+          user: {
+            _id: user['_id'],
+            username: user.username,
+            characterSheets: user.characterSheets
+          }
+        });
+      });
+    })(req, res, next);
   });
   // =================================================================================================
 

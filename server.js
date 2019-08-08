@@ -47,16 +47,6 @@ app.use(
 //auth
 auth(app, db);
 
-//routes
-routes(app, db);
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
 //io
 io.use(
   passportSocketIo.authorize({
@@ -67,6 +57,16 @@ io.use(
 );
 
 socketio(io);
+
+//routes
+routes(app, db);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 http.listen(port, function() {
   console.log(`Server is listening on port ${port}`);
