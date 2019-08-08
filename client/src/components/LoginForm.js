@@ -22,9 +22,17 @@ class LoginForm extends Component {
   }
 
   async handleSubmit(event) {
+    const loginType = event.target.name;
+    console.log(loginType);
     event.preventDefault();
     await this.setState({ usernameError: false, passwordError: false });
 
+    // if (loginType === 'githubLogin') {
+    //   axios
+    //     .get('/githubLogin')
+    //     .then(res => console.log(res))
+    //     .catch(error => console.log(error));
+    // } else {
     let loginError = 0;
     if (!this.state.username.trim()) {
       this.setState({ usernameError: true, usernameErrorMessage: 'Enter a valid username' });
@@ -72,6 +80,7 @@ class LoginForm extends Component {
           });
         });
     }
+    // }
   }
 
   render() {
@@ -107,11 +116,18 @@ class LoginForm extends Component {
           </div>
           <div>
             <input
+              name="login"
               className="btn btn-primary btn-lg center"
               type="submit"
               value="Login"
               onClick={this.handleSubmit}
             />
+          </div>
+          {/* github login */}
+          <div>
+            <a href="http://localhost:3001/githubLogin">
+              <p>Github Login</p>
+            </a>
           </div>
         </form>
       </div>

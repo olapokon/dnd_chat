@@ -16,6 +16,7 @@ module.exports = function(app, db) {
     if (req.user) {
       return res.json({
         user: {
+          _id: req.user['_id'],
           username: req.user.username,
           characterSheets: req.user.characterSheets
         }
@@ -33,9 +34,11 @@ module.exports = function(app, db) {
         return res.json(info);
       }
       req.logIn(user, function(err) {
+        console.log(user['_id']);
         if (err) return next(err);
         return res.json({
           user: {
+            _id: user['_id'],
             username: user.username,
             characterSheets: user.characterSheets
           }
@@ -43,6 +46,20 @@ module.exports = function(app, db) {
       });
     })(req, res, next);
   });
+
+  // =================================================================================================
+  app.get('/githubLogin', passport.authenticate('github'));
+
+  app.get('/github/callback', passport.authenticate('github'), function(req, res) {
+    console.log(req.user);
+    return res.json({
+      user: {
+        username: user.username,
+        characterSheets: user.characterSheets
+      }
+    });
+  });
+  // =================================================================================================
 
   app.post('/register', function(req, res, next) {
     const hash = bcrypt.hashSync(req.body.password, 12);
