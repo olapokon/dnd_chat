@@ -47,19 +47,38 @@ app.use(
 //auth
 auth(app, db);
 
+function onAuthorizeFail(data, message, error, accept) {
+  if (error) {
+    throw new Error(message);
+  }
+  console.log('Unauthenticated user, opening guest socket');
+  accept(null, true);
+}
+
 //io
 io.use(
   passportSocketIo.authorize({
     key: 'express.sid',
     secret: process.env.SESSION_SECRET,
-    store: sessionStore
+    store: sessionStore,
+    fail: onAuthorizeFail
   })
 );
 
 socketio(io);
 
+// app.use(function(req, res, next) {
+//   //===================================================================
+//   console.log('middleware req.query below');
+//   console.log(req.query);
+//   console.log('middleware req.session below');
+//   console.log(req.session);
+//   req.session.socketId = req.query.socketId;
+//   next();
+// });
+
 //routes
-routes(app, db);
+routes(app, db, io);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

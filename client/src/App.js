@@ -70,6 +70,9 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser();
+    // this.setState({
+    //   socket: socket()
+    // });
   }
 
   componentDidUpdate() {
@@ -79,16 +82,12 @@ class App extends Component {
         const currentChatroom = chatroom;
         this.setState({ currentChatroom });
       });
-      this.state.socket.removeGithubLoginListener(); // ========================================
-      this.state.socket.addGithubLoginListener(); // ========================================
     }
   }
 
   componentWillUnmount() {
     if (this.state.socket) {
       this.state.socket.removeChatroomListListener();
-
-      this.state.socket.removeGithubLoginListener(); // ========================================
     }
   }
 

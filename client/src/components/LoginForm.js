@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+// import socket from '../socket'; //=======================================================
+import io from 'socket.io-client';
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -12,10 +15,49 @@ class LoginForm extends Component {
       usernameErrorMessage: '',
       passwordError: false,
       passwordErrorMessage: ''
+      // socket: socket() //=======================================================
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleGithubLogin = this.handleGithubLogin.bind(this);
+  }
+
+  componentDidMount() {
+    //=======================================================
+    if (!this.state.socket) {
+      this.setState(
+        {
+          socket: io()
+        },
+        () => {
+          this.state.socket.on('github login', user => {
+            if (user.user) {
+              this.state.socket.emit('close');
+              this.props.updateUserAndOpenSocket(user.user);
+            }
+          }); // ========================================
+        }
+      );
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.socket) {
+      this.state.socket.off('github login'); // ========================================
+      this.state.socket.on('github login', user => {
+        if (user.user) {
+          this.state.socket.emit('close');
+          this.props.updateUserAndOpenSocket(user.user);
+        }
+        this.props.history.push('/');
+      }); // ========================================
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.socket) {
+      this.state.socket.emit('close');
+    }
   }
 
   handleChange(event) {
@@ -86,8 +128,9 @@ class LoginForm extends Component {
 
   handleGithubLogin(event) {
     event.preventDefault();
+    console.log(this.state.socket.id);
     window.open(
-      'http://localhost:3001/githubLogin',
+      `http://localhost:3001/githubLogin?socketId=${this.state.socket.id}`,
       '',
       `toolbar=no, location=no, directories=no, status=no, menubar=no, 
 scrollbars=no, resizable=no, copyhistory=no, width=${600}, 

@@ -27,8 +27,10 @@ function leaveChatroom(io, socket, chatroomToLeave) {
 
 module.exports = function(io) {
   io.on('connection', function(socket) {
-    console.log(socket.request.user.username + ' has connected, socket id: ' + socket.id);
-    // console.log(socket);
+    const username = socket.request.user.username ? socket.request.user.username : 'Guest';
+    console.log(username + ' has connected, socket id: ' + socket.id);
+
+    // console.log(socket.request.user);
     // io.to().emit('chatroom data', chatroomList);
 
     let currentChatroom = '';
@@ -106,18 +108,19 @@ module.exports = function(io) {
       );
     });
 
+    // close socket connection
+    socket.on('close', function() {
+      console.log('closing socket ' + socket.id);
+      socket.disconnect(true);
+    });
+
     socket.on('disconnect', function() {
-      console.log(socket.request.user.username + ' has disconnected, socket id: ' + socket.id);
+      console.log(username + ' has disconnected, socket id: ' + socket.id);
 
       if (currentChatroom) {
         //if in a room, leave current chatroom before disconnect
         leaveChatroom(io, socket, currentChatroom);
       }
     });
-
-    // other than running the listeners etc above, the module also returns a function to run in the github callback route
-    function githubSocketFunction() {
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa function');
-    }
   });
 };

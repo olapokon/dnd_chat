@@ -2,6 +2,7 @@ const passport = require('passport');
 const User = require('./database/models/User');
 const bcrypt = require('bcrypt');
 
+// middleware functions
 function checkIfAuthenticatedMiddleware(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -10,7 +11,13 @@ function checkIfAuthenticatedMiddleware(req, res, next) {
   }
 }
 
-module.exports = function(app, dbs) {
+function addSocketIdtoSessionMiddleware(req, res, next) {
+  req.session.socketId = req.query.socketId;
+  next();
+}
+
+// routes
+module.exports = function(app, db, io) {
   //get user info
   app.get('/user', function(req, res, next) {
     if (req.user) {
@@ -48,7 +55,7 @@ module.exports = function(app, dbs) {
   });
 
   // =================================================================================================
-  app.get('/githubLogin', passport.authenticate('github'));
+  app.get('/githubLogin', addSocketIdtoSessionMiddleware, passport.authenticate('github'));
 
   // app.get('/github/callback', passport.authenticate('github'), function(req, res) {
   //   console.log(req.user);
@@ -62,10 +69,6 @@ module.exports = function(app, dbs) {
 
   app.get('/github/callback', function(req, res, next) {
     passport.authenticate('github', function(err, user, info) {
-      console.log(`-----------------------user before github login----------------------`);
-      console.log(user);
-      console.log(`--------------------------------------------------------------------`);
-      // console.log(req);
       if (err) {
         return next(err);
       }
@@ -73,16 +76,16 @@ module.exports = function(app, dbs) {
         return res.json(info);
       }
       req.logIn(user, function(err) {
-        console.log(`-----------------------user after github login----------------------`);
-        console.log(user);
-        console.log(`--------------------------------------------------------------------`);
         if (err) return next(err);
-        return res.json({
+        io.to(req.session.socketId).emit('github login', {
           user: {
             _id: user['_id'],
             username: user.username,
             characterSheets: user.characterSheets
           }
+        }); //=============================================================
+        return res.json({
+          message: 'logged in successfully'
         });
       });
     })(req, res, next);

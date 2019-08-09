@@ -74,6 +74,8 @@ export default function() {
     removeChatroomErrorListener,
 
     addGithubLoginListener,
-    removeGithubLoginListener
+    removeGithubLoginListener,
+
+    socketId: socket.id
   };
 }
