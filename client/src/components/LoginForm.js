@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-// import socket from '../socket'; //=======================================================
 import io from 'socket.io-client';
 
 class LoginForm extends Component {
@@ -33,6 +32,7 @@ class LoginForm extends Component {
           this.state.socket.on('github login', user => {
             if (user.user) {
               this.state.socket.emit('close');
+              this.popupWindow.close();
               this.props.updateUserAndOpenSocket(user.user);
             }
           }); // ========================================
@@ -47,6 +47,7 @@ class LoginForm extends Component {
       this.state.socket.on('github login', user => {
         if (user.user) {
           this.state.socket.emit('close');
+          this.popupWindow.close();
           this.props.updateUserAndOpenSocket(user.user);
         }
         this.props.history.push('/');
@@ -65,17 +66,9 @@ class LoginForm extends Component {
   }
 
   async handleSubmit(event) {
-    const loginType = event.target.name;
-    console.log(loginType);
     event.preventDefault();
     await this.setState({ usernameError: false, passwordError: false });
 
-    // if (loginType === 'githubLogin') {
-    //   axios
-    //     .get('/githubLogin')
-    //     .then(res => console.log(res))
-    //     .catch(error => console.log(error));
-    // } else {
     let loginError = 0;
     if (!this.state.username.trim()) {
       this.setState({ usernameError: true, usernameErrorMessage: 'Enter a valid username' });
@@ -95,7 +88,6 @@ class LoginForm extends Component {
         .then(res => {
           //console.log(res.data);
           if (res.data.authenticationError) {
-            //this.props.updateError(res.data.authenticationError);
             if (res.data.errorField === 'username') {
               this.setState({
                 usernameError: true,
@@ -129,12 +121,12 @@ class LoginForm extends Component {
   handleGithubLogin(event) {
     event.preventDefault();
     console.log(this.state.socket.id);
-    window.open(
+    this.popupWindow = window.open(
       `http://localhost:3001/githubLogin?socketId=${this.state.socket.id}`,
       '',
       `toolbar=no, location=no, directories=no, status=no, menubar=no, 
 scrollbars=no, resizable=no, copyhistory=no, width=${600}, 
-height=${600}, top=${window.innerHeight / 2 - 600 / 2}, left=${window.innerWidth / 2 - 600 / 2}`
+height=${600}, top=${window.innerHeight / 2 - 300}, left=${window.innerWidth / 2 - 300}`
     );
   }
 
@@ -178,18 +170,13 @@ height=${600}, top=${window.innerHeight / 2 - 600 / 2}, left=${window.innerWidth
               onClick={this.handleSubmit}
             />
           </div>
-          {/* github login */}
           <div>
-            {/* <a href="http://localhost:3001/githubLogin">
-              <p>Github Login</p>
-            </a> */}
-            <button
+            <input
               onClick={this.handleGithubLogin}
               type="button"
-              className="btn btn-primary btn-lg center"
-            >
-              Github Login
-            </button>
+              className="btn btn-outline-dark btn-lg center"
+              value="Github Login"
+            />
           </div>
         </form>
       </div>

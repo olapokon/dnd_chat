@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import uuidv4 from 'uuid/v4';
+import { withRouter } from 'react-router-dom';
 import './CharacterSheet.css';
 
 import CharacterInfo from './CharacterSheetComponents/CharacterInfo';
@@ -504,7 +505,8 @@ class CharacterSheet extends Component {
 
   handleDeleteCharacter() {
     this.props.deleteCharacter(this.state.uuid);
-    this.setState({ ...this.initialState });
+    this.props.history.push('/profile');
+    // this.setState({ ...this.initialState });
   }
 
   render() {
@@ -636,4 +638,4 @@ class CharacterSheet extends Component {
   }
 }
 
-export default CharacterSheet;
+export default withRouter(CharacterSheet);

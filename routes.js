@@ -41,7 +41,7 @@ module.exports = function(app, db, io) {
         return res.json(info);
       }
       req.logIn(user, function(err) {
-        console.log(user['_id']);
+        console.log(`the user ${user.username} with id ${user['_id']} has connected`);
         if (err) return next(err);
         return res.json({
           user: {
@@ -54,18 +54,7 @@ module.exports = function(app, db, io) {
     })(req, res, next);
   });
 
-  // =================================================================================================
   app.get('/githubLogin', addSocketIdtoSessionMiddleware, passport.authenticate('github'));
-
-  // app.get('/github/callback', passport.authenticate('github'), function(req, res) {
-  //   console.log(req.user);
-  //   return res.json({
-  //     user: {
-  //       username: user.username,
-  //       characterSheets: user.characterSheets
-  //     }
-  //   });
-  // });
 
   app.get('/github/callback', function(req, res, next) {
     passport.authenticate('github', function(err, user, info) {
@@ -83,18 +72,17 @@ module.exports = function(app, db, io) {
             username: user.username,
             characterSheets: user.characterSheets
           }
-        }); //=============================================================
+        });
         return res.json({
           message: 'logged in successfully'
         });
       });
     })(req, res, next);
   });
-  // =================================================================================================
 
   app.post('/register', function(req, res, next) {
     const hash = bcrypt.hashSync(req.body.password, 12);
-    User.findOne({ username: req.body.username }, function(err, user) {
+    User.findOne({ username: req.body.username, provider: 'local' }, function(err, user) {
       if (err) {
         return next(err);
       } else if (user) {
@@ -102,7 +90,10 @@ module.exports = function(app, db, io) {
       } else {
         const newUser = new User({
           username: req.body.username,
-          password: hash
+          password: hash,
+          characterSheets: [],
+          // providerId: '',
+          provider: 'local'
         });
         newUser.save(function(err, user) {
           if (err) {
@@ -115,6 +106,7 @@ module.exports = function(app, db, io) {
             }
             return res.json({
               user: {
+                _id: user['_id'],
                 username: user.username,
                 characterSheets: user.characterSheets
               }
@@ -126,7 +118,8 @@ module.exports = function(app, db, io) {
   });
 
   app.post('/characterSheet', checkIfAuthenticatedMiddleware, function(req, res, next) {
-    User.findOne({ username: req.user.username }, function(err, user) {
+    console.log('user id: ' + req.user['_id']);
+    User.findOne({ _id: req.user['_id'] }, function(err, user) {
       if (err) {
         return next(err);
       } else if (!user) {
@@ -152,6 +145,7 @@ module.exports = function(app, db, io) {
           res.json({
             message: 'Character sheet saved',
             user: {
+              _id: user['_id'],
               username: user.username,
               characterSheets: user.characterSheets
             }
@@ -162,7 +156,7 @@ module.exports = function(app, db, io) {
   });
 
   app.post('/characterSheetDelete', checkIfAuthenticatedMiddleware, function(req, res, next) {
-    User.findOne({ username: req.user.username }, function(err, user) {
+    User.findOne({ _id: req.user['_id'] }, function(err, user) {
       if (err) {
         return next(err);
       } else if (!user) {
@@ -181,6 +175,7 @@ module.exports = function(app, db, io) {
           res.json({
             message: 'Character sheet deleted',
             user: {
+              _id: user['_id'],
               username: user.username,
               characterSheets: user.characterSheets
             }

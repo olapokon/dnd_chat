@@ -67,16 +67,6 @@ io.use(
 
 socketio(io);
 
-// app.use(function(req, res, next) {
-//   //===================================================================
-//   console.log('middleware req.query below');
-//   console.log(req.query);
-//   console.log('middleware req.session below');
-//   console.log(req.session);
-//   req.session.socketId = req.query.socketId;
-//   next();
-// });
-
 //routes
 routes(app, db, io);
 

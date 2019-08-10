@@ -12,37 +12,40 @@ module.exports = function(app, db) {
     done(null, user._id);
   });
 
-  //mongoose deserialize
-  passport.deserializeUser((id, done) => {
-    User.findOne({ _id: id }, (err, doc) => {
+  passport.deserializeUser((_id, done) => {
+    User.findOne({ _id: _id }, (err, doc) => {
+      if (err) {
+        return done(err);
+      }
       done(null, doc);
     });
   });
 
-  //local strategy
   passport.use(
     new LocalStrategy(function(username, password, done) {
-      User.findOne({ username: username }, function(err, user) {
+      User.findOne({ username: username, provider: 'local' }, function(err, user) {
         console.log(`User ${username} attempted to log in.`);
         if (err) return done(err);
         if (!user)
           return done(null, false, {
-            authenticationError: 'Username does not exist',
+            authenticationError: 'User does not exist',
             errorField: 'username'
           });
-        if (!bcrypt.compareSync(password, user.password)) {
+        if (user.password && !bcrypt.compareSync(password, user.password)) {
           return done(null, false, {
             authenticationError: 'Incorrect password',
             errorField: 'password'
           });
+        } else if (user.password && bcrypt.compareSync(password, user.password)) {
+          console.log(`User ${username} has logged in.`);
+          return done(null, user);
         }
-        console.log(`User ${username} has logged in.`);
-        return done(null, user);
+      }).catch(error => {
+        done(error);
       });
     })
   );
 
-  // =================================================================================================
   passport.use(
     new GitHubStrategy(
       {
@@ -51,7 +54,7 @@ module.exports = function(app, db) {
         callbackURL: 'http://localhost:3001/github/callback'
       },
       function(accessToken, refreshToken, profile, done) {
-        User.findOne({ username: profile.username }, function(err, user) {
+        User.findOne({ providerId: profile.id }, function(err, user) {
           if (err) {
             return done(err);
           }
@@ -60,8 +63,9 @@ module.exports = function(app, db) {
           } else {
             const newUser = new User({
               username: profile.username,
-              id: profile.id,
-              provider: 'Github'
+              characterSheets: [],
+              providerId: profile.id,
+              provider: 'GitHub'
             });
             newUser.save(function(err, user) {
               if (err) {
@@ -75,5 +79,4 @@ module.exports = function(app, db) {
       }
     )
   );
-  // =================================================================================================
 };

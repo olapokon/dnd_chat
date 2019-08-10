@@ -25,14 +25,6 @@ class Games extends Component {
     this.props.history.push(`/chatroom/${newUuid}`);
   }
 
-  // handleCreate(event) {
-  //   event.preventDefault();
-  //   const newUuid = uuidv4();
-  //   this.props.createChatroom(newUuid, this.state.chatroomName);
-  //   this.props.updateCurrentChatroomKey(newUuid);
-  //   this.props.history.push('/chatroom');
-  // }
-
   render() {
     return (
       <form id="games">

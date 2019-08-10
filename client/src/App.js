@@ -49,12 +49,8 @@ class App extends Component {
       // socket: socket(),
       checkingLoginStatus: true,
       selectedCharacter: '',
-
-      // refactor
       currentChatroom: null,
       currentChatroomKey: null,
-
-      //error handling
       errorDisplay: false,
       errorMessage: ''
     };
@@ -95,7 +91,6 @@ class App extends Component {
     axios
       .get('/user')
       .then(res => {
-        //console.log(res.data);
         if (res.data.user) {
           if (!this.state.user || this.state.user.username !== res.data.user.username) {
             //console.log('User saved in the server session: ' + res.data.user.username);
@@ -104,7 +99,6 @@ class App extends Component {
             this.updateUser(res.data.user);
           }
         } else {
-          //console.log('No user in the server session');
           this.setState({
             user: null,
             loggedIn: false,
@@ -287,21 +281,6 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               deleteCharacter={this.deleteCharacter}
             />
-            {/* leitourgei */}
-            {/* <ProtectedRoute
-              path="/chatroom"
-              component={Chatroom}
-              loggedIn={this.state.loggedIn}
-              user={this.state.user}
-              updateUser={this.updateUser}
-              chatroomKey={this.state.currentChatroomKey}
-              currentChatroom={this.state.currentChatroom}
-              emitChatMessage={this.state.socket.emitChatMessage}
-              addChatMessageHandler={this.state.socket.addChatMessageHandler}
-              removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
-              enterChatroom={this.state.socket.enterChatroom}
-              exitChatroom={this.state.socket.exitChatroom}
-            /> */}
             {this.state.socket && (
               <ProtectedRouteChatroom
                 path="/chatroom/:chatroomKey"
