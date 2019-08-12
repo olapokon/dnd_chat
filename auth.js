@@ -53,7 +53,7 @@ module.exports = function(app, db) {
         // development
         // callbackURL: 'http://localhost:3001/github/callback'
         // production
-        callbackURL: '/github/callback'
+        callbackURL: 'https://morning-castle-644884.herokuapp.com/github/callback'
       },
       function(accessToken, refreshToken, profile, done) {
         User.findOne({ providerId: profile.id }, function(err, user) {
