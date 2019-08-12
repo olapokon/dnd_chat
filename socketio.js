@@ -7,10 +7,13 @@ const chatroomList = {
 };
 
 function leaveChatroom(io, socket, chatroomToLeave) {
+  console.log(
+    '===================================leaving chatroom==============================================================='
+  );
   socket.leave(chatroomToLeave);
   if (chatroomList[chatroomToLeave]) {
     console.log(socket.request.user.username + ' left ' + chatroomList[chatroomToLeave].name);
-    const index = chatroomList[chatroomToLeave].userList.indexOf(socket.request.user.username);
+    const index = chatroomList[chatroomToLeave].userList.indexOf(socket.request.user['_id']);
     chatroomList[chatroomToLeave].userList.splice(index, 1);
     //delete chatroom if empty
     if (chatroomList[chatroomToLeave].userList.length === 0) delete chatroomList[chatroomToLeave];
@@ -27,11 +30,17 @@ function leaveChatroom(io, socket, chatroomToLeave) {
 
 module.exports = function(io) {
   io.on('connection', function(socket) {
-    const username = socket.request.user.username ? socket.request.user.username : 'Guest';
+    let username;
+    if (socket.request.user.username) {
+      if (socket.request.user.provider === 'GitHub') {
+        username = socket.request.user.username + ' ' + '(github)';
+      } else {
+        username = socket.request.user.username;
+      }
+    } else {
+      username = 'Guest';
+    }
     console.log(username + ' has connected, socket id: ' + socket.id);
-
-    // console.log(socket.request.user);
-    // io.to().emit('chatroom data', chatroomList);
 
     let currentChatroom = '';
 
@@ -47,8 +56,11 @@ module.exports = function(io) {
         currentChatroom = chatroomKey;
 
         //add user to the users list for the new chatroom
-        if (!chatroomList[chatroomKey].userList.includes(socket.request.user.username)) {
-          chatroomList[chatroomKey].userList.push(socket.request.user.username);
+        console.log(`socket.request.user._id: ` + socket.request.user['_id']);
+        // const userId = socket.request.user['_id'];
+        if (!chatroomList[chatroomKey].userList.includes(username)) {
+          console.log(`${chatroomList[chatroomKey].userList} does not include ${username}`);
+          chatroomList[chatroomKey].userList.push(username);
         }
         //emit updated list
         io.to(currentChatroom).emit('chatroom data', chatroomList[currentChatroom]); /////////=========================================================
@@ -67,7 +79,7 @@ module.exports = function(io) {
         // chatroom does not exist
         console.log(`there is no chatroom with the key: ${chatroomKey}`);
         // io.to(`${socket.id}`).emit('chatroom not found');
-        socket.emit('chatroom error', 'chatroom does not exist');
+        socket.emit('chatroom error', 'This chatroom does not exist');
       }
     });
 
@@ -95,17 +107,8 @@ module.exports = function(io) {
         name: chatroomName,
         userList: []
       };
-      //emit updated list
+      //emit updated chatroom
       io.to(chatroomKey).emit('chatroom data', chatroomList[chatroomKey]);
-      // io.to(chatroomKey).emit('chatroom data', chatroomKey); /////////=========================================================
-      console.log(
-        `-----creating new chatroom: ${chatroomName} ----- chatroom key: ${chatroomKey}-----`
-      );
-      console.log('active chatrooms: ');
-      console.log(chatroomList);
-      console.log(
-        '--------------------------------------------------------------------------------------'
-      );
     });
 
     // close socket connection

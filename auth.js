@@ -24,7 +24,6 @@ module.exports = function(app, db) {
   passport.use(
     new LocalStrategy(function(username, password, done) {
       User.findOne({ username: username, provider: 'local' }, function(err, user) {
-        console.log(`User ${username} attempted to log in.`);
         if (err) return done(err);
         if (!user)
           return done(null, false, {

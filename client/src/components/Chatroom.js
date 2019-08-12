@@ -29,6 +29,7 @@ class Chatroom extends Component {
       // update main error?
       console.log(errorMessage);
       this.props.history.push('/');
+      this.props.updateError(errorMessage);
     });
   }
 
@@ -70,13 +71,15 @@ class Chatroom extends Component {
 
   //emit result of dice roll from DiceRoller
   handleDiceRoll(rollData) {
-    const modifier = rollData.modifier > 0 ? ` + ${rollData.modifier}` : '';
-    const messageData = {
-      type: 'dice roll',
-      chatroomName: this.props.currentChatroom.name,
-      message: `${rollData.rolls.length}${rollData.dieType}${modifier}: ${rollData.total}`
-    };
-    this.props.emitChatMessage(messageData);
+    if (this.props.currentChatroom) {
+      const modifier = rollData.modifier > 0 ? ` + ${rollData.modifier}` : '';
+      const messageData = {
+        type: 'dice roll',
+        chatroomName: this.props.currentChatroom.name,
+        message: `${rollData.rolls.length}${rollData.dieType}${modifier}: ${rollData.total}`
+      };
+      this.props.emitChatMessage(messageData);
+    }
   }
 
   //messageData arriving is an object with 'username', 'type', and 'message' keys
@@ -93,7 +96,12 @@ class Chatroom extends Component {
         <div className="row mx-0">
           <div className="col-sm-3">
             <div className="charSheet">
-              <CharacterSheetChat user={this.props.user} updateUser={this.props.updateUser} />
+              <CharacterSheetChat
+                user={this.props.user}
+                updateUser={this.props.updateUser}
+                requestInProgress={this.props.requestInProgress}
+                changeRequestInProgress={this.props.changeRequestInProgress}
+              />
             </div>
             <div className="diceRoller">
               <DiceRoller handleDiceRoll={this.handleDiceRoll} />

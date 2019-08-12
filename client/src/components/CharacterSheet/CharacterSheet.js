@@ -236,7 +236,6 @@ class CharacterSheet extends Component {
       ...this.state
     };
     delete charData.expAdd;
-
     //create new uuid if not already present (if character sheet has not been loaded from the database)
     if (!charData.uuid) {
       const newUuid = uuidv4();
@@ -246,7 +245,7 @@ class CharacterSheet extends Component {
       charData.uuid = newUuid;
     }
     //console.log(charData);
-
+    this.props.changeRequestInProgress(true);
     axios
       .post('/characterSheet', {
         ...charData
@@ -257,10 +256,13 @@ class CharacterSheet extends Component {
           //this.props.updateError(res.data.error);
           throw new Error(res.data.error);
         }
+        this.setState({});
         this.props.updateUser(res.data.user);
+        this.props.changeRequestInProgress(false);
       })
       .catch(error => {
         console.log(error);
+        this.props.changeRequestInProgress(false);
       });
   }
 
@@ -618,12 +620,12 @@ class CharacterSheet extends Component {
           handleChangeSpellCasting={this.handleChangeSpellCasting}
           addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
         />
-        {this.state.characterName.trim() && (
+        {this.state.characterName.trim() && !this.props.requestInProgress && (
           <div className="submitBtn leftFloat">
             <input className="btn btn-primary" type="submit" value="Save character" />
           </div>
         )}
-        {this.state.uuid && (
+        {this.state.uuid && !this.props.requestInProgress && (
           <div className="leftFloat">
             <input
               className="btn btn-danger"
