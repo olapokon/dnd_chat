@@ -129,7 +129,8 @@ class LoginForm extends Component {
       this.setState({ loginInProgress: true });
       console.log(this.state.socket.id);
       this.popupWindow = window.open(
-        `http://localhost:3001/githubLogin?socketId=${this.state.socket.id}`,
+        // for development, include the localhost path http://localhost:3001/githubLogin etc
+        `/githubLogin?socketId=${this.state.socket.id}`,
         '',
         `toolbar=no, location=no, directories=no, status=no, menubar=no, 
   scrollbars=no, resizable=no, copyhistory=no, width=${600}, 

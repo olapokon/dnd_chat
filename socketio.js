@@ -7,9 +7,6 @@ const chatroomList = {
 };
 
 function leaveChatroom(io, socket, chatroomToLeave) {
-  console.log(
-    '===================================leaving chatroom==============================================================='
-  );
   socket.leave(chatroomToLeave);
   if (chatroomList[chatroomToLeave]) {
     console.log(socket.request.user.username + ' left ' + chatroomList[chatroomToLeave].name);
