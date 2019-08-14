@@ -3,27 +3,30 @@ import React from 'react';
 function Spellcasting(props) {
   return (
     <div className="spellCastingWrapper wrapperSettings leftFloat">
-      <h3> SpellCasting</h3>
+      <h3> SpellCasting: </h3>
       <ul className="midCol">
         {props.spellCastingArray.map((spellCasting, idx) => {
           return (
             <li key={idx}>
+            <div className="row">
               <label>
-                SpellCasting Class
+                SpellCasting Class</label>
                 <input
-                  maxLength="36"
                   type="text"
+                  className="midInput form-control edgeBox btmBorder"
                   name="spellCastingClass"
                   onChange={function(event) {
                     props.handleChangeSpellCasting(event, idx);
                   }}
                   value={spellCasting.spellCastingClass}
                 />
-              </label>
               <label>
-                SpellCasting Ability
+                SpellCasting Ability 
+              </label>
+              &nbsp;
                 <select
                   name="spellCastingAbility"
+                  className="btn btn-light lightDropDown"
                   value={spellCasting.spellCastingAbility}
                   onChange={function(event) {
                     props.handleChangeSpellCasting(event, idx);
@@ -36,11 +39,12 @@ function Spellcasting(props) {
                   <option value="wis">WIS</option>
                   <option value="cha">CHA</option>
                 </select>
-              </label>
+                &nbsp;
               <label>
-                Spell Save DC
+                 Spell Save DC
+              </label>
                 <input
-                  className="smallInput"
+                  className="smallInput form-control edgeBox"
                   type="number"
                   name="spellSaveDc"
                   value={spellCasting.spellSaveDc}
@@ -48,11 +52,11 @@ function Spellcasting(props) {
                     props.handleChangeSpellCasting(event, idx);
                   }}
                 />
-              </label>
               <label>
                 Spell Attack Bonus
+              </label>
                 <input
-                  className="smallInput"
+                  className="smallInput form-control edgeBox"
                   type="number"
                   name="spellAttackBonus"
                   value={spellCasting.spellAttackBonus}
@@ -60,11 +64,11 @@ function Spellcasting(props) {
                     props.handleChangeSpellCasting(event, idx);
                   }}
                 />
-              </label>
               {idx === 0 && (
                 <button
                   type="button"
                   name="addSpellCasting"
+                  className="btn btn-dark edgeBtn"
                   onClick={function(event) {
                     props.addRemoveSpellCastingClass(event, idx);
                   }}
@@ -75,23 +79,26 @@ function Spellcasting(props) {
               {idx > 0 && (
                 <button
                   type="button"
+                  className="btn btn-danger edgeBtn"
                   name="removeSpellCasting"
                   onClick={function(event) {
                     props.addRemoveSpellCastingClass(event, idx);
                   }}
                 >
-                  Remove Class
+                  -
                 </button>
               )}
+              </div>
             </li>
           );
         })}
       </ul>
-      <h3> Spells </h3>
+      <h3> Spells</h3>
       <ul className="midCol">
         {props.spellsArray.map((spellLevel, idx) => {
           return (
             <li key={idx}>
+            <div className="row">
               <label>
                 Spell Level
                 <input
@@ -103,8 +110,9 @@ function Spellcasting(props) {
               </label>
               <label>
                 Slots
+              </label>
                 <input
-                  className="slots smallInput"
+                  className="slots smallInput form-control edgeBox"
                   type="number"
                   name="slots"
                   value={spellLevel.slots}
@@ -112,11 +120,11 @@ function Spellcasting(props) {
                     props.handleChangeSpells(event, idx);
                   }}
                 />
-              </label>
               <label>
                 Slots Expended
+              </label>
                 <input
-                  className="slots smallInput"
+                  className="slots smallInput form-control edgeBox"
                   type="number"
                   name="slotsExpended"
                   value={spellLevel.slotsExpended}
@@ -124,8 +132,8 @@ function Spellcasting(props) {
                     props.handleChangeSpells(event, idx);
                   }}
                 />
-              </label>
               <button
+                className="btn btn-dark edgeBtn"
                 type="button"
                 name="addSpell"
                 onClick={function(event) {
@@ -134,10 +142,12 @@ function Spellcasting(props) {
               >
                 Add Spell
               </button>
+              </div>
               <ul className="midCol">
                 {spellLevel.spellList.map((spell, spidx) => {
                   return (
                     <li key={spidx}>
+                    <div className="row">
                       <label>
                         <input
                           className="prepared"
@@ -151,8 +161,9 @@ function Spellcasting(props) {
                       </label>
                       <label>
                         Spell Name
+                      </label>
                         <input
-                          className="spellName"
+                          className="spellName btmBorder bigInput form-control"
                           type="text"
                           name="spellName"
                           value={spell.spellName}
@@ -160,21 +171,23 @@ function Spellcasting(props) {
                             props.handleChangeSpells(event, idx, spidx);
                           }}
                         />
-                      </label>
 
                       <button
                         type="button"
                         name="removeSpell"
+                        className="btn btn-danger edgeBtn"
                         onClick={function(event) {
                           props.handleChangeSpells(event, idx, spidx);
                         }}
                       >
-                        Remove Spell
+                       -
                       </button>
+                      </div>
                     </li>
                   );
                 })}
               </ul>
+              
             </li>
           );
         })}
