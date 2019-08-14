@@ -707,7 +707,7 @@ class CharacterSheet extends Component {
         </ul>
 
         <div>
-          <input className="btn-sm btn-primary" type="submit" value="Save character" />
+          <input className="charSaveBtn btn-sm btn-primary" type="submit" value="Save character" />
         </div>
       </form>
     );
