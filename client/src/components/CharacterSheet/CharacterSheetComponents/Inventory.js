@@ -2,81 +2,81 @@ import React from 'react';
 
 function Inventory(props) {
   return (
-    <div className="wrapperSettings leftFloat">
+    <div className="invWrapper wrapperSettings leftFloat">
       <div>
         <h3> Equipment </h3>
         <label>
-          Equiped Items
+          Equiped Items:
           <textarea
-            maxLength="1600"
             name="equipment"
-            className="equipment"
+            className="equipment equipedItems form-control tArea"
             value={props.equipment}
             onChange={props.handleChange}
           />
         </label>
         <label>
-          Inventory
+          Inventory:
           <textarea
-            maxLength="1600"
             name="inventory"
-            className="inventory"
+            className="inventory form-control tArea"
             value={props.inventory}
             onChange={props.handleChange}
           />
         </label>
         <div className="moneyWrapper">
           <h3> Money </h3>
+          <div className="row">
           <label>
-            CP
+            CP:
             <input
               type="number"
               name="copper"
-              className="equipment midInput"
+              className="equipment midInput form-control edgeBox"
               value={props.copper}
               onChange={props.handleChange}
             />
           </label>
           <label>
-            SP
+            SP:
             <input
               type="number"
               name="silver"
-              className="equipment midInput"
+              className="equipment midInput form-control edgeBox"
               value={props.silver}
               onChange={props.handleChange}
             />
           </label>
           <label>
-            EP
+            EP:
             <input
               type="number"
               name="electrum"
-              className="equipment midInput"
+              className="equipment midInput form-control edgeBox"
               value={props.electrum}
               onChange={props.handleChange}
             />
           </label>
           <label>
-            GP
+            GP:
             <input
               type="number"
               name="gold"
-              className="equipment midInput"
+              className="equipment midInput form-control edgeBox"
               value={props.gold}
               onChange={props.handleChange}
             />
           </label>
           <label>
-            PP
+            PP:
             <input
               type="number"
               name="platinum"
-              className="equipment midInput"
+              className="equipment midInput form-control edgeBox"
               value={props.platinum}
               onChange={props.handleChange}
             />
           </label>
+        </div>
         </div>
       </div>
     </div>
