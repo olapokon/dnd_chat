@@ -9,45 +9,45 @@ function PersonalityBackground(props) {
           <textarea
             maxLength="1600"
             name="background"
-            className="noMargin"
+            className="noMargin form-control tArea"
             value={props.background}
             onChange={props.handleChange}
           />
         </div>
         <h3> Personality </h3>
         <label>
-          Traits
-          <textarea
+          Traits:
+          <textarea 
             maxLength="1600"
-            name="personality"
-            value={props.personality}
-            onChange={props.handleChange}
-          />
+            name="personality" 
+            className="form-control tArea" 
+            value={props.personality} 
+            onChange={props.handleChange} />
         </label>
         <label>
-          Ideals
-          <textarea
+          Ideals:
+          <textarea 
             maxLength="1600"
-            name="ideals"
-            value={props.ideals}
-            onChange={props.handleChange}
-          />
+            name="ideals" 
+            className="form-control tArea" 
+            value={props.ideals} 
+            onChange={props.handleChange} />
         </label>
         <label>
-          Bonds
-          <textarea
+          Bonds:
+          <textarea 
             maxLength="1600"
-            name="bonds"
-            value={props.bonds}
-            onChange={props.handleChange}
-          />
+            name="bonds" 
+            className="form-control tArea" 
+            value={props.bonds} 
+            onChange={props.handleChange} />
         </label>
         <label>
-          Flaws
+          Flaws:
           <textarea
             maxLength="1600"
             name="flaws"
-            className="noMargin"
+            className="noMargin form-control tArea"
             value={props.flaws}
             onChange={props.handleChange}
           />
