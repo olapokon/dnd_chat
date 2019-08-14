@@ -20,7 +20,6 @@ require('dotenv').config();
 const port = process.env.PORT || 3001;
 
 app.use(helmet());
-// app.use(helmet({ hidePoweredBy: { setTo: 'ADF1823Y3HASDF8132' } }));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,14 +47,12 @@ app.use(
 //auth
 auth(app, db);
 
-//routes
-routes(app, db);
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
+function onAuthorizeFail(data, message, error, accept) {
+  if (error) {
+    throw new Error(message);
+  }
+  console.log('Unauthenticated user, opening guest socket');
+  accept(null, true);
 }
 
 //io
@@ -63,11 +60,22 @@ io.use(
   passportSocketIo.authorize({
     key: 'express.sid',
     secret: process.env.SESSION_SECRET,
-    store: sessionStore
+    store: sessionStore,
+    fail: onAuthorizeFail
   })
 );
 
 socketio(io);
+
+//routes
+routes(app, db, io);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 http.listen(port, function() {
   console.log(`Server is listening on port ${port}`);

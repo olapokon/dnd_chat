@@ -30,22 +30,30 @@ function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) 
   );
 }
 
+function ProtectedRouteChatroom({ path, component: Component, loggedIn, ...rest }) {
+  return (
+    <Route
+      exact
+      path={path}
+      render={props => (loggedIn ? <Component {...rest} {...props} /> : <Redirect to="/" />)}
+    />
+  );
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: null,
       loggedIn: false,
-      //socket: socket(),
-      checkingLoginStatus: true,
+      // socket: socket(),
+      loadingStatus: true,
       selectedCharacter: '',
-      //chatrooms
-      chatrooms: null,
-      chatroomKeys: null,
-      chatroomsList: null,
-      //error handling
+      currentChatroom: null,
+      currentChatroomKey: null,
       errorDisplay: false,
-      errorMessage: ''
+      errorMessage: '',
+      requestInProgress: false
     };
     this.getUser = this.getUser.bind(this);
     this.updateUserAndOpenSocket = this.updateUserAndOpenSocket.bind(this);
@@ -54,19 +62,23 @@ class App extends Component {
     this.selectCharacter = this.selectCharacter.bind(this);
     this.deleteCharacter = this.deleteCharacter.bind(this);
     this.updateError = this.updateError.bind(this);
+    // this.updateCurrentChatroomKey = this.updateCurrentChatroomKey.bind(this);
+    this.changeRequestInProgress = this.changeRequestInProgress.bind(this);
   }
 
   componentDidMount() {
     this.getUser();
+    // this.setState({
+    //   socket: socket()
+    // });
   }
 
   componentDidUpdate() {
     if (this.state.socket) {
       this.state.socket.removeChatroomListListener();
-      this.state.socket.addChatroomListListener(chatrooms => {
-        const chatroomsList = Object.values(chatrooms);
-        const chatroomKeys = Object.keys(chatrooms);
-        this.setState({ chatrooms, chatroomsList, chatroomKeys });
+      this.state.socket.addChatroomListListener(chatroom => {
+        const currentChatroom = chatroom;
+        this.setState({ currentChatroom });
       });
     }
   }
@@ -81,7 +93,6 @@ class App extends Component {
     axios
       .get('/user')
       .then(res => {
-        //console.log(res.data);
         if (res.data.user) {
           if (!this.state.user || this.state.user.username !== res.data.user.username) {
             //console.log('User saved in the server session: ' + res.data.user.username);
@@ -90,18 +101,17 @@ class App extends Component {
             this.updateUser(res.data.user);
           }
         } else {
-          //console.log('No user in the server session');
           this.setState({
             user: null,
             loggedIn: false,
-            checkingLoginStatus: false
+            loadingStatus: false
           });
         }
       })
       .catch(error => {
         console.log(error);
         this.setState({
-          checkingLoginStatus: false
+          loadingStatus: false
         });
       });
   }
@@ -112,15 +122,14 @@ class App extends Component {
       {
         user: user,
         loggedIn: true,
-        checkingLoginStatus: false,
+        loadingStatus: false,
         socket: socket()
       },
       () => {
         this.state.socket.removeChatroomListListener();
-        this.state.socket.addChatroomListListener(chatrooms => {
-          const chatroomsList = Object.values(chatrooms);
-          const chatroomKeys = Object.keys(chatrooms);
-          this.setState({ chatrooms, chatroomsList, chatroomKeys });
+        this.state.socket.addChatroomListListener(chatroom => {
+          const currentChatroom = chatroom;
+          this.setState({ currentChatroom });
         });
       }
     );
@@ -131,7 +140,7 @@ class App extends Component {
     this.setState({
       user: user,
       loggedIn: true,
-      checkingLoginStatus: false
+      loadingStatus: false
     });
   }
 
@@ -152,6 +161,12 @@ class App extends Component {
     );
   }
 
+  // ==========================================================================
+  // updateCurrentChatroomKey(currentChatroomKey) {
+  //   this.setState({ currentChatroomKey });
+  // }
+  // ==========================================================================
+
   logout(event) {
     event.preventDefault();
     axios
@@ -162,11 +177,9 @@ class App extends Component {
           this.setState({
             user: null,
             loggedIn: false,
-            checkingLoginStatus: false,
+            loadingStatus: false,
             selectedCharacter: '',
-            chatrooms: null,
-            chatroomKeys: null,
-            chatroomsList: null
+            currentChatroom: null
           });
           this.props.history.push(`/`);
         }
@@ -174,7 +187,7 @@ class App extends Component {
       .catch(error => {
         console.log(error);
         this.setState({
-          checkingLoginStatus: false
+          loadingStatus: false
         });
       });
   }
@@ -188,22 +201,33 @@ class App extends Component {
 
   deleteCharacter(id) {
     if (window.confirm('Are you sure you wish to permanently delete this character?')) {
+      this.changeRequestInProgress(true);
       axios
         .post('/characterSheetDelete', {
           uuid: id
         })
         .then(res => {
-          this.updateUser(res.data.user);
           console.log(res.data.message);
+          this.updateUser(res.data.user);
+          this.changeRequestInProgress(false);
         })
         .catch(error => {
           console.log(error);
+          this.changeRequestInProgress(false);
         });
     }
   }
 
+  changeRequestInProgress(status) {
+    if (status === true) {
+      this.setState({ requestInProgress: true });
+    } else {
+      this.setState({ requestInProgress: false });
+    }
+  }
+
   render() {
-    if (this.state.checkingLoginStatus) {
+    if (this.state.loadingStatus) {
       return (
         <div className="App">
           <NavBar loggedIn={this.state.loggedIn} logout={this.logout} />
@@ -220,7 +244,7 @@ class App extends Component {
             <div
               style={{
                 backgroundColor: 'fuchsia',
-                color: 'yellow',
+                color: 'white',
                 fontSize: '1em',
                 padding: '.5em'
               }}
@@ -260,6 +284,7 @@ class App extends Component {
               component={Games}
               loggedIn={this.state.loggedIn}
               createChatroom={this.state.socket && this.state.socket.createChatroom}
+              // updateCurrentChatroomKey={this.updateCurrentChatroomKey}
             />
             <ProtectedRoute
               path="/profile"
@@ -269,30 +294,27 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               deleteCharacter={this.deleteCharacter}
             />
-            {this.state.chatrooms &&
-              this.state.chatroomKeys.map(chatroom => {
-                return (
-                  <ProtectedRoute
-                    key={`${chatroom}route`}
-                    exact
-                    path={`/${chatroom}`}
-                    component={Chatroom}
-                    loggedIn={this.state.loggedIn}
-                    user={this.state.user}
-                    updateUser={this.updateUser}
-                    chatroomKey={chatroom}
-                    chatroomName={this.state.chatrooms[chatroom].name}
-                    emitChatMessage={this.state.socket.emitChatMessage}
-                    addChatMessageHandler={this.state.socket.addChatMessageHandler}
-                    removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
-                    //pass the users array of the particular chatroom as props
-                    //from the chatroomList object in state
-                    userList={this.state.chatrooms[chatroom].userList}
-                    enterChatroom={this.state.socket.enterChatroom}
-                    exitChatroom={this.state.socket.exitChatroom}
-                  />
-                );
-              })}
+            {this.state.socket && (
+              <ProtectedRouteChatroom
+                path="/chatroom/:chatroomKey"
+                component={Chatroom}
+                loggedIn={this.state.loggedIn}
+                user={this.state.user}
+                updateUser={this.updateUser}
+                chatroomKey={this.state.currentChatroomKey}
+                currentChatroom={this.state.currentChatroom}
+                emitChatMessage={this.state.socket.emitChatMessage}
+                addChatMessageHandler={this.state.socket.addChatMessageHandler}
+                removeChatMessageHandler={this.state.socket.removeChatMessageHandler}
+                enterChatroom={this.state.socket.enterChatroom}
+                exitChatroom={this.state.socket.exitChatroom}
+                addChatroomErrorListener={this.state.socket.addChatroomErrorListener}
+                removeChatroomErrorListener={this.state.socket.removeChatroomErrorListener}
+                updateError={this.updateError}
+                requestInProgress={this.state.requestInProgress}
+                changeRequestInProgress={this.changeRequestInProgress}
+              />
+            )}
             <ProtectedRoute
               path="/characterSheet"
               component={CharacterSheet}
@@ -302,6 +324,8 @@ class App extends Component {
               selectCharacter={this.selectCharacter}
               updateUser={this.updateUser}
               deleteCharacter={this.deleteCharacter}
+              requestInProgress={this.state.requestInProgress}
+              changeRequestInProgress={this.changeRequestInProgress}
             />
             <ProtectedRoute
               path="/characterSheetChat"
@@ -311,9 +335,10 @@ class App extends Component {
               selectedCharacter={this.state.selectedCharacter}
               selectCharacter={this.selectCharacter}
               updateUser={this.updateUser}
+              requestInProgress={this.state.requestInProgress}
+              changeRequestInProgress={this.changeRequestInProgress}
             />
-            {/* pithanws thelei allages to function kai conditions to NotFound route */}
-            <Route render={() => (!this.state.chatroomKeys ? null : <NotFound />)} />
+            <Route render={() => <NotFound />} />
           </Switch>
         </div>
       );

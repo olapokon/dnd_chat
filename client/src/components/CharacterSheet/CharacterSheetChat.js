@@ -246,7 +246,7 @@ class CharacterSheet extends Component {
       charData.uuid = newUuid;
     }
     //console.log(charData);
-
+    this.props.changeRequestInProgress(true);
     axios
       .post('/characterSheet', {
         ...charData
@@ -258,9 +258,11 @@ class CharacterSheet extends Component {
           throw new Error(res.data.error);
         }
         this.props.updateUser(res.data.user);
+        this.props.changeRequestInProgress(false);
       })
       .catch(error => {
         console.log(error);
+        this.props.changeRequestInProgress(false);
       });
   }
 
@@ -706,7 +708,7 @@ class CharacterSheet extends Component {
           </li>
         </ul>
 
-        {this.state.characterName.trim() && (
+        {this.state.characterName.trim() && !this.props.requestInProgress && (
           <div>
             <input className="btn-sm btn-primary" type="submit" value="Save" />
           </div>
