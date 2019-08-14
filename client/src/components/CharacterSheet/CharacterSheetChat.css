@@ -1,12 +1,25 @@
-.sheetCompBtn {
+.characterSheetChat .sheetCompBtn {
   width: 8em;
   height: 3em;
-  border-radius: 0px !important;
+  border-radius: 0px;
+}
+
+.combatWrapper {
+   width:100%;
+}
+
+.invWrapper .equipedItems{
+  width:18em;
+}
+
+.invWrapper .inventory{
+  width:18em;
 }
 
 .chatSheetCompToggle {
   max-height: 47em;
   margin-left: 10em;
+  padding: 0.5em 2em 0.5em 0.5em;
   position: absolute;
   display: inline-block;
   background: white;
@@ -16,7 +29,7 @@
   overflow-y: auto;
 }
 
-.chatSheetCompToggle h3,h4{
+.chatSheetCompToggle {
    font-family: "Times New Roman";
 }
 
@@ -24,12 +37,27 @@
   padding-top: 0.2em;
 }
 
-.charSelect{
+.characterSheetChat .charSelect{
   width: 11em;
   margin-left: 0.5em;
+  border-radius: 0px;
+}
+
+.characterSheetChat .charSaveBtn{
+  border-radius: 0px;
+  height:2.5em;
 }
 
 .charSelect option{
   background-color: white;
 }
+
+.edgeBtn {
+  height:2em;
+}
+
+#feats{
+  width:30em;
+}
+
 
