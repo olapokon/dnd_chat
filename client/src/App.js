@@ -315,7 +315,6 @@ class App extends Component {
                 changeRequestInProgress={this.changeRequestInProgress}
               />
             )}
-            )} */}
             <ProtectedRoute
               path="/characterSheet"
               component={CharacterSheet}
