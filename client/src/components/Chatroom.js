@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import DiceRoller from './DiceRoller';
 import './Chatroom.css';
 
@@ -19,8 +20,17 @@ class Chatroom extends Component {
 
   //lifecycle methods
   componentDidMount() {
-    this.props.enterChatroom(this.props.chatroomKey);
+    if (this.props.match.params.chatroomKey) {
+      console.log(`parameters: ${this.props.match.params.chatroomKey}`);
+    }
+    this.props.enterChatroom(this.props.match.params.chatroomKey);
     this.props.addChatMessageHandler(this.appendMessage);
+    this.props.addChatroomErrorListener(errorMessage => {
+      // update main error?
+      console.log(errorMessage);
+      this.props.history.push('/');
+      this.props.updateError(errorMessage);
+    });
   }
 
   componentWillUpdate() {
@@ -37,7 +47,8 @@ class Chatroom extends Component {
 
   componentWillUnmount() {
     this.props.removeChatMessageHandler();
-    this.props.exitChatroom(this.props.chatroomKey);
+    this.props.removeChatroomErrorListener();
+    this.props.exitChatroom(this.props.match.params.chatroomKey);
   }
 
   //other methods
@@ -60,13 +71,15 @@ class Chatroom extends Component {
 
   //emit result of dice roll from DiceRoller
   handleDiceRoll(rollData) {
-    const modifier = rollData.modifier > 0 ? ` + ${rollData.modifier}` : '';
-    const messageData = {
-      type: 'dice roll',
-      chatroomName: this.props.chatroomName,
-      message: `${rollData.rolls.length}${rollData.dieType}${modifier}: ${rollData.total}`
-    };
-    this.props.emitChatMessage(messageData);
+    if (this.props.currentChatroom) {
+      const modifier = rollData.modifier > 0 ? ` + ${rollData.modifier}` : '';
+      const messageData = {
+        type: 'dice roll',
+        chatroomName: this.props.currentChatroom.name,
+        message: `${rollData.rolls.length}${rollData.dieType}${modifier}: ${rollData.total}`
+      };
+      this.props.emitChatMessage(messageData);
+    }
   }
 
   //messageData arriving is an object with 'username', 'type', and 'message' keys
@@ -83,7 +96,12 @@ class Chatroom extends Component {
         <div className="row mx-0">
           <div className="col-sm-3">
             <div className="charSheet">
-              <CharacterSheetChat user={this.props.user} updateUser={this.props.updateUser} />
+              <CharacterSheetChat
+                user={this.props.user}
+                updateUser={this.props.updateUser}
+                requestInProgress={this.props.requestInProgress}
+                changeRequestInProgress={this.props.changeRequestInProgress}
+              />
             </div>
             <div className="diceRoller">
               <DiceRoller handleDiceRoll={this.handleDiceRoll} />
@@ -92,38 +110,43 @@ class Chatroom extends Component {
           <div className="chatContainer col-9">
             <div id="chatroomUsercount">
               <h3>
-                Chatroom: {this.props.chatroomName || 'Default chatroom'} User count:{' '}
-                {this.props.userList.length}
+                Chatroom: {this.props.currentChatroom ? this.props.currentChatroom.name : ''} User
+                count:{' '}
+                {this.props.currentChatroom &&
+                  this.props.currentChatroom.userList &&
+                  this.props.currentChatroom.userList.length}
               </h3>
             </div>
             <div className="chatDisplay" ref={node => (this.node = node)}>
-                {this.state.chatHistory.map((message, i) => {
-                  if (message.type === 'user message') {
-                    return (
-                        <div key={i} className="messageWrapper">
-                          <div className="message">{`${message.username}: ${message.message}`}</div>
-                        </div>
-                    );
-                  } else if (message.type === 'dice roll') {
-                    return (
-                      <div key={i} className="message" style={{ color: 'blue' }}>{`${message.username} rolls ${
-                        message.message
-                      }.`}</div>
-                    );
-                  } else if (message.type === 'chat notification') {
-                    return (
-                      <div key={i} className="message" style={{ color: 'orange' }}>{`${message.username} ${
+              {this.state.chatHistory.map((message, i) => {
+                if (message.type === 'user message') {
+                  return (
+                    <div key={i} className="messageWrapper">
+                      <div className="message">{`${message.username}: ${message.message}`}</div>
+                    </div>
+                  );
+                } else if (message.type === 'dice roll') {
+                  return (
+                    <div key={i} className="message" style={{ color: 'blue' }}>{`${
+                      message.username
+                    } rolls ${message.message}.`}</div>
+                  );
+                } else if (message.type === 'chat notification') {
+                  return (
+                    <div key={i} className="message" style={{ color: 'orange' }}>{`${
+                      message.username
+                    } ${message.message}`}</div>
+                  );
+                } else {
+                  return (
+                    <div className="messageWrapper">
+                      <div key={i} className="message">{`${message.username}: ${
                         message.message
                       }`}</div>
-                    );
-                  } else {
-                    return (
-                        <div className="messageWrapper">
-                          <div key={i} className="message">{`${message.username}: ${message.message}`}</div>
-                        </div>
-                    );
-                  }
-                })}
+                    </div>
+                  );
+                }
+              })}
             </div>
             <form className="input-group mb-3" onSubmit={this.handleSubmit}>
               <input
@@ -148,4 +171,4 @@ class Chatroom extends Component {
   }
 }
 
-export default Chatroom;
+export default withRouter(Chatroom);

@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
 
 export default function() {
-  //const socket = io('http://localhost:3001/');
   const socket = io();
 
   function addChatMessageHandler(callback) {
@@ -25,13 +24,32 @@ export default function() {
     socket.emit('chat message', messageData);
   }
 
+  // ======================================================================
   function addChatroomListListener(callback) {
-    socket.on('chatroom list', callback);
+    socket.on('chatroom data', callback);
   }
 
   function removeChatroomListListener() {
-    socket.off('chatroom list');
+    socket.off('chatroom data');
   }
+
+  function addChatroomErrorListener(callback) {
+    socket.on('chatroom error', callback);
+  }
+
+  function removeChatroomErrorListener() {
+    socket.off('chatroom error');
+  }
+  // ======================================================================
+  // github login
+  function addGithubLoginListener(callback) {
+    socket.on('github login', callback);
+  }
+
+  function removeGithubLoginListener(callback) {
+    socket.off('github login');
+  }
+  // ======================================================================
 
   function createChatroom(chatroomKey, chatroomName) {
     socket.emit('create chatroom', { chatroomKey, chatroomName });
@@ -45,13 +63,18 @@ export default function() {
     emitChatMessage,
     addChatMessageHandler,
     removeChatMessageHandler,
-
-    //chatrooms
     enterChatroom,
     exitChatroom,
     addChatroomListListener,
     removeChatroomListListener,
+    createChatroom,
 
-    createChatroom
+    addChatroomErrorListener,
+    removeChatroomErrorListener,
+
+    addGithubLoginListener,
+    removeGithubLoginListener,
+
+    socketId: socket.id
   };
 }

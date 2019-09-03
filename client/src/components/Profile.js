@@ -32,7 +32,7 @@ function Profile(props) {
                     {charSheet.charClassArray.length > 1
                       ? (function() {
                           let charClass = '';
-                          /* maximum 4 classes displayd for multiclass characters */
+                          /* maximum 4 classes displayed for multiclass characters */
                           const maximumClassesDisplayed =
                             charSheet.charClassArray.length > 4
                               ? 4

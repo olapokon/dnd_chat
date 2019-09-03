@@ -55,10 +55,12 @@ const CharacterSheetSchema = new mongoose.Schema({
       level: Number,
       slots: Number,
       slotsExpended: Number,
-      spellList: [{
-        spellName: String,
-        isPrepared: Boolean
-      }]
+      spellList: [
+        {
+          spellName: String,
+          isPrepared: Boolean
+        }
+      ]
     }
   ],
   equipment: { type: String, default: '' },
