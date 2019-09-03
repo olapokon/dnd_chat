@@ -5,11 +5,11 @@ function PersonalityBackground(props) {
     <div className="personalityBackground wrapperSettings leftFloat">
       <div>
         <div>
-          <h3>Background: </h3>
+          <h3>Background</h3>
           <textarea
             maxLength="1600"
             name="background"
-            className="noMargin"
+            className="noMargin form-control tArea"
             value={props.background}
             onChange={props.handleChange}
           />
@@ -17,37 +17,37 @@ function PersonalityBackground(props) {
         <h3> Personality </h3>
         <label>
           Traits:
-          <textarea
+          <textarea 
             maxLength="1600"
-            name="personality"
-            value={props.personality}
-            onChange={props.handleChange}
-          />
+            name="personality" 
+            className="form-control tArea" 
+            value={props.personality} 
+            onChange={props.handleChange} />
         </label>
         <label>
           Ideals:
-          <textarea
+          <textarea 
             maxLength="1600"
-            name="ideals"
-            value={props.ideals}
-            onChange={props.handleChange}
-          />
+            name="ideals" 
+            className="form-control tArea" 
+            value={props.ideals} 
+            onChange={props.handleChange} />
         </label>
         <label>
           Bonds:
-          <textarea
+          <textarea 
             maxLength="1600"
-            name="bonds"
-            value={props.bonds}
-            onChange={props.handleChange}
-          />
+            name="bonds" 
+            className="form-control tArea" 
+            value={props.bonds} 
+            onChange={props.handleChange} />
         </label>
         <label>
           Flaws:
           <textarea
             maxLength="1600"
             name="flaws"
-            className="noMargin"
+            className="noMargin form-control tArea"
             value={props.flaws}
             onChange={props.handleChange}
           />

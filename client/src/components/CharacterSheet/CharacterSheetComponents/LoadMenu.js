@@ -3,7 +3,7 @@ import React from 'react';
 function LoadMenu({ user, handleLoad }) {
   return (
     <div id="loadMenu">
-      <select name="loadMenu" onChange={handleLoad}>
+      <select name="loadMenu" class="charSelect btn btn-light" onChange={handleLoad}>
         <option>Choose Character</option>
         <option value="new">Create New Character</option>
         {user &&

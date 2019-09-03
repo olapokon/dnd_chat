@@ -513,6 +513,7 @@ class CharacterSheet extends Component {
 
   render() {
     return (
+      <div className="container">
       <form className="characterSheet" onSubmit={this.handleSubmit}>
         <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
 
@@ -599,7 +600,7 @@ class CharacterSheet extends Component {
           <div className="hitDiceWrapper wrapperSettings">
             <label>
               Hit Dice:
-              <textarea name="hitDice" value={this.state.hitDice} onChange={this.handleChange} />
+              <textarea name="hitDice" className="form-control tArea" value={this.state.hitDice} onChange={this.handleChange} />
             </label>
           </div>
         </div>
@@ -636,6 +637,7 @@ class CharacterSheet extends Component {
           </div>
         )}
       </form>
+      </div>
     );
   }
 }

@@ -24,11 +24,13 @@ const skills = [
 function Skills(props) {
   return (
     <div className="skills leftFloat">
-      <h3> Skills: </h3>
+      <h3> Skills</h3>
       <ul>
         {skills.map(skill => {
           return (
-            <li key={skill.name}>
+            <li key={skill.name} className="skillList">
+            <div className="row">
+                <div class="form-check">
               <input
                 className="skillBox"
                 type="checkbox"
@@ -36,8 +38,9 @@ function Skills(props) {
                 onChange={props.handleChange}
                 checked={props.proficienciesArray.includes(skill.name)}
               />
+              </div>
               <input
-                className="skill smallInput"
+                className="skill smallInput form-control edgeBox"
                 type="number"
                 value={props.calculateModifier(
                   props[skill.relatedAttribute],
@@ -46,6 +49,7 @@ function Skills(props) {
                 readOnly
               />
               <label>{skill.displayName}</label>
+              </div>
             </li>
           );
         })}

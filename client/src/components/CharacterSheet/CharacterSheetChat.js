@@ -639,7 +639,7 @@ class CharacterSheet extends Component {
           <li className="sheetListComponent">
             <button
               name="characterInfo"
-              className="sheetCompBtn"
+              className="btn btn-dark sheetCompBtn"
               type="button"
               onClick={this.handleToggle}
             >
@@ -649,7 +649,7 @@ class CharacterSheet extends Component {
           <li className="sheetListComponent">
             <button
               name="abilityScores"
-              className="sheetCompBtn"
+              className="btn btn-dark sheetCompBtn"
               type="button"
               onClick={this.handleToggle}
             >
@@ -659,7 +659,7 @@ class CharacterSheet extends Component {
           <li className="sheetListComponent">
             <button
               name="skills"
-              className="sheetCompBtn"
+              className="btn btn-dark sheetCompBtn"
               type="button"
               onClick={this.handleToggle}
             >
@@ -669,7 +669,7 @@ class CharacterSheet extends Component {
           <li className="sheetListComponent">
             <button
               name="combatStats"
-              className="sheetCompBtn"
+              className="btn btn-dark sheetCompBtn"
               type="button"
               onClick={this.handleToggle}
             >
@@ -679,7 +679,7 @@ class CharacterSheet extends Component {
           <li className="sheetListComponent">
             <button
               name="inventory"
-              className="sheetCompBtn"
+              className="btn btn-dark sheetCompBtn"
               type="button"
               onClick={this.handleToggle}
             >
@@ -689,7 +689,7 @@ class CharacterSheet extends Component {
           <li className="sheetListComponent">
             <button
               name="personalityBackground"
-              className="sheetCompBtn"
+              className="btn btn-dark sheetCompBtn"
               type="button"
               onClick={this.handleToggle}
             >
@@ -699,7 +699,7 @@ class CharacterSheet extends Component {
           <li className="sheetListComponent">
             <button
               name="spellcasting"
-              className="sheetCompBtn"
+              className="btn btn-dark sheetCompBtn"
               type="button"
               onClick={this.handleToggle}
             >
@@ -710,7 +710,7 @@ class CharacterSheet extends Component {
 
         {this.state.characterName.trim() && !this.props.requestInProgress && (
           <div>
-            <input className="btn-sm btn-primary" type="submit" value="Save" />
+            <input className="charSaveBtn btn-sm btn-primary" type="submit" value="Save character" />
           </div>
         )}
       </form>

@@ -4,8 +4,8 @@ function CombatStats(props) {
   return (
     <div className="combatWrapper wrapperSettings leftFloat">
       <h3>Combat</h3>
-      <div className="acStatsWrapper leftFloat">
-        <ul className="acStatsList">
+      <div className="acStatsWrapper leftFloat ">
+        <ul className="acStatsList row">
           <li>
             <label>
               Armor Class:
@@ -13,7 +13,7 @@ function CombatStats(props) {
                 <input
                   type="number"
                   name="armorClass"
-                  className="smallInput"
+                  className="smallInput form-control edgeBox"
                   value={props.armorClass}
                   onChange={props.handleChange}
                 />
@@ -27,7 +27,7 @@ function CombatStats(props) {
                 <input
                   type="number"
                   name="initiative"
-                  className="smallInput"
+                  className="smallInput form-control edgeBox"
                   value={props.initiative}
                   onChange={props.handleChange}
                 />
@@ -41,11 +41,10 @@ function CombatStats(props) {
                 <input
                   type="number"
                   name="speed"
-                  className="smallInput"
+                  className="smallInput form-control edgeBox"
                   value={props.speed}
                   onChange={props.handleChange}
                 />
-                ft
               </div>
             </label>
           </li>
@@ -53,74 +52,95 @@ function CombatStats(props) {
       </div>
       <div className="wrapperSettings">
         Hit Points
-        <ul>
+        <ul className="hpList">
           <li>
+          <div className="row">
             <label>Maximum</label>
             <input
               type="number"
               name="hpMax"
-              className="midInput"
+              className="midInput form-control edgeBox"
               value={props.hpMax}
               onChange={props.handleChange}
             />
+            </div>
           </li>
           <li>
+          <div className="row">
             <label>Current</label>
             <input
               type="number"
               name="hpCurrent"
-              className="midInput"
+              className="midInput form-control edgeBox"
               value={props.hpCurrent}
               onChange={props.handleChange}
             />
+            </div>
           </li>
           <li>
+          <div className="row">
             <label>Temporary</label>
             <input
               type="number"
               name="hpTemp"
               id="hpTemp"
-              className="midInput"
+              className="midInput form-control edgeBox"
               value={props.hpTemp}
               onChange={props.handleChange}
             />
+            </div>
           </li>
         </ul>
       </div>
-      <div className="attackWrapper">
-        <h4> Attack and Spellcasting: </h4>
-        <ul className="attacksList">
-          <button type="button" onClick={props.addAttack}>
-            Add attack
-          </button>
+      <div className="attackWrapperTable">
+        <h4> Attack and Spellcasting</h4>
+        
+        <table className="attacksTable">
+          <thead>
+            <tr>
+              <th>Name(item/spell)</th>
+              <th className="smallCol wrapHeader">Attack Bonus</th>
+              <th className="dmgCol">Damage (No/Die)</th>
+              <th className="dmgCol">Sec Effect (No/Die)</th>
+              <th className="smallCol wrapHeader">Damage Bonus</th>
+              <th>Range</th>
+              <th></th>
+              <th className="rollAttackHeader"></th>
+            </tr>
+          </thead>
+          <tbody>
           {props.attacksArray.map((attack, idx) => {
             return (
-              <li key={idx}>
-                <label>Name(item/spell)</label>
+              <tr key={idx}>
+              <td>
+                
                 <input
                   type="text"
                   name="attackName"
-                  className="attack"
+                  className="attackName btmBorder bigInput form-control"
                   value={attack.attackName}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
                   }}
                 />
-                <label>Attack Bonus</label>
+                </td>
+                <td>
                 <input
                   type="number"
                   name="attackBonus"
-                  className="attack smallInput"
+                  className="attackBonus smallInput form-control edgeBox"
                   value={attack.attackBonus}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
                   }}
                 />
-                <label>Damage Primary</label>
+                </td>
+                <td className="attackCol">
+                <div className="row">
                 <input
                   type="number"
                   name="atkDmgDno"
-                  className="attack smallInput"
+                  className="attackDice smallInput form-control edgeBox"
                   value={attack.atkDmgDno}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
@@ -128,14 +148,14 @@ function CombatStats(props) {
                 />
                 <select
                   name="atkDmgDice"
-                  className="attack"
+                  className="attackDice btn btn-light lightDropDown"
                   value={attack.atkDmgDice}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
                   }}
                 >
                   <option value="" disabled>
-                    Dmg Die
+                    Die
                   </option>
                   <option value="d4">d4</option>
                   <option value="d6">d6</option>
@@ -143,13 +163,15 @@ function CombatStats(props) {
                   <option value="d10">d10</option>
                   <option value="d12">d12</option>
                   <option value="d20">d20</option>
-                  <option value="d100">d100</option>
                 </select>
-                <label>Damage Secondary</label>
+                </div>
+                </td>
+                <td className="attackCol">
+                <div className="row">
                 <input
                   type="number"
                   name="atkDmgDnoSec"
-                  className="attack smallInput"
+                  className="attackDice smallInput form-control edgeBox"
                   value={attack.atkDmgDnoSec}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
@@ -157,14 +179,14 @@ function CombatStats(props) {
                 />
                 <select
                   name="atkDmgDiceSec"
-                  className="attack"
+                  className="attackDice btn btn-light lightDropDown"
                   value={attack.atkDmgDiceSec}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
                   }}
                 >
                   <option value="" disabled>
-                    Dmg Die
+                    Die
                   </option>
                   <option value="d4">d4</option>
                   <option value="d6">d6</option>
@@ -172,60 +194,65 @@ function CombatStats(props) {
                   <option value="d10">d10</option>
                   <option value="d12">d12</option>
                   <option value="d20">d20</option>
-                  <option value="d100">d100</option>
                 </select>
-                <label>Damage Bonus</label>
+                </div>
+                </td>
+                <td >
                 <input
                   type="number"
                   name="damageBonus"
-                  className="attack smallInput"
+                  className="dmgBonus smallInput form-control edgeBox"
                   value={attack.damageBonus}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
                   }}
                 />
-                <label>Damage Type</label>
-                <input
-                  type="text"
-                  name="damageType"
-                  className="attack"
-                  value={attack.damageType}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <label>Range</label>
+                </td>
+                
+                <td>
+                <div className="row">
                 <input
                   type="number"
                   name="attackRange"
-                  className="attack smallInput"
+                  className="atkRange midInput form-control edgeBox"
                   value={attack.attackRange}
                   onChange={function(event) {
                     props.handleChangeAttack(event, idx);
                   }}
                 />
-                ft
+                </div>
+                </td>
+                <td>
                 {idx > 0 && (
-                  <button type="button" onClick={props.removeAttack.bind(null, idx)}>
-                    Remove attack
+                  <button type="button" className="btn btn-danger edgeBtn" onClick={props.removeAttack.bind(null, idx)}>
+                    -
                   </button>
                 )}
-              </li>
+                 {idx == 0 && (
+                  <button type="button" className="btn btn-dark edgeBtn" onClick={props.addAttack}>
+                    +
+                  </button>
+                  )}
+                </td>
+                <td className="rollAttack">
+                </td>
+              </tr>
             );
           })}
-        </ul>
+          </tbody>
+        </table>
       </div>
       <div className="featsAndTraits">
         <h3>Features and Traits: </h3>
         <textarea
-          maxLength="1600"
           name="features"
-          className="feats"
+          id="feats"
+          className="feats form-control tArea"
           value={props.features}
           onChange={props.handleChange}
         />
       </div>
-      <div className="deathSavesWrapper">
+      <div className="deathSavesWrapper leftFload">
         <h3>Death Saves</h3>
         <ul>
           <li>
@@ -290,6 +317,7 @@ function CombatStats(props) {
           </li>
         </ul>
       </div>
+
     </div>
   );
 }
