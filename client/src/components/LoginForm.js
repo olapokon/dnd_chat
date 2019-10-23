@@ -125,7 +125,7 @@ class LoginForm extends Component {
   handleGithubLogin(event) {
     event.preventDefault();
     if (!this.state.loginInProgress) {
-      this.setState({ loginInProgress: true });
+      // this.setState({ loginInProgress: true });
       console.log(this.state.socket.id);
       this.popupWindow = window.open(
         // for development, include the localhost path http://localhost:3001/githubLogin etc
