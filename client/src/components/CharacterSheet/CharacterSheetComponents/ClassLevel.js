@@ -4,7 +4,7 @@ function ClassLevel(props) {
   return (
     <div className="container character">
       <div className="container classLevel">
-        <h3 className="heading classLevel__heading"> Class and Level </h3>
+        <h3 className="heading classLevel__heading heading--3"> Class and Level </h3>
         <ul>
           {props.charClassArray.map((char, idx) => {
             return (
@@ -33,7 +33,7 @@ function ClassLevel(props) {
                   {idx === 0 && (
                     <button
                       type="button"
-                      className="btn btn__addClass btn--dark btn--edge"
+                      className="btn btn__addClass btn--dark "
                       onClick={props.addClass}
                     >
                       Add class
@@ -42,7 +42,7 @@ function ClassLevel(props) {
                   {idx > 0 && (
                     <button
                       type="button"
-                      className="btn btn__removeClass btn--red btn--edge"
+                      className="btn btn__removeClass btn--danger "
                       onClick={props.removeClass.bind(null, idx)}
                     >
                       -
@@ -57,7 +57,7 @@ function ClassLevel(props) {
       <div className="container experience">
         <label className="label totalLevel__label">Total Level:</label>
         <input
-          className="input totalLevel__input input--small input--readonly input--noBorder"
+          className="input totalLevel__input input--small input--clear"
           type="number"
           name="totalLevel"
           value={props.charClassArray[0].level && props.calculateTotalLevel()}
@@ -68,7 +68,7 @@ function ClassLevel(props) {
             <label className="label experience__label">Experience:</label>
             <input
               type="number"
-              className="input experience__input input--mid input--edge input--btmBorder"
+              className="input experience__input input--mid  input--btmBorder"
               name="exp"
               value={props.exp}
               onChange={props.handleChange}
@@ -79,13 +79,13 @@ function ClassLevel(props) {
             <input
               type="number"
               name="expAdd"
-              className="input addExp__input input--mid input--edge input--btmBorder"
+              className="input addExp__input input--mid  input--btmBorder"
               value={props.expAdd}
               onChange={props.handleChange}
             />
             <button
               type="button"
-              className="btn addExp__btn btn--dark btn--edge"
+              className="btn addExp__btn btn--dark "
               onClick={props.addExperience}
             >
               Add experience
@@ -95,7 +95,7 @@ function ClassLevel(props) {
             <label className="label nextLevelExp__label">Experience To Next Level:</label>
             <input
               type="number"
-              className="input nextLevelExp__input input--big input--readonly input--noBorder"
+              className="input nextLevelExp__input input--big input--clear"
               name="exp"
               value={props.calculateExpToNextLevel()}
               readOnly

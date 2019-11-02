@@ -4,7 +4,7 @@ function Spellcasting(props) {
   return (
     <div className="container spellCastingBlock">
       <div className="container spellCasting">
-        <h3 className="heading spellCasting__heading"> SpellCasting </h3>
+        <h3 className="heading spellCasting__heading heading--3"> SpellCasting </h3>
         <ul className="list spellCasting__list">
           {props.spellCastingArray.map((spellCasting, idx) => {
             return (
@@ -13,7 +13,7 @@ function Spellcasting(props) {
                   <label className="label spellCasting__label">SpellCasting Class</label>
                   <input
                     type="text"
-                    className="input spellCasting__input input--mid input--edge input--btmBorder"
+                    className="input spellCasting__input input--mid  input--btmBorder"
                     name="spellCastingClass"
                     onChange={function(event) {
                       props.handleChangeSpellCasting(event, idx);
@@ -40,7 +40,7 @@ function Spellcasting(props) {
                   &nbsp;
                   <label className="label spellCasting__label">Spell Save DC</label>
                   <input
-                    className="input spellCasting__input input--small input--edge"
+                    className="input spellCasting__input input--small "
                     type="number"
                     name="spellSaveDc"
                     value={spellCasting.spellSaveDc}
@@ -50,7 +50,7 @@ function Spellcasting(props) {
                   />
                   <label className="label spellCasting__label">Spell Attack Bonus</label>
                   <input
-                    className="input spellCasting__input input--small input--edge"
+                    className="input spellCasting__input input--small "
                     type="number"
                     name="spellAttackBonus"
                     value={spellCasting.spellAttackBonus}
@@ -62,7 +62,7 @@ function Spellcasting(props) {
                     <button
                       type="button"
                       name="addSpellCasting"
-                      className="btn btn--dark btn--edge"
+                      className="btn btn--dark "
                       onClick={function(event) {
                         props.addRemoveSpellCastingClass(event, idx);
                       }}
@@ -73,7 +73,7 @@ function Spellcasting(props) {
                   {idx > 0 && (
                     <button
                       type="button"
-                      className="btn btn--red btn--edge"
+                      className="btn btn--danger "
                       name="removeSpellCasting"
                       onClick={function(event) {
                         props.addRemoveSpellCastingClass(event, idx);
@@ -89,7 +89,7 @@ function Spellcasting(props) {
         </ul>
       </div>
       <div className="container spells">
-        <h3 className="heading spells__heading"> Spells</h3>
+        <h3 className="heading spells__heading heading--3"> Spells</h3>
         <ul className="list spells__list">
           {props.spellsArray.map((spellLevel, idx) => {
             return (
@@ -98,7 +98,7 @@ function Spellcasting(props) {
                   <label className="label spells__label">
                     Spell Level
                     <input
-                      className="input spells__input input--small spellLevel smallInput"
+                      className="input spells__input input--small input--clear"
                       type="number"
                       value={spellLevel.level}
                       readOnly
@@ -106,7 +106,7 @@ function Spellcasting(props) {
                   </label>
                   <label className="label spells__label">Slots</label>
                   <input
-                    className="input spells__input input--small input--edge"
+                    className="input spells__input input--small "
                     type="number"
                     name="slots"
                     value={spellLevel.slots}
@@ -116,7 +116,7 @@ function Spellcasting(props) {
                   />
                   <label className="label spells__label">Slots Expended</label>
                   <input
-                    className="input spells__input input--small input--edge"
+                    className="input spells__input input--small "
                     type="number"
                     name="slotsExpended"
                     value={spellLevel.slotsExpended}
@@ -125,7 +125,7 @@ function Spellcasting(props) {
                     }}
                   />
                   <button
-                    className="btn btn--dark btn--edge"
+                    className="btn btn--dark "
                     type="button"
                     name="addSpell"
                     onClick={function(event) {
@@ -165,7 +165,7 @@ function Spellcasting(props) {
                           <button
                             type="button"
                             name="removeSpell"
-                            className="btn btn--red btn--edge"
+                            className="btn btn--danger "
                             onClick={function(event) {
                               props.handleChangeSpells(event, idx, spidx);
                             }}

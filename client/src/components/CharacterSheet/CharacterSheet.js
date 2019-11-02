@@ -11,6 +11,7 @@ import CombatStats from './CharacterSheetComponents/CombatStats';
 import Inventory from './CharacterSheetComponents/Inventory';
 import PersonalityBackground from './CharacterSheetComponents/PersonalityBackground';
 import Spellcasting from './CharacterSheetComponents/Spellcasting';
+import CharacterNotes from './CharacterSheetComponents/CharacterNotes';
 
 import LoadMenu from './CharacterSheetComponents/LoadMenu';
 
@@ -62,6 +63,7 @@ class CharacterSheet extends Component {
       hpCurrent: 0,
       hpTemp: 0,
       hitDice: 0,
+      charNotes: '',
       dsSuccesses: 0,
       dsFails: 0,
       attacksArray: [
@@ -293,7 +295,7 @@ class CharacterSheet extends Component {
     const target = event.target;
     const dsSuccess = this.state.dsSuccesses;
     const dsFail = this.state.dsFails;
-    if (target.className === 'dsSuccess') {
+    if (target.className === 'checkbox checkbox__dsSuccess') {
       if (target.checked) {
         this.setState({
           dsSuccesses: dsSuccess + 1
@@ -304,7 +306,7 @@ class CharacterSheet extends Component {
         });
       }
     }
-    if (target.className === 'dsFail') {
+    if (target.className === 'checkbox checkbox__dsFail') {
       if (target.checked) {
         this.setState({
           dsFails: dsFail + 1
@@ -512,18 +514,18 @@ class CharacterSheet extends Component {
 
   render() {
     return (
-      <form className="characterSheet" onSubmit={this.handleSubmit}>
-        <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
+      <div className="sheetContainer">
+        <form className="characterSheet" onSubmit={this.handleSubmit}>
+          <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
 
-        <CharacterInfo
-          handleChange={this.handleChange}
-          characterName={this.state.characterName}
-          race={this.state.race}
-          alignment={this.state.alignment}
-        />
+          <CharacterInfo
+            handleChange={this.handleChange}
+            characterName={this.state.characterName}
+            race={this.state.race}
+            alignment={this.state.alignment}
+          />
 
-        <div className="topWrapper">
-          <div className="leftFloat">
+          <div className="topWrapper">
             <ClassLevel
               handleChange={this.handleChange}
               charClassArray={this.state.charClassArray}
@@ -551,95 +553,87 @@ class CharacterSheet extends Component {
               inspiration={this.state.inspiration}
               proficienciesArray={this.state.proficienciesArray}
             />
-          </div>
 
-          <Skills
-            handleChange={this.handleChange}
-            str={this.state.str}
-            dex={this.state.dex}
-            con={this.state.con}
-            int={this.state.int}
-            wis={this.state.wis}
-            cha={this.state.cha}
-            calculateModifier={this.calculateModifier}
-            proficienciesArray={this.state.proficienciesArray}
-          />
+            <Skills
+              handleChange={this.handleChange}
+              str={this.state.str}
+              dex={this.state.dex}
+              con={this.state.con}
+              int={this.state.int}
+              wis={this.state.wis}
+              cha={this.state.cha}
+              calculateModifier={this.calculateModifier}
+              proficienciesArray={this.state.proficienciesArray}
+            />
 
-          <CombatStats
-            handleChange={this.handleChange}
-            armorClass={this.state.armorClass}
-            initiative={this.state.initiative}
-            hpMax={this.state.hpMax}
-            speed={this.state.speed}
-            dsSuccesses={this.state.dsSuccesses}
-            deathSaves={this.deathSaves}
-            handleDeathSaves={this.handleDeathSaves}
-            dsFails={this.state.dsFails}
-            attacksArray={this.state.attacksArray}
-            handleChangeAttack={this.handleChangeAttack}
-            addAttack={this.addAttack}
-            removeAttack={this.removeAttack}
-            features={this.state.features}
-          />
-        </div>
-
-        <div className="leftFloat">
-          <Inventory
-            handleChange={this.handleChange}
-            equipment={this.state.equipment}
-            inventory={this.state.inventory}
-            copper={this.state.copper}
-            silver={this.state.silver}
-            electrum={this.state.electrum}
-            gold={this.state.gold}
-            platinum={this.state.platinum}
-          />
-
-          <div className="hitDiceWrapper wrapperSettings">
-            <label>
-              Hit Dice:
-              <textarea
-                name="hitDice"
-                className="form-control tArea"
-                value={this.state.hitDice}
-                onChange={this.handleChange}
-              />
-            </label>
-          </div>
-        </div>
-
-        <PersonalityBackground
-          handleChange={this.handleChange}
-          personality={this.state.personality}
-          ideals={this.state.ideals}
-          bonds={this.state.bonds}
-          flaws={this.state.flaws}
-          background={this.state.background}
-        />
-
-        <Spellcasting
-          spellsArray={this.state.spellsArray}
-          handleChangeSpells={this.handleChangeSpells}
-          spellCastingArray={this.state.spellCastingArray}
-          handleChangeSpellCasting={this.handleChangeSpellCasting}
-          addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
-        />
-        {this.state.characterName.trim() && !this.props.requestInProgress && (
-          <div className="submitBtn leftFloat">
-            <input className="btn btn-primary" type="submit" value="Save character" />
-          </div>
-        )}
-        {this.state.uuid && !this.props.requestInProgress && (
-          <div className="leftFloat">
-            <input
-              className="btn btn-danger"
-              type="button"
-              onClick={this.handleDeleteCharacter}
-              value="Delete Character"
+            <CombatStats
+              handleChange={this.handleChange}
+              armorClass={this.state.armorClass}
+              initiative={this.state.initiative}
+              hpMax={this.state.hpMax}
+              speed={this.state.speed}
+              dsSuccesses={this.state.dsSuccesses}
+              deathSaves={this.deathSaves}
+              handleDeathSaves={this.handleDeathSaves}
+              dsFails={this.state.dsFails}
+              attacksArray={this.state.attacksArray}
+              handleChangeAttack={this.handleChangeAttack}
+              addAttack={this.addAttack}
+              removeAttack={this.removeAttack}
+              features={this.state.features}
             />
           </div>
-        )}
-      </form>
+          <div className="bottomWrapper">
+            <Inventory
+              handleChange={this.handleChange}
+              equipment={this.state.equipment}
+              inventory={this.state.inventory}
+              copper={this.state.copper}
+              silver={this.state.silver}
+              electrum={this.state.electrum}
+              gold={this.state.gold}
+              platinum={this.state.platinum}
+            />
+
+            <PersonalityBackground
+              handleChange={this.handleChange}
+              personality={this.state.personality}
+              ideals={this.state.ideals}
+              bonds={this.state.bonds}
+              flaws={this.state.flaws}
+              background={this.state.background}
+            />
+
+            <Spellcasting
+              spellsArray={this.state.spellsArray}
+              handleChangeSpells={this.handleChangeSpells}
+              spellCastingArray={this.state.spellCastingArray}
+              handleChangeSpellCasting={this.handleChangeSpellCasting}
+              addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
+            />
+            <CharacterNotes
+              handleChange={this.handleChange}
+              hitDice={this.state.hitDice}
+              charNotes={this.state.charNotes}
+            />
+            {this.state.characterName.trim() && !this.props.requestInProgress && (
+              <div className="submitBtn leftFloat">
+                <input className="btn btn-primary" type="submit" value="Save" />
+              </div>
+            )}
+            {this.state.uuid && !this.props.requestInProgress && (
+              <div className="leftFloat">
+                <input
+                  className="btn btn-danger"
+                  type="button"
+                  onClick={this.handleDeleteCharacter}
+                  value="Delete Character"
+                />
+              </div>
+            )}
+          </div>
+        </form>
+      </div>
     );
   }
 }

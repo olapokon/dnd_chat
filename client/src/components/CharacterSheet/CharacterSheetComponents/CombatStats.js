@@ -3,88 +3,89 @@ import React from 'react';
 function CombatStats(props) {
   return (
     <div className="container combat">
-      <h3 className="heading combat__heading">Combat</h3>
-      <div className="container AcInitSpeed">
-        <div className="container armorClass">
-          <label className="label combat__label">
-            Armor Class
-            <div>
-              <input
-                type="number"
-                name="armorClass"
-                className="input armorClass__input input--large input--edge"
-                value={props.armorClass}
-                onChange={props.handleChange}
-              />
-            </div>
-          </label>
+      <h3 className="heading combat__heading heading--3">Combat</h3>
+      <div className="container combatStats">
+        <div className="container AcInitSpeed">
+          <h4 className="heading combatStats__heading heading--4">Combat Stats</h4>
+          <div className="container armorClass">
+            <label className="label combat__label">
+              Armor Class
+              <div>
+                <input
+                  type="number"
+                  name="armorClass"
+                  className="input armorClass__input input--large "
+                  value={props.armorClass}
+                  onChange={props.handleChange}
+                />
+              </div>
+            </label>
+          </div>
+          <div className="container initiative">
+            <label className="label combat__label">
+              Initiative
+              <div>
+                <input
+                  type="number"
+                  name="initiative"
+                  className="input initiative__input input--large "
+                  value={props.initiative}
+                  onChange={props.handleChange}
+                />
+              </div>
+            </label>
+          </div>
+          <div className="container speed">
+            <label className="label combat__label">
+              Speed
+              <div>
+                <input
+                  type="number"
+                  name="speed"
+                  className="input speed__input input--large "
+                  value={props.speed}
+                  onChange={props.handleChange}
+                />
+              </div>
+            </label>
+          </div>
         </div>
-        <div className="container initiative">
-          <label className="label combat__label">
-            Initiative
-            <div>
-              <input
-                type="number"
-                name="initiative"
-                className="input initiative__input input--large input--edge"
-                value={props.initiative}
-                onChange={props.handleChange}
-              />
-            </div>
-          </label>
-        </div>
-        <div className="container speed">
-          <label className="label combat__label">
-            Speed
-            <div>
-              <input
-                type="number"
-                name="speed"
-                className="input speed__input input--large input--edge"
-                value={props.speed}
-                onChange={props.handleChange}
-              />
-            </div>
-          </label>
+        <div className="container hitPoints">
+          <h4 className="heading hitPoints__heading heading--4">Hit Points</h4>
+          <div className="row hitPoints__row">
+            <label className="label combat__label">Maximum</label>
+            <input
+              type="number"
+              name="hpMax"
+              className="input maxHp__input input--mid "
+              value={props.hpMax}
+              onChange={props.handleChange}
+            />
+          </div>
+          <div className="row hitPoints__row">
+            <label className="label combat__label">Current</label>
+            <input
+              type="number"
+              name="hpCurrent"
+              className="input currentHp__input input--mid "
+              value={props.hpCurrent}
+              onChange={props.handleChange}
+            />
+          </div>
+          <div className="row hitPoints__row">
+            <label className="label combat__label">Temporary</label>
+            <input
+              type="number"
+              name="hpTemp"
+              className="input tempHp__input input--mid "
+              value={props.hpTemp}
+              onChange={props.handleChange}
+            />
+          </div>
         </div>
       </div>
-
-      <div className="container hitPoints">
-        <h4 className="heading hitPoints__heading">Hit Points</h4>
-        <div className="row hitPoints__row">
-          <label className="label combat__label">Maximum</label>
-          <input
-            type="number"
-            name="hpMax"
-            className="input maxHp__input input--mid input--edge"
-            value={props.hpMax}
-            onChange={props.handleChange}
-          />
-        </div>
-        <div className="row hitPoints__row">
-          <label className="label combat__label">Current</label>
-          <input
-            type="number"
-            name="hpCurrent"
-            className="input currentHp__input input--mid input--edge"
-            value={props.hpCurrent}
-            onChange={props.handleChange}
-          />
-        </div>
-        <div className="row hitPoints__row">
-          <label className="label combat__label">Temporary</label>
-          <input
-            type="number"
-            name="hpTemp"
-            className="input tempHp__input input--mid input--edge"
-            value={props.hpTemp}
-            onChange={props.handleChange}
-          />
-        </div>
-      </div>
-
       <div className="container attacks">
-        <h4 className="heading attacks__heading"> Attack and Spellcasting</h4>
+        <h4 className="heading attacks__heading heading--4"> Attack and Spellcasting</h4>
 
         <table className="attackTable">
           <thead>
@@ -126,7 +127,7 @@ function CombatStats(props) {
                     <input
                       type="number"
                       name="attackBonus"
-                      className="input input__attackBonus input--small input--edge"
+                      className="input input__attackBonus input--small  input--btmBorder"
                       value={attack.attackBonus}
                       onChange={function(event) {
                         props.handleChangeAttack(event, idx);
@@ -134,72 +135,68 @@ function CombatStats(props) {
                     />
                   </td>
                   <td className="column attackTable__column">
-                    <div className="row attackDamage__row">
-                      <input
-                        type="number"
-                        name="atkDmgDno"
-                        className="input input__attackDice input--small input--edge"
-                        value={attack.atkDmgDno}
-                        onChange={function(event) {
-                          props.handleChangeAttack(event, idx);
-                        }}
-                      />
-                      <select
-                        name="atkDmgDice"
-                        className="select select__dmgDice btn btn--light btn--dropDown"
-                        value={attack.atkDmgDice}
-                        onChange={function(event) {
-                          props.handleChangeAttack(event, idx);
-                        }}
-                      >
-                        <option value="" disabled>
-                          Die
-                        </option>
-                        <option value="d4">d4</option>
-                        <option value="d6">d6</option>
-                        <option value="d8">d8</option>
-                        <option value="d10">d10</option>
-                        <option value="d12">d12</option>
-                        <option value="d20">d20</option>
-                      </select>
-                    </div>
+                    <input
+                      type="number"
+                      name="atkDmgDno"
+                      className="input input__attackDice input--small  input--btmBorder"
+                      value={attack.atkDmgDno}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                    <select
+                      name="atkDmgDice"
+                      className="select select__dmgDice btn btn--white btn--dropDown btn--btmBorder"
+                      value={attack.atkDmgDice}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    >
+                      <option value="" disabled>
+                        Die
+                      </option>
+                      <option value="d4">d4</option>
+                      <option value="d6">d6</option>
+                      <option value="d8">d8</option>
+                      <option value="d10">d10</option>
+                      <option value="d12">d12</option>
+                      <option value="d20">d20</option>
+                    </select>
                   </td>
                   <td className="column attackTable__column">
-                    <div className="row attackDamage__row">
-                      <input
-                        type="number"
-                        name="atkDmgDnoSec"
-                        className="input input__attackDice input--small input--edge"
-                        value={attack.atkDmgDnoSec}
-                        onChange={function(event) {
-                          props.handleChangeAttack(event, idx);
-                        }}
-                      />
-                      <select
-                        name="atkDmgDiceSec"
-                        className="select select__dmgDice btn btn--light btn--dropDown"
-                        value={attack.atkDmgDiceSec}
-                        onChange={function(event) {
-                          props.handleChangeAttack(event, idx);
-                        }}
-                      >
-                        <option value="" disabled>
-                          Die
-                        </option>
-                        <option value="d4">d4</option>
-                        <option value="d6">d6</option>
-                        <option value="d8">d8</option>
-                        <option value="d10">d10</option>
-                        <option value="d12">d12</option>
-                        <option value="d20">d20</option>
-                      </select>
-                    </div>
+                    <input
+                      type="number"
+                      name="atkDmgDnoSec"
+                      className="input input__attackDice input--small  input--btmBorder"
+                      value={attack.atkDmgDnoSec}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                    <select
+                      name="atkDmgDiceSec"
+                      className="select select__dmgDice btn btn--white btn--dropDown btn--btmBorder"
+                      value={attack.atkDmgDiceSec}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    >
+                      <option value="" disabled>
+                        Die
+                      </option>
+                      <option value="d4">d4</option>
+                      <option value="d6">d6</option>
+                      <option value="d8">d8</option>
+                      <option value="d10">d10</option>
+                      <option value="d12">d12</option>
+                      <option value="d20">d20</option>
+                    </select>
                   </td>
                   <td className="column attackTable__column">
                     <input
                       type="number"
                       name="damageBonus"
-                      className="dmgBonus smallInput form-control edgeBox"
+                      className="input input__dmgBonus input--small  input--btmBorder"
                       value={attack.damageBonus}
                       onChange={function(event) {
                         props.handleChangeAttack(event, idx);
@@ -211,7 +208,7 @@ function CombatStats(props) {
                     <input
                       type="number"
                       name="attackRange"
-                      className="input input_atkRange input--mid input--edge"
+                      className="input input__atkRange input--mid  input--btmBorder"
                       value={attack.attackRange}
                       onChange={function(event) {
                         props.handleChangeAttack(event, idx);
@@ -222,7 +219,7 @@ function CombatStats(props) {
                     {idx > 0 && (
                       <button
                         type="button"
-                        className="btn btn__removeAtk btn--red btn--edge"
+                        className="btn btn__removeAtk btn--danger "
                         onClick={props.removeAttack.bind(null, idx)}
                       >
                         -
@@ -231,7 +228,7 @@ function CombatStats(props) {
                     {idx === 0 && (
                       <button
                         type="button"
-                        className="btn btn__addAtk btn--dark btn--edge"
+                        className="btn btn__addAtk btn--dark "
                         onClick={props.addAttack}
                       >
                         +
@@ -245,9 +242,8 @@ function CombatStats(props) {
           </tbody>
         </table>
       </div>
-
       <div className="container featsAndTraits">
-        <h3 className="heading featsAndTraits__heading">Features and Traits: </h3>
+        <h4 className="heading featsAndTraits__heading heading--4">Features and Traits </h4>
         <textarea
           name="features"
           id="feats"
@@ -256,9 +252,8 @@ function CombatStats(props) {
           onChange={props.handleChange}
         />
       </div>
-
       <div className="container deathSaves">
-        <h3 className="heading deathSaves__heading">Death Saves</h3>
+        <h4 className="heading deathSaves__heading heading--4">Death Saves</h4>
         <ul>
           <li>
             <label>Successes</label>

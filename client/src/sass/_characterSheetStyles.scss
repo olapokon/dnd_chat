@@ -1,0 +1,224 @@
+$defaultButtonColor: #343a40;
+$defaultButtonColorActive: #1d2124;
+$dangerColor: #dc3545;
+$darkRedColor: #be1b2b;
+$highlightColor: #fd701e;
+$backgroundColor: white;
+$borderColor: gray;
+$roBorderColor: lightgray;
+$roBackgroundColor: #e9ecef;
+$tAreaBorderColor: #ced4da;
+
+.sheetContainer {
+  width: 70%;
+  margin: auto;
+  font-family: 'Times New Roman';
+  color: #212529;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0.5em;
+}
+
+// button styles
+.btn {
+  &--dark {
+    background-color: $defaultButtonColor;
+    border: 0.1rem solid $defaultButtonColor;
+    height: 3rem;
+    color: $backgroundColor;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  &--dark:focus {
+    outline: 0.3rem solid $highlightColor;
+  }
+
+  &--dark:hover {
+    background-color: $defaultButtonColorActive;
+    border: 0.1rem solid $defaultButtonColorActive;
+  }
+
+  &--dark:not(:disabled):not(.disabled):active {
+    background-color: $defaultButtonColorActive;
+    border: 0.1rem solid $defaultButtonColorActive;
+  }
+
+  &--danger {
+    background-color: $highlightColor;
+    border: 0.1rem solid $highlightColor;
+    height: 2.8rem;
+    color: $backgroundColor;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  &--danger:focus {
+    outline: 0.2rem solid $highlightColor;
+  }
+
+  &--danger:hover {
+    background-color: $dangerColor;
+    border: 0.1rem solid $dangerColor;
+  }
+
+  &--danger:not(:disabled):not(.disabled):active {
+    background-color: $dangerColor;
+    border: 0.1rem solid $dangerColor;
+  }
+}
+
+// input styles
+.input {
+  border-style: solid;
+  border-width: 0.1rem;
+  border-color: $borderColor;
+  height: 2.8rem;
+  padding-left: 1rem;
+  margin: 0.2rem;
+  text-align: center;
+
+  &--small {
+    width: 4rem;
+  }
+
+  &--mid {
+    width: 6rem;
+    text-align: left;
+  }
+
+  &--big {
+    width: 10rem;
+    text-align: left;
+  }
+
+  &--large {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &--btmBorder {
+    border-color: $backgroundColor;
+    border-bottom: 0.1rem solid $borderColor;
+  }
+
+  &--clear {
+    border: 0.1rem solid $backgroundColor;
+  }
+
+  &--readonly {
+    background-color: $roBackgroundColor;
+    border: 0.1rem solid $roBorderColor;
+    padding-left: 0;
+    width: 4rem;
+  }
+
+  &--readonly::-webkit-inner-spin-button,
+  &--readonly::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &--large {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+// text area styles
+.tArea {
+  height: 11rem;
+  width: 28rem;
+  resize: none;
+  border: 0.1rem solid $tAreaBorderColor;
+  padding: 0.7rem 1.1rem 0.7rem 1.1rem;
+}
+
+// focus styles
+.input,
+.tArea,
+.select {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  outline: none;
+}
+
+.input:focus,
+.tArea:focus,
+.select:focus {
+  box-shadow: 0 0 0.5rem $highlightColor;
+  border: 0.1rem solid $highlightColor;
+}
+
+// select inputs styles
+.select {
+  height: 3.2rem;
+  border: 0.1rem solid $borderColor;
+  background-color: $backgroundColor;
+
+  &__dmgDice {
+    width: 4.6rem;
+    height: 3.2rem;
+    border: 0.1rem solid $backgroundColor;
+    border-bottom: 0.1rem solid $borderColor;
+    background-color: $backgroundColor;
+    margin-left: 0em;
+    line-height: 2.3em;
+    padding-right: 0;
+  }
+}
+
+// combat
+.attackTable {
+  border-collapse: separate;
+  text-align: center;
+  align-content: center;
+
+  .tableHeader {
+    &--small {
+      width: 4.5rem;
+    }
+    &--mid {
+      width: 9.5rem;
+    }
+  }
+
+  .input__atkRange {
+    width: 3.2rem;
+    text-align: center;
+    padding-left: 0.6rem;
+    padding-right: 0.8rem;
+  }
+
+  .input__atkRange::-webkit-inner-spin-button,
+  .input__atkRange::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+// inventory
+.inventoryFull {
+  .money__input {
+    width: 8rem;
+  }
+}
+
+// notes
+.hitDice {
+  .tArea {
+    width: 15rem;
+    height: 15rem;
+  }
+}
+
+.notes {
+  .tArea {
+    width: 45rem;
+    height: 15rem;
+  }
+}
