@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 import { withRouter } from 'react-router-dom';
-import './CharacterSheet.css';
 
 import CharacterInfo from './CharacterSheetComponents/CharacterInfo';
 import ClassLevel from './CharacterSheetComponents/ClassLevel';
@@ -513,7 +512,6 @@ class CharacterSheet extends Component {
 
   render() {
     return (
-      <div className="container">
       <form className="characterSheet" onSubmit={this.handleSubmit}>
         <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
 
@@ -600,7 +598,12 @@ class CharacterSheet extends Component {
           <div className="hitDiceWrapper wrapperSettings">
             <label>
               Hit Dice:
-              <textarea name="hitDice" className="form-control tArea" value={this.state.hitDice} onChange={this.handleChange} />
+              <textarea
+                name="hitDice"
+                className="form-control tArea"
+                value={this.state.hitDice}
+                onChange={this.handleChange}
+              />
             </label>
           </div>
         </div>
@@ -637,7 +640,6 @@ class CharacterSheet extends Component {
           </div>
         )}
       </form>
-      </div>
     );
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './DiceRoller.css';
 
 class DiceRoller extends Component {
   constructor(props) {

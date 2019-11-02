@@ -2,81 +2,81 @@ import React from 'react';
 
 function Inventory(props) {
   return (
-    <div className="invWrapper wrapperSettings leftFloat">
-      <div>
-        <h3> Equipment </h3>
-        <label>
-          Equiped Items:
+    <div className="container inventoryFull">
+      <div className="container equipment">
+        <h3 className="heading equipment__heading"> Equipment </h3>
+        <label className="label equipment__label">
+          Equiped Items
           <textarea
             name="equipment"
-            className="equipment equipedItems form-control tArea"
+            className="tArea equipment__tArea"
             value={props.equipment}
             onChange={props.handleChange}
           />
         </label>
-        <label>
-          Inventory:
+        <label className="label equipment__label">
+          Inventory
           <textarea
             name="inventory"
-            className="inventory form-control tArea"
+            className="tArea equipment__tArea"
             value={props.inventory}
             onChange={props.handleChange}
           />
         </label>
-        <div className="moneyWrapper">
-          <h3> Money </h3>
-          <div className="row">
-          <label>
-            CP:
+      </div>
+      <div className="container money">
+        <h3 className="heading money__heading"> Money </h3>
+        <div className="row money__row">
+          <label className="label money__label">
+            CP
             <input
               type="number"
               name="copper"
-              className="equipment midInput form-control edgeBox"
+              className="input money__input input--mid input--edge"
               value={props.copper}
               onChange={props.handleChange}
             />
           </label>
-          <label>
-            SP:
+          <label className="label money__label">
+            SP
             <input
               type="number"
               name="silver"
-              className="equipment midInput form-control edgeBox"
+              className="input money__input input--mid input--edge"
               value={props.silver}
               onChange={props.handleChange}
             />
           </label>
-          <label>
-            EP:
+          <label className="label money__label">
+            EP
             <input
               type="number"
               name="electrum"
-              className="equipment midInput form-control edgeBox"
+              className="input money__input input--mid input--edge"
               value={props.electrum}
               onChange={props.handleChange}
             />
           </label>
-          <label>
-            GP:
+          <label className="label money__label">
+            GP
             <input
               type="number"
               name="gold"
-              className="equipment midInput form-control edgeBox"
+              className="input money__input input--mid input--edge"
               value={props.gold}
               onChange={props.handleChange}
             />
           </label>
-          <label>
-            PP:
+          <label className="label money__label">
+            PP
             <input
               type="number"
               name="platinum"
-              className="equipment midInput form-control edgeBox"
+              className="input money__input input--mid input--edge"
               value={props.platinum}
               onChange={props.handleChange}
             />
           </label>
-        </div>
         </div>
       </div>
     </div>

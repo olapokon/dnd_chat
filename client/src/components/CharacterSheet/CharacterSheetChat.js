@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import uuidv4 from 'uuid/v4';
-import './CharacterSheetChat.css';
+// import './CharacterSheetChat.css';
 
 import CharacterInfo from './CharacterSheetComponents/CharacterInfo';
 import ClassLevel from './CharacterSheetComponents/ClassLevel';
@@ -710,7 +710,11 @@ class CharacterSheet extends Component {
 
         {this.state.characterName.trim() && !this.props.requestInProgress && (
           <div>
-            <input className="charSaveBtn btn-sm btn-primary" type="submit" value="Save character" />
+            <input
+              className="charSaveBtn btn-sm btn-primary"
+              type="submit"
+              value="Save character"
+            />
           </div>
         )}
       </form>

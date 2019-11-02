@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+main {
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// ==========================================================
+@font-face {
+  font-family: med1;
+  src: url(./Plakat-Fraktur_Black.ttf);
+}
+
+a {
+  color: #8a2be2;
+}
+
+a:hover {
+  color: #8a2be2;
+  text-decoration: none;
+}
+
+#header {
+  font-family: med1;
+  font-size: 64px;
+  color: blue;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.center {
+  text-align: center;
+}
+
+.registrationLoginError {
+  color: red;
+  margin: 0;
+}
+
+#registrationLoginErrorInput {
+  border: solid red 2px;
+  padding: 0px 3px 0px 3px;
+}
+
+/* chatroom */
+.chatroomSheetDiceChatContainer {
+  border: solid blue 1px;
+}
+
+.chatContainer {
+  height: 100%;
+  border: solid blue 1px;
+}
+
+.chatDisplay {
+  border: solid blue 1px;
+  height: 75vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#chatroomUsercount {
+  border: solid blue 1px;
+  text-align: center;
+  color: gold;
+}
+
+.charSheet {
+  margin-bottom: 1em;
+}
+
+/* messages in chat display */
+.messageWrapper {
+  width: 100%;
+}
+
+.message {
+  width: 100%;
+  word-wrap: break-word;
+  padding-left: 5px;
+}
+
+/* dice roller */
+.diceRoller {
+  width: 9em;
+}
+
+.inputDiceWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#diceInput {
+  width: 3em;
+  margin: 0;
+}
+
+.diceButton {
+  width: 3em;
+}
+
+/* loading */
+#loadingHeader {
+  font-family: med1;
+  font-size: 64px;
+  color: blue;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* profile */
+#profileHeader {
+  text-align: center;
+  color: gold;
+  font-family: med1;
+  font-size: 64px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+#characterTable {
+  max-width: 900px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid gold 1px;
+  color: gold;
+  padding: 3px 4px 3px 4px;
+}
+
+#characterTable th {
+  border: solid gold 1px;
+  padding: 3px 4px 3px 4px;
+  text-align: center;
+}
+
+#characterTable td {
+  border: solid gold 1px;
+  padding: 3px 4px 3px 4px;
+}
+
+.totalLevelCell {
+  text-align: center;
+}
+
+#newCharacterButton {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#characterLink:hover {
+  text-shadow: -2px -1px 13px rgba(202, 40, 192, 1);
+}

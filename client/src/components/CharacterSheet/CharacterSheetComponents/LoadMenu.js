@@ -1,13 +1,17 @@
 import React from 'react';
 
-function LoadMenu({ user, handleLoad }) {
+function LoadMenu(props) {
   return (
-    <div id="loadMenu">
-      <select name="loadMenu" class="charSelect btn btn-light" onChange={handleLoad}>
+    <div className="container charSelect">
+      <select
+        name="loadMenu"
+        className="select charSelect__select btn btn--light"
+        onChange={props.handleLoad}
+      >
         <option>Choose Character</option>
         <option value="new">Create New Character</option>
-        {user &&
-          user.characterSheets.map(charSheet => {
+        {props.user &&
+          props.user.characterSheets.map(charSheet => {
             return (
               <option key={charSheet.uuid} value={charSheet.uuid}>
                 {charSheet.characterName}

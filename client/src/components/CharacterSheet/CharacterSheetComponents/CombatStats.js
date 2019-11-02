@@ -2,258 +2,263 @@ import React from 'react';
 
 function CombatStats(props) {
   return (
-    <div className="combatWrapper wrapperSettings leftFloat">
-      <h3>Combat</h3>
-      <div className="acStatsWrapper leftFloat ">
-        <ul className="acStatsList row">
-          <li>
-            <label>
-              Armor Class:
-              <div>
-                <input
-                  type="number"
-                  name="armorClass"
-                  className="smallInput form-control edgeBox"
-                  value={props.armorClass}
-                  onChange={props.handleChange}
-                />
-              </div>
-            </label>
-          </li>
-          <li>
-            <label>
-              Initiative:
-              <div>
-                <input
-                  type="number"
-                  name="initiative"
-                  className="smallInput form-control edgeBox"
-                  value={props.initiative}
-                  onChange={props.handleChange}
-                />
-              </div>
-            </label>
-          </li>
-          <li>
-            <label>
-              Speed:
-              <div>
-                <input
-                  type="number"
-                  name="speed"
-                  className="smallInput form-control edgeBox"
-                  value={props.speed}
-                  onChange={props.handleChange}
-                />
-              </div>
-            </label>
-          </li>
-        </ul>
+    <div className="container combat">
+      <h3 className="heading combat__heading">Combat</h3>
+      <div className="container AcInitSpeed">
+        <div className="container armorClass">
+          <label className="label combat__label">
+            Armor Class
+            <div>
+              <input
+                type="number"
+                name="armorClass"
+                className="input armorClass__input input--large input--edge"
+                value={props.armorClass}
+                onChange={props.handleChange}
+              />
+            </div>
+          </label>
+        </div>
+        <div className="container initiative">
+          <label className="label combat__label">
+            Initiative
+            <div>
+              <input
+                type="number"
+                name="initiative"
+                className="input initiative__input input--large input--edge"
+                value={props.initiative}
+                onChange={props.handleChange}
+              />
+            </div>
+          </label>
+        </div>
+        <div className="container speed">
+          <label className="label combat__label">
+            Speed
+            <div>
+              <input
+                type="number"
+                name="speed"
+                className="input speed__input input--large input--edge"
+                value={props.speed}
+                onChange={props.handleChange}
+              />
+            </div>
+          </label>
+        </div>
       </div>
-      <div className="wrapperSettings">
-        Hit Points
-        <ul className="hpList">
-          <li>
-          <div className="row">
-            <label>Maximum</label>
-            <input
-              type="number"
-              name="hpMax"
-              className="midInput form-control edgeBox"
-              value={props.hpMax}
-              onChange={props.handleChange}
-            />
-            </div>
-          </li>
-          <li>
-          <div className="row">
-            <label>Current</label>
-            <input
-              type="number"
-              name="hpCurrent"
-              className="midInput form-control edgeBox"
-              value={props.hpCurrent}
-              onChange={props.handleChange}
-            />
-            </div>
-          </li>
-          <li>
-          <div className="row">
-            <label>Temporary</label>
-            <input
-              type="number"
-              name="hpTemp"
-              id="hpTemp"
-              className="midInput form-control edgeBox"
-              value={props.hpTemp}
-              onChange={props.handleChange}
-            />
-            </div>
-          </li>
-        </ul>
+
+      <div className="container hitPoints">
+        <h4 className="heading hitPoints__heading">Hit Points</h4>
+        <div className="row hitPoints__row">
+          <label className="label combat__label">Maximum</label>
+          <input
+            type="number"
+            name="hpMax"
+            className="input maxHp__input input--mid input--edge"
+            value={props.hpMax}
+            onChange={props.handleChange}
+          />
+        </div>
+        <div className="row hitPoints__row">
+          <label className="label combat__label">Current</label>
+          <input
+            type="number"
+            name="hpCurrent"
+            className="input currentHp__input input--mid input--edge"
+            value={props.hpCurrent}
+            onChange={props.handleChange}
+          />
+        </div>
+        <div className="row hitPoints__row">
+          <label className="label combat__label">Temporary</label>
+          <input
+            type="number"
+            name="hpTemp"
+            className="input tempHp__input input--mid input--edge"
+            value={props.hpTemp}
+            onChange={props.handleChange}
+          />
+        </div>
       </div>
-      <div className="attackWrapperTable">
-        <h4> Attack and Spellcasting</h4>
-        
-        <table className="attacksTable">
+
+      <div className="container attacks">
+        <h4 className="heading attacks__heading"> Attack and Spellcasting</h4>
+
+        <table className="attackTable">
           <thead>
             <tr>
-              <th>Name(item/spell)</th>
-              <th className="smallCol wrapHeader">Attack Bonus</th>
-              <th className="dmgCol">Damage (No/Die)</th>
-              <th className="dmgCol">Sec Effect (No/Die)</th>
-              <th className="smallCol wrapHeader">Damage Bonus</th>
-              <th>Range</th>
-              <th></th>
-              <th className="rollAttackHeader"></th>
+              <th className="tableHeader attackTable__tableHeader">Name(item/spell)</th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--small tableHeader--wrap">
+                Attack Bonus
+              </th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--mid tableHeader--wrap">
+                Damage (No/Die)
+              </th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--mid tableHeader--wrap">
+                Sec Effect (No/Die)
+              </th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--small tableHeader--wrap">
+                Damage Bonus
+              </th>
+              <th className="tableHeader attackTable__tableHeader">Range</th>
+              <th className="tableHeader attackTable__tableHeader"></th>
+              <th className="tableHeader attackTable__tableHeader"></th>
             </tr>
           </thead>
           <tbody>
-          {props.attacksArray.map((attack, idx) => {
-            return (
-              <tr key={idx}>
-              <td>
-                
-                <input
-                  type="text"
-                  name="attackName"
-                  className="attackName btmBorder bigInput form-control"
-                  value={attack.attackName}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                </td>
-                <td>
-                <input
-                  type="number"
-                  name="attackBonus"
-                  className="attackBonus smallInput form-control edgeBox"
-                  value={attack.attackBonus}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                </td>
-                <td className="attackCol">
-                <div className="row">
-                <input
-                  type="number"
-                  name="atkDmgDno"
-                  className="attackDice smallInput form-control edgeBox"
-                  value={attack.atkDmgDno}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <select
-                  name="atkDmgDice"
-                  className="attackDice btn btn-light lightDropDown"
-                  value={attack.atkDmgDice}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                >
-                  <option value="" disabled>
-                    Die
-                  </option>
-                  <option value="d4">d4</option>
-                  <option value="d6">d6</option>
-                  <option value="d8">d8</option>
-                  <option value="d10">d10</option>
-                  <option value="d12">d12</option>
-                  <option value="d20">d20</option>
-                </select>
-                </div>
-                </td>
-                <td className="attackCol">
-                <div className="row">
-                <input
-                  type="number"
-                  name="atkDmgDnoSec"
-                  className="attackDice smallInput form-control edgeBox"
-                  value={attack.atkDmgDnoSec}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <select
-                  name="atkDmgDiceSec"
-                  className="attackDice btn btn-light lightDropDown"
-                  value={attack.atkDmgDiceSec}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                >
-                  <option value="" disabled>
-                    Die
-                  </option>
-                  <option value="d4">d4</option>
-                  <option value="d6">d6</option>
-                  <option value="d8">d8</option>
-                  <option value="d10">d10</option>
-                  <option value="d12">d12</option>
-                  <option value="d20">d20</option>
-                </select>
-                </div>
-                </td>
-                <td >
-                <input
-                  type="number"
-                  name="damageBonus"
-                  className="dmgBonus smallInput form-control edgeBox"
-                  value={attack.damageBonus}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                </td>
-                
-                <td>
-                <div className="row">
-                <input
-                  type="number"
-                  name="attackRange"
-                  className="atkRange midInput form-control edgeBox"
-                  value={attack.attackRange}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                </div>
-                </td>
-                <td>
-                {idx > 0 && (
-                  <button type="button" className="btn btn-danger edgeBtn" onClick={props.removeAttack.bind(null, idx)}>
-                    -
-                  </button>
-                )}
-                 {idx == 0 && (
-                  <button type="button" className="btn btn-dark edgeBtn" onClick={props.addAttack}>
-                    +
-                  </button>
-                  )}
-                </td>
-                <td className="rollAttack">
-                </td>
-              </tr>
-            );
-          })}
+            {props.attacksArray.map((attack, idx) => {
+              return (
+                <tr key={idx}>
+                  <td className="column attackTable__column">
+                    <input
+                      type="text"
+                      name="attackName"
+                      className="input input__attackName input--big input--btmBorder"
+                      value={attack.attackName}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="attackBonus"
+                      className="input input__attackBonus input--small input--edge"
+                      value={attack.attackBonus}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+                  <td className="column attackTable__column">
+                    <div className="row attackDamage__row">
+                      <input
+                        type="number"
+                        name="atkDmgDno"
+                        className="input input__attackDice input--small input--edge"
+                        value={attack.atkDmgDno}
+                        onChange={function(event) {
+                          props.handleChangeAttack(event, idx);
+                        }}
+                      />
+                      <select
+                        name="atkDmgDice"
+                        className="select select__dmgDice btn btn--light btn--dropDown"
+                        value={attack.atkDmgDice}
+                        onChange={function(event) {
+                          props.handleChangeAttack(event, idx);
+                        }}
+                      >
+                        <option value="" disabled>
+                          Die
+                        </option>
+                        <option value="d4">d4</option>
+                        <option value="d6">d6</option>
+                        <option value="d8">d8</option>
+                        <option value="d10">d10</option>
+                        <option value="d12">d12</option>
+                        <option value="d20">d20</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td className="column attackTable__column">
+                    <div className="row attackDamage__row">
+                      <input
+                        type="number"
+                        name="atkDmgDnoSec"
+                        className="input input__attackDice input--small input--edge"
+                        value={attack.atkDmgDnoSec}
+                        onChange={function(event) {
+                          props.handleChangeAttack(event, idx);
+                        }}
+                      />
+                      <select
+                        name="atkDmgDiceSec"
+                        className="select select__dmgDice btn btn--light btn--dropDown"
+                        value={attack.atkDmgDiceSec}
+                        onChange={function(event) {
+                          props.handleChangeAttack(event, idx);
+                        }}
+                      >
+                        <option value="" disabled>
+                          Die
+                        </option>
+                        <option value="d4">d4</option>
+                        <option value="d6">d6</option>
+                        <option value="d8">d8</option>
+                        <option value="d10">d10</option>
+                        <option value="d12">d12</option>
+                        <option value="d20">d20</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="damageBonus"
+                      className="dmgBonus smallInput form-control edgeBox"
+                      value={attack.damageBonus}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="attackRange"
+                      className="input input_atkRange input--mid input--edge"
+                      value={attack.attackRange}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+                  <td className="column attackTable__column">
+                    {idx > 0 && (
+                      <button
+                        type="button"
+                        className="btn btn__removeAtk btn--red btn--edge"
+                        onClick={props.removeAttack.bind(null, idx)}
+                      >
+                        -
+                      </button>
+                    )}
+                    {idx === 0 && (
+                      <button
+                        type="button"
+                        className="btn btn__addAtk btn--dark btn--edge"
+                        onClick={props.addAttack}
+                      >
+                        +
+                      </button>
+                    )}
+                  </td>
+                  <td className="column attackTable__column"></td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
-      <div className="featsAndTraits">
-        <h3>Features and Traits: </h3>
+
+      <div className="container featsAndTraits">
+        <h3 className="heading featsAndTraits__heading">Features and Traits: </h3>
         <textarea
           name="features"
           id="feats"
-          className="feats form-control tArea"
+          className="tArea featsAndTraits__tArea"
           value={props.features}
           onChange={props.handleChange}
         />
       </div>
-      <div className="deathSavesWrapper leftFload">
-        <h3>Death Saves</h3>
+
+      <div className="container deathSaves">
+        <h3 className="heading deathSaves__heading">Death Saves</h3>
         <ul>
           <li>
             <label>Successes</label>
@@ -266,21 +271,21 @@ function CombatStats(props) {
             <input
               type="checkbox"
               name="dsSuccess1"
-              className="dsSuccess"
+              className="checkbox checkbox__dsSuccess"
               checked={props.deathSaves('dsSuccess1')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsSuccess2"
-              className="dsSuccess"
+              className="checkbox checkbox__dsSuccess"
               checked={props.deathSaves('dsSuccess2')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsSuccess3"
-              className="dsSuccess"
+              className="checkbox checkbox__dsSuccess"
               checked={props.deathSaves('dsSuccess3')}
               onChange={props.handleDeathSaves}
             />
@@ -296,28 +301,27 @@ function CombatStats(props) {
             <input
               type="checkbox"
               name="dsFail1"
-              className="dsFail"
+              className="checkbox checkbox__dsFail"
               checked={props.deathSaves('dsFail1')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsFail2"
-              className="dsFail"
+              className="checkbox checkbox__dsFail"
               checked={props.deathSaves('dsFail2')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsFail3"
-              className="dsFail"
+              className="checkbox checkbox__dsFail"
               checked={props.deathSaves('dsFail3')}
               onChange={props.handleDeathSaves}
             />
           </li>
         </ul>
       </div>
-
     </div>
   );
 }

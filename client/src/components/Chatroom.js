@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import DiceRoller from './DiceRoller';
-import './Chatroom.css';
 
 import CharacterSheetChat from './CharacterSheet/CharacterSheetChat';
 
@@ -127,22 +126,27 @@ class Chatroom extends Component {
                   );
                 } else if (message.type === 'dice roll') {
                   return (
-                    <div key={i} className="message" style={{ color: 'blue' }}>{`${
-                      message.username
-                    } rolls ${message.message}.`}</div>
+                    <div
+                      key={i}
+                      className="message"
+                      style={{ color: 'blue' }}
+                    >{`${message.username} rolls ${message.message}.`}</div>
                   );
                 } else if (message.type === 'chat notification') {
                   return (
-                    <div key={i} className="message" style={{ color: 'orange' }}>{`${
-                      message.username
-                    } ${message.message}`}</div>
+                    <div
+                      key={i}
+                      className="message"
+                      style={{ color: 'orange' }}
+                    >{`${message.username} ${message.message}`}</div>
                   );
                 } else {
                   return (
                     <div className="messageWrapper">
-                      <div key={i} className="message">{`${message.username}: ${
-                        message.message
-                      }`}</div>
+                      <div
+                        key={i}
+                        className="message"
+                      >{`${message.username}: ${message.message}`}</div>
                     </div>
                   );
                 }

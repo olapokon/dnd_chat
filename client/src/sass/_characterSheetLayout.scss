@@ -1,0 +1,46 @@
+.characterSheet {
+  font-size: 2rem;
+  width: 150rem;
+  margin: auto;
+
+  display: grid;
+  grid-template-rows: min-content min-content;
+  grid-gap: 3rem;
+
+  .input {
+    width: 3rem;
+  }
+
+  li {
+    list-style-type: none;
+  }
+}
+
+.characterInfo {
+  display: flex;
+}
+
+.topWrapper {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  grid-gap: 4rem;
+}
+
+.abilityScores {
+  display: flex;
+}
+
+.skills {
+  &__row {
+    display: flex;
+  }
+}
+
+// combat
+.AcInitSpeed {
+  display: flex;
+}
+
+.hitPoints {
+  display: flex;
+}

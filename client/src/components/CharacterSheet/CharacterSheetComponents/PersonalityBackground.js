@@ -2,52 +2,55 @@ import React from 'react';
 
 function PersonalityBackground(props) {
   return (
-    <div className="personalityBackground wrapperSettings leftFloat">
-      <div>
-        <div>
-          <h3>Background</h3>
+    <div className="container personalityBackground">
+      <div className="container background">
+        <h3 className="heading background__heading">Background</h3>
+        <textarea
+          maxLength="1600"
+          name="background"
+          className="tArea background__tArea tArea--noMargin"
+          value={props.background}
+          onChange={props.handleChange}
+        />
+      </div>
+      <div className="container personality">
+        <h3 className="heading personality__heading"> Personality </h3>
+        <label className="label personality__label">
+          Traits
           <textarea
             maxLength="1600"
-            name="background"
-            className="noMargin form-control tArea"
-            value={props.background}
+            name="personality"
+            className="tArea personality__tArea"
+            value={props.personality}
             onChange={props.handleChange}
           />
-        </div>
-        <h3> Personality </h3>
-        <label>
-          Traits:
-          <textarea 
-            maxLength="1600"
-            name="personality" 
-            className="form-control tArea" 
-            value={props.personality} 
-            onChange={props.handleChange} />
         </label>
-        <label>
-          Ideals:
-          <textarea 
+        <label className="label personality__label">
+          Ideals
+          <textarea
             maxLength="1600"
-            name="ideals" 
-            className="form-control tArea" 
-            value={props.ideals} 
-            onChange={props.handleChange} />
+            name="ideals"
+            className="tArea personality__tArea"
+            value={props.ideals}
+            onChange={props.handleChange}
+          />
         </label>
-        <label>
-          Bonds:
-          <textarea 
+        <label className="label personality__label">
+          Bonds
+          <textarea
             maxLength="1600"
-            name="bonds" 
-            className="form-control tArea" 
-            value={props.bonds} 
-            onChange={props.handleChange} />
+            name="bonds"
+            className="tArea personality__tArea"
+            value={props.bonds}
+            onChange={props.handleChange}
+          />
         </label>
-        <label>
-          Flaws:
+        <label className="label personality__label">
+          Flaws
           <textarea
             maxLength="1600"
             name="flaws"
-            className="noMargin form-control tArea"
+            className="tArea personality__tArea tArea--noMargin"
             value={props.flaws}
             onChange={props.handleChange}
           />

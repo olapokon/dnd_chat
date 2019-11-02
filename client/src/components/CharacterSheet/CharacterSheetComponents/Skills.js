@@ -23,32 +23,32 @@ const skills = [
 
 function Skills(props) {
   return (
-    <div className="skills leftFloat">
-      <h3> Skills</h3>
+    <div className="container skills">
+      <h3 className="heading skills_heading"> Skills</h3>
       <ul>
         {skills.map(skill => {
           return (
             <li key={skill.name} className="skillList">
-            <div className="row">
-                <div class="form-check">
-              <input
-                className="skillBox"
-                type="checkbox"
-                name={skill.name}
-                onChange={props.handleChange}
-                checked={props.proficienciesArray.includes(skill.name)}
-              />
-              </div>
-              <input
-                className="skill smallInput form-control edgeBox"
-                type="number"
-                value={props.calculateModifier(
-                  props[skill.relatedAttribute],
-                  props.proficienciesArray.includes(skill.name)
-                )}
-                readOnly
-              />
-              <label>{skill.displayName}</label>
+              <div className="row skills__row">
+                <div className="form-check">
+                  <input
+                    className="checkbox skills__checkbox"
+                    type="checkbox"
+                    name={skill.name}
+                    onChange={props.handleChange}
+                    checked={props.proficienciesArray.includes(skill.name)}
+                  />
+                </div>
+                <input
+                  className="input skills__input input--small input--edge"
+                  type="number"
+                  value={props.calculateModifier(
+                    props[skill.relatedAttribute],
+                    props.proficienciesArray.includes(skill.name)
+                  )}
+                  readOnly
+                />
+                <label className="label skills__label">{skill.displayName}</label>
               </div>
             </li>
           );
