@@ -1,11 +1,23 @@
 .navbar {
-  background-color: orchid;
+  font-size: 2rem;
+  background-color: $highlightColor;
 }
 
 .navbar-nav {
   display: flex;
 }
 
-.nav-item {
-  height: 4rem;
+.nav-link:link,
+.nav-link:visited {
+  color: white;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
 }
+
+// .nav-link:hover {
+//   color: $highlightColor;
+//   background-color: white;
+// }

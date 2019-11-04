@@ -27,12 +27,10 @@ class Games extends Component {
 
   render() {
     return (
-      <form id="games">
-        <h1 id="header" className="display-4 mb-4">
-          Create a chatroom
-        </h1>
-        <p className="lead center">Enter chatroom name</p>
-        <p className="lead center">
+      <form className="games">
+        <h1 className="mainHeading mb--large">Create a chatroom</h1>
+        <p className="center">Enter chatroom name</p>
+        <p className="center">
           <input
             name="chatroomName"
             type="text"
@@ -40,9 +38,9 @@ class Games extends Component {
             onChange={this.handleChange}
           />
         </p>
-        <p className="text-center">
+        <p className="center">
           <input
-            className="btn btn-primary btn-lg center"
+            className="btn--dark"
             type="submit"
             value="Create chatroom"
             onClick={this.handleCreate}

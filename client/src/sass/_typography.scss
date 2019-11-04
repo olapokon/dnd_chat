@@ -1,3 +1,16 @@
+@font-face {
+  font-family: med1;
+  src: url(./Plakat-Fraktur_Black.ttf);
+}
+
+.mainHeading {
+  font-family: med1;
+  font-size: 6.4rem;
+  color: black;
+  text-align: center;
+  margin-top: 5rem;
+}
+
 .heading {
   margin-bottom: 0.5rem;
   font-weight: 500;

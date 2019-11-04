@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 function Profile(props) {
   return (
-    <div id="profile">
-      <h2 id="profileHeader">{props.user.username}'s characters</h2>
+    <div className="profile">
+      <h2 className="mainHeading mb--large">{props.user.username}'s characters</h2>
       {props.user.characterSheets && (
         <table id="characterTable">
           <thead>
@@ -62,7 +62,7 @@ function Profile(props) {
       )}
       <div id="newCharacterButton">
         <NavLink
-          className="btn btn-primary btn-lg"
+          className="btn--dark"
           exact
           to={'/characterSheet'}
           onClick={props.selectCharacter.bind(null, 'new')}

@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 function NavBar(props) {
   return (
-    <nav id="mainNav" className="navbar navbar-expand">
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
+    <nav id="mainNav" className="navbar">
+      <ul className="navbar-nav">
+        <li>
           <NavLink className="nav-link" exact to="/">
             Home
           </NavLink>
@@ -25,14 +25,14 @@ function NavBar(props) {
           </li>
         )}
         {props.loggedIn && (
-          <li>
+          <li className="ml-auto">
             <NavLink className="nav-link" to="/" onClick={props.logout}>
               Logout
             </NavLink>
           </li>
         )}
         {!props.loggedIn && (
-          <li>
+          <li className="ml-auto">
             <NavLink className="nav-link" exact to="/login">
               Login
             </NavLink>

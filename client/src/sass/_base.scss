@@ -1,3 +1,21 @@
+$color-1: #fff;
+$color-1-light: #fff;
+$color-1-dark: #fff;
+$color-2: #fff;
+$color-2-light: #fff;
+$color-2-dark: #fff;
+
+$backgroundColor: white;
+$highlightColor: #fd701e;
+$defaultButtonColor: #343a40;
+$defaultButtonColorActive: #1d2124;
+$dangerColor: #dc3545;
+$darkRedColor: #be1b2b;
+$borderColor: gray;
+$roBorderColor: lightgray;
+$roBackgroundColor: #e9ecef;
+$tAreaBorderColor: #ced4da;
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +31,20 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 
-main {
+a {
+  text-decoration: none;
+}
+
+.home {
+  font-size: 2rem;
+}
+
+.games {
+  font-size: 2rem;
+}
+
+.profile {
+  font-size: 2rem;
 }
 
 //
@@ -28,31 +59,6 @@ main {
 //
 //
 // ==========================================================
-@font-face {
-  font-family: med1;
-  src: url(./Plakat-Fraktur_Black.ttf);
-}
-
-a {
-  color: #8a2be2;
-}
-
-a:hover {
-  color: #8a2be2;
-  text-decoration: none;
-}
-
-#header {
-  font-family: med1;
-  font-size: 64px;
-  color: blue;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.center {
-  text-align: center;
-}
 
 .registrationLoginError {
   color: red;
