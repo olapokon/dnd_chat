@@ -40,7 +40,7 @@ class Games extends Component {
         </p>
         <p className="center">
           <input
-            className="btn--dark"
+            className="btn btn--dark"
             type="submit"
             value="Create chatroom"
             onClick={this.handleCreate}

@@ -62,7 +62,7 @@ function Profile(props) {
       )}
       <div id="newCharacterButton">
         <NavLink
-          className="btn--dark"
+          className="btn btn--dark"
           exact
           to={'/characterSheet'}
           onClick={props.selectCharacter.bind(null, 'new')}

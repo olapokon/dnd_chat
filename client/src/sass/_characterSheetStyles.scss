@@ -5,13 +5,14 @@ ul {
 
 // button styles
 .btn {
+  height: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
   &--dark {
     background-color: $defaultButtonColor;
     border: 0.1rem solid $defaultButtonColor;
-    height: 3rem;
     color: $backgroundColor;
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
   &--dark:focus {

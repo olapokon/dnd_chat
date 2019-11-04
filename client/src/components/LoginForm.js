@@ -140,17 +140,18 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div id="LoginForm">
-        <h1 id="header">Login</h1>
+      <div className="LoginForm">
+        <h1 className="mainHeading">Login</h1>
         <form className="center">
           <div>
             <input
-              id={this.state.usernameError ? 'registrationLoginErrorInput' : 'loginUsernameInput'}
+              id={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
               type="text"
               name="username"
               placeholder="Username"
               value={this.state.username}
               onChange={this.handleChange}
+              className=""
             />
             {this.state.usernameError && (
               <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
@@ -158,12 +159,13 @@ class LoginForm extends Component {
           </div>
           <div>
             <input
-              id={this.state.passwordError ? 'registrationLoginErrorInput' : 'loginPasswordInput'}
+              id={this.state.passwordError ? 'registrationLoginErrorInput' : ''}
               type="password"
               name="password"
               placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
+              className=""
             />
             {this.state.passwordError && (
               <p className="registrationLoginError">{this.state.passwordErrorMessage}</p>
@@ -172,7 +174,7 @@ class LoginForm extends Component {
           <div>
             <input
               name="login"
-              className="btn btn-primary btn-lg center"
+              className="btn btn--dark"
               type="submit"
               value="Login"
               onClick={this.handleSubmit}
@@ -182,7 +184,7 @@ class LoginForm extends Component {
             <input
               onClick={this.handleGithubLogin}
               type="button"
-              className="btn btn-outline-dark btn-lg center"
+              className="btn btn--dark"
               value="Github Login"
             />
           </div>

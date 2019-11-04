@@ -75,8 +75,8 @@ class RegistrationForm extends Component {
 
   render() {
     return (
-      <div id="registrationForm">
-        <h1 id="header">Register</h1>
+      <div className="registrationForm">
+        <h1 className="mainHeading">Register</h1>
         <form className="center">
           <div>
             <input
@@ -127,7 +127,7 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              className="btn btn-primary btn-lg center"
+              className="btn btn--dark"
               type="submit"
               value="Register"
               onClick={this.handleSubmit}
