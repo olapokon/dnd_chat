@@ -1,14 +1,14 @@
-.sheetContainer{
+.sheetContainer {
   font-size: 1.4rem;
   font-family: 'Times New Roman', Times, serif;
 }
+
 // button styles
 .btn {
   font-size: inherit;
   height: 3rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  
 
   &--dark {
     background-color: $defaultButtonColor;
@@ -17,7 +17,7 @@
   }
 
   &--dark:focus {
-    outline: 0.3rem solid $highlightColor;
+    outline: none;
   }
 
   &--dark:hover {
@@ -26,8 +26,7 @@
   }
 
   &--dark:not(:disabled):not(.disabled):active {
-    background-color: $defaultButtonColorActive;
-    border: 0.1rem solid $defaultButtonColorActive;
+    outline: 0.3rem solid $highlightColor;
   }
 
   &--danger {
@@ -40,7 +39,7 @@
   }
 
   &--danger:focus {
-    outline: 0.2rem solid $highlightColor;
+    outline: none;
   }
 
   &--danger:hover {
@@ -49,8 +48,7 @@
   }
 
   &--danger:not(:disabled):not(.disabled):active {
-    background-color: $dangerColor;
-    border: 0.1rem solid $dangerColor;
+    outline: 0.2rem solid $highlightColor;
   }
 }
 
@@ -190,7 +188,7 @@
   }
 }
 
-.featsAndTraits__tArea{
+.featsAndTraits__tArea {
   width: 45rem;
   height: 15rem;
 }
@@ -203,8 +201,8 @@
 }
 
 //spells
-.spells{
-  .input--big{
+.spells {
+  .input--big {
     width: 20rem;
   }
 }
