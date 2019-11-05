@@ -89,12 +89,12 @@ class DiceRoller extends Component {
 
   render() {
     return (
-      <div id="diceRoller" className="diceRoller">
+      <>
         {this.state.dice.map((die, index) => {
           return (
-            <div className="inputDiceWrapper" key={`${die.die}Wrapper`}>
+            <div className="diceRoller" key={`${die.die}Wrapper`}>
               <input
-                id="diceInput"
+                className="diceRoller__input"
                 key={`${die.die}Number`}
                 name={`${die.die}Number`}
                 type="number"
@@ -104,7 +104,7 @@ class DiceRoller extends Component {
                 }.bind(this)}
               />
               <button
-                className="diceButton"
+                className="diceRoller__button"
                 key={die.die}
                 name={die.die}
                 type="button"
@@ -115,7 +115,7 @@ class DiceRoller extends Component {
                 {die.die}
               </button>
               <input
-                id="diceInput"
+                className="diceRoller__input"
                 key={`${die.die}Modifier`}
                 name={`${die.die}Modifier`}
                 type="number"
@@ -127,7 +127,7 @@ class DiceRoller extends Component {
             </div>
           );
         })}
-      </div>
+      </>
     );
   }
 }

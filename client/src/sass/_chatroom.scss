@@ -1,0 +1,65 @@
+.chatroom {
+  display: grid;
+  grid-template-columns: 1fr 70vw;
+
+  &__sidebar {
+    margin-right: auto;
+  }
+
+  &__chat {
+    height: calc(100vh - 5.5rem);
+    display: grid;
+    grid-template-rows: max-content 1fr 3rem;
+  }
+}
+
+.userCount {
+  background-color: gray;
+  font-size: 2rem;
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.chatDisplay {
+  overflow: scroll;
+  overflow-x: hidden;
+  font-size: 1.7rem;
+
+  &__messageWrapper {
+  }
+
+  &__message {
+    width: 100%;
+    word-wrap: break-word;
+    padding-left: 5px;
+  }
+}
+
+.chatBar {
+  border: solid orange 1px;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+
+  &__input {
+    outline: none;
+  }
+
+  &__button {
+  }
+}
+
+.diceRoller {
+  width: 9em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &__input {
+    width: 3em;
+  }
+
+  &__button {
+    width: 3em;
+  }
+}

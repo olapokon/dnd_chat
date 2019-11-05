@@ -91,84 +91,77 @@ class Chatroom extends Component {
 
   render() {
     return (
-      <div className="chatroomSheetDiceChatContainer container-fluid px-0">
-        <div className="row mx-0">
-          <div className="col-sm-3">
-            <div className="charSheet">
-              <CharacterSheetChat
-                user={this.props.user}
-                updateUser={this.props.updateUser}
-                requestInProgress={this.props.requestInProgress}
-                changeRequestInProgress={this.props.changeRequestInProgress}
-              />
-            </div>
-            <div className="diceRoller">
-              <DiceRoller handleDiceRoll={this.handleDiceRoll} />
-            </div>
+      <div className="chatroom">
+        <div className="chatroom__sidebar">
+          <CharacterSheetChat
+            user={this.props.user}
+            updateUser={this.props.updateUser}
+            requestInProgress={this.props.requestInProgress}
+            changeRequestInProgress={this.props.changeRequestInProgress}
+          />
+          <DiceRoller handleDiceRoll={this.handleDiceRoll} />
+        </div>
+        <div className="chatroom__chat">
+          <div className="userCount">
+            <h3>
+              Chatroom: {this.props.currentChatroom ? this.props.currentChatroom.name : ''} User
+              count:{' '}
+              {this.props.currentChatroom &&
+                this.props.currentChatroom.userList &&
+                this.props.currentChatroom.userList.length}
+            </h3>
           </div>
-          <div className="chatContainer col-9">
-            <div id="chatroomUsercount">
-              <h3>
-                Chatroom: {this.props.currentChatroom ? this.props.currentChatroom.name : ''} User
-                count:{' '}
-                {this.props.currentChatroom &&
-                  this.props.currentChatroom.userList &&
-                  this.props.currentChatroom.userList.length}
-              </h3>
-            </div>
-            <div className="chatDisplay" ref={node => (this.node = node)}>
-              {this.state.chatHistory.map((message, i) => {
-                if (message.type === 'user message') {
-                  return (
-                    <div key={i} className="messageWrapper">
-                      <div className="message">{`${message.username}: ${message.message}`}</div>
-                    </div>
-                  );
-                } else if (message.type === 'dice roll') {
-                  return (
+          <div className="chatDisplay" ref={node => (this.node = node)}>
+            {this.state.chatHistory.map((message, i) => {
+              if (message.type === 'user message') {
+                return (
+                  <div key={i} className="chatDisplay__messageWrapper">
+                    <div className="chatDisplay__message">{`${message.username}: ${message.message}`}</div>
+                  </div>
+                );
+              } else if (message.type === 'dice roll') {
+                return (
+                  <div
+                    key={i}
+                    className="chatDisplay__message"
+                    style={{ color: 'blue' }}
+                  >{`${message.username} rolls ${message.message}.`}</div>
+                );
+              } else if (message.type === 'chat notification') {
+                return (
+                  <div
+                    key={i}
+                    className="chatDisplay__message"
+                    style={{ color: 'orange' }}
+                  >{`${message.username} ${message.message}`}</div>
+                );
+              } else {
+                return (
+                  <div className="chatDisplay__messageWrapper">
                     <div
                       key={i}
-                      className="message"
-                      style={{ color: 'blue' }}
-                    >{`${message.username} rolls ${message.message}.`}</div>
-                  );
-                } else if (message.type === 'chat notification') {
-                  return (
-                    <div
-                      key={i}
-                      className="message"
-                      style={{ color: 'orange' }}
-                    >{`${message.username} ${message.message}`}</div>
-                  );
-                } else {
-                  return (
-                    <div className="messageWrapper">
-                      <div
-                        key={i}
-                        className="message"
-                      >{`${message.username}: ${message.message}`}</div>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-            <form className="input-group mb-3" onSubmit={this.handleSubmit}>
-              <input
-                autoFocus
-                value={this.state.chatInput}
-                onChange={this.handleChange}
-                maxLength="400"
-                type="text"
-                className="form-control"
-                aria-describedby="button-addon2"
-              />
-              <div className="input-group-append">
-                <button className="btn btn-outline-secondary" type="submit" id="button-addon2">
-                  Send
-                </button>
-              </div>
-            </form>
+                      className="chatDisplay__message"
+                    >{`${message.username}: ${message.message}`}</div>
+                  </div>
+                );
+              }
+            })}
           </div>
+          <form className="chatBar" onSubmit={this.handleSubmit}>
+            <input
+              autoFocus
+              value={this.state.chatInput}
+              onChange={this.handleChange}
+              maxLength="400"
+              type="text"
+              className="chatBar__input"
+            />
+            <div className="chatBar__button">
+              <button className="btn--dark" type="submit">
+                Send
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     );
