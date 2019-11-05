@@ -24,7 +24,7 @@ function Spellcasting(props) {
                   &nbsp;
                   <select
                     name="spellCastingAbility"
-                    className="select spellCasting__select btn btn--light btn--dropDown"
+                    className="select spellCasting__select btn--light btn--dropDown"
                     value={spellCasting.spellCastingAbility}
                     onChange={function(event) {
                       props.handleChangeSpellCasting(event, idx);

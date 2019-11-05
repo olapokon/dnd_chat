@@ -5,21 +5,25 @@ function Inventory(props) {
     <div className="container inventoryFull">
       <div className="container equipment">
         <h3 className="heading equipment__heading heading--3"> Equipment </h3>
-        <label className="label equipment__label">Equiped Items</label>
+        <div className="container inventory">
+          <label className="label equipment__label">Equiped Items</label>
 
-        <textarea
-          name="equipment"
-          className="tArea equipment__tArea"
-          value={props.equipment}
-          onChange={props.handleChange}
-        />
-        <label className="label equipment__label">Inventory</label>
-        <textarea
-          name="inventory"
-          className="tArea equipment__tArea"
-          value={props.inventory}
-          onChange={props.handleChange}
-        />
+          <textarea
+            name="equipment"
+            className="tArea equipment__tArea"
+            value={props.equipment}
+            onChange={props.handleChange}
+          />
+        </div>
+        <div className="container inventory">
+          <label className="label equipment__label">Inventory</label>
+          <textarea
+            name="inventory"
+            className="tArea equipment__tArea"
+            value={props.inventory}
+            onChange={props.handleChange}
+          />
+        </div>
       </div>
       <div className="container money">
         <h3 className="heading money__heading heading--3"> Money </h3>
