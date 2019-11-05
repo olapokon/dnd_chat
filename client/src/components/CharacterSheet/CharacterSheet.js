@@ -617,14 +617,14 @@ class CharacterSheet extends Component {
               charNotes={this.state.charNotes}
             />
             {this.state.characterName.trim() && !this.props.requestInProgress && (
-              <div className="submitBtn leftFloat">
-                <input className="btn btn-primary" type="submit" value="Save" />
+              <div>
+                <input className="btn btn--dark" type="submit" value="Save" />
               </div>
             )}
             {this.state.uuid && !this.props.requestInProgress && (
-              <div className="leftFloat">
+              <div>
                 <input
-                  className="btn btn-danger"
+                  className="btn btn--dark"
                   type="button"
                   onClick={this.handleDeleteCharacter}
                   value="Delete Character"
