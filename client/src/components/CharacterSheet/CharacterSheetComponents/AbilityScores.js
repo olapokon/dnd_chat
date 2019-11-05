@@ -17,7 +17,7 @@ function AbilityScores(props) {
         <ul>
           <li>
             <div>
-              <label className="label abilities_label"> STR: </label>
+              <label className="label abilities_label"> STR </label>
             </div>
             <div className="row abilities__row">
               <input
@@ -38,7 +38,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label className="label abilities_label"> DEX: </label>
+              <label className="label abilities_label"> DEX </label>
             </div>
             <div className="row abilities__row">
               <input
@@ -59,7 +59,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label className="label abilities_label"> CON: </label>
+              <label className="label abilities_label"> CON </label>
             </div>
             <div className="row abilities__row">
               <input
@@ -80,7 +80,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label className="label abilities_label"> INT: </label>
+              <label className="label abilities_label"> INT </label>
             </div>
             <div className="row abilities__row">
               <input
@@ -101,7 +101,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label className="label abilities_label"> WIS: </label>
+              <label className="label abilities_label"> WIS </label>
             </div>
             <div className="row abilities__row">
               <input
@@ -122,7 +122,7 @@ function AbilityScores(props) {
           </li>
           <li>
             <div>
-              <label className="label abilities_label"> CHA: </label>
+              <label className="label abilities_label"> CHA </label>
             </div>
             <div className="row abilities__row">
               <input

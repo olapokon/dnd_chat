@@ -146,7 +146,7 @@ function CombatStats(props) {
                     />
                     <select
                       name="atkDmgDice"
-                      className="select select__dmgDice btn btn--white btn--dropDown btn--btmBorder"
+                      className="select select__dmgDice btn--white btn--dropDown btn--btmBorder"
                       value={attack.atkDmgDice}
                       onChange={function(event) {
                         props.handleChangeAttack(event, idx);
@@ -175,7 +175,7 @@ function CombatStats(props) {
                     />
                     <select
                       name="atkDmgDiceSec"
-                      className="select select__dmgDice btn btn--white btn--dropDown btn--btmBorder"
+                      className="select select__dmgDice btn--white btn--dropDown btn--btmBorder"
                       value={attack.atkDmgDiceSec}
                       onChange={function(event) {
                         props.handleChangeAttack(event, idx);
