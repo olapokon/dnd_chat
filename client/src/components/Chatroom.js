@@ -115,34 +115,31 @@ class Chatroom extends Component {
             {this.state.chatHistory.map((message, i) => {
               if (message.type === 'user message') {
                 return (
-                  <div key={i} className="chatDisplay__messageWrapper">
-                    <div className="chatDisplay__message">{`${message.username}: ${message.message}`}</div>
-                  </div>
+                  <div
+                    key={i}
+                    className="chatDisplay__message chatDisplay__message--userMessage"
+                  >{`${message.username}: ${message.message}`}</div>
                 );
               } else if (message.type === 'dice roll') {
                 return (
                   <div
                     key={i}
-                    className="chatDisplay__message"
-                    style={{ color: 'blue' }}
+                    className="chatDisplay__message chatDisplay__message--diceRoll"
                   >{`${message.username} rolls ${message.message}.`}</div>
                 );
               } else if (message.type === 'chat notification') {
                 return (
                   <div
                     key={i}
-                    className="chatDisplay__message"
-                    style={{ color: 'orange' }}
+                    className="chatDisplay__message chatDisplay__message--notification"
                   >{`${message.username} ${message.message}`}</div>
                 );
               } else {
                 return (
-                  <div className="chatDisplay__messageWrapper">
-                    <div
-                      key={i}
-                      className="chatDisplay__message"
-                    >{`${message.username}: ${message.message}`}</div>
-                  </div>
+                  <div
+                    key={i}
+                    className="chatDisplay__message"
+                  >{`${message.username}: ${message.message}`}</div>
                 );
               }
             })}

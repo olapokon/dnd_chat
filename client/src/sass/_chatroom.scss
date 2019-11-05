@@ -26,13 +26,22 @@
   overflow-x: hidden;
   font-size: 1.7rem;
 
-  &__messageWrapper {
-  }
-
   &__message {
     width: 100%;
     word-wrap: break-word;
     padding-left: 5px;
+
+    &--userMessage {
+      color: gray;
+    }
+
+    &--diceRoll {
+      color: blue;
+    }
+
+    &--notification {
+      color: orange;
+    }
   }
 }
 
