@@ -2,7 +2,7 @@ import React from 'react';
 
 function LoadMenu(props) {
   return (
-    <div className="container charSelect">
+    <div className="charSelect">
       <select
         name="loadMenu"
         className="select charSelect__select btn btn--light"

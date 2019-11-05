@@ -23,13 +23,13 @@ const skills = [
 
 function Skills(props) {
   return (
-    <div className="container skills">
+    <div className="skills">
       <h3 className="heading skills_heading heading--3"> Skills</h3>
       <ul>
         {skills.map(skill => {
           return (
             <li key={skill.name} className="skillList">
-              <div className="row skills__row">
+              <div>
                 <input
                   className="checkbox skills__checkbox"
                   type="checkbox"

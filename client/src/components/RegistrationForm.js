@@ -80,11 +80,12 @@ class RegistrationForm extends Component {
         <form className="center">
           <div>
             <input
-              id={
-                this.state.usernameError
-                  ? 'registrationLoginErrorInput'
-                  : 'registrationUsernameInput'
-              }
+              // id={
+              //   this.state.usernameError
+              //     ? 'registrationLoginErrorInput'
+              //     : 'registrationUsernameInput'
+              // }
+              className={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
               type="text"
               name="username"
               placeholder="Username"

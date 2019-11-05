@@ -524,7 +524,7 @@ class CharacterSheet extends Component {
       <form className="chatroom__characterSheet" onSubmit={this.handleSubmit}>
         <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
         {this.state.componentToggle.includes('characterInfo') && (
-          <div className="chatSheetCompToggle" id="sheetCompCharInfo">
+          <div className="chatSheetCompToggle">
             <CharacterInfo
               handleChange={this.handleChange}
               characterName={this.state.characterName}
@@ -546,7 +546,7 @@ class CharacterSheet extends Component {
           </div>
         )}
         {this.state.componentToggle.includes('abilityScores') && (
-          <div className="chatSheetCompToggle" id="sheetCompScoreSaves">
+          <div className="chatSheetCompToggle">
             <AbilityScores
               handleChange={this.handleChange}
               str={this.state.str}
@@ -564,7 +564,7 @@ class CharacterSheet extends Component {
           </div>
         )}
         {this.state.componentToggle.includes('skills') && (
-          <div className="chatSheetCompToggle" id="sheetCompSkills">
+          <div className="chatSheetCompToggle">
             <Skills
               handleChange={this.handleChange}
               str={this.state.str}
@@ -579,7 +579,7 @@ class CharacterSheet extends Component {
           </div>
         )}
         {this.state.componentToggle.includes('combatStats') && (
-          <div className="chatSheetCompToggle" id="sheetCompCombat">
+          <div className="chatSheetCompToggle">
             <CombatStats
               handleChange={this.handleChange}
               armorClass={this.state.armorClass}
@@ -599,7 +599,7 @@ class CharacterSheet extends Component {
           </div>
         )}
         {this.state.componentToggle.includes('inventory') && (
-          <div className="chatSheetCompToggle" id="sheetCompInventory">
+          <div className="chatSheetCompToggle">
             <Inventory
               handleChange={this.handleChange}
               equipment={this.state.equipment}
@@ -613,7 +613,7 @@ class CharacterSheet extends Component {
           </div>
         )}
         {this.state.componentToggle.includes('personalityBackground') && (
-          <div className="chatSheetCompToggle" id="sheetCompBackground">
+          <div className="chatSheetCompToggle">
             <PersonalityBackground
               handleChange={this.handleChange}
               personality={this.state.personality}
@@ -625,7 +625,7 @@ class CharacterSheet extends Component {
           </div>
         )}
         {this.state.componentToggle.includes('spellcasting') && (
-          <div className="chatSheetCompToggle" id="sheetCompSpellcasting">
+          <div className="chatSheetCompToggle">
             <Spellcasting
               spellsArray={this.state.spellsArray}
               handleChangeSpells={this.handleChangeSpells}
@@ -635,71 +635,71 @@ class CharacterSheet extends Component {
             />
           </div>
         )}
-        <ul className="sheetComponents">
-          <li className="sheetListComponent">
+        <ul>
+          <li className="chatroom__characterSheet__component">
             <button
               name="characterInfo"
-              className="btn btn-dark sheetCompBtn"
+              className="btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
               Character Info
             </button>
           </li>
-          <li className="sheetListComponent">
+          <li className="chatroom__characterSheet__component">
             <button
               name="abilityScores"
-              className="btn btn-dark sheetCompBtn"
+              className="btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
               Ability Scores
             </button>
           </li>
-          <li className="sheetListComponent">
+          <li className="chatroom__characterSheet__component">
             <button
               name="skills"
-              className="btn btn-dark sheetCompBtn"
+              className="btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
               Skills
             </button>
           </li>
-          <li className="sheetListComponent">
+          <li className="chatroom__characterSheet__component">
             <button
               name="combatStats"
-              className="btn btn-dark sheetCompBtn"
+              className="btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
               Combat Stats
             </button>
           </li>
-          <li className="sheetListComponent">
+          <li className="chatroom__characterSheet__component">
             <button
               name="inventory"
-              className="btn btn-dark sheetCompBtn"
+              className="btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
               Inventory
             </button>
           </li>
-          <li className="sheetListComponent">
+          <li className="chatroom__characterSheet__component">
             <button
               name="personalityBackground"
-              className="btn btn-dark sheetCompBtn"
+              className="btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
               Background
             </button>
           </li>
-          <li className="sheetListComponent">
+          <li className="chatroom__characterSheet__component">
             <button
               name="spellcasting"
-              className="btn btn-dark sheetCompBtn"
+              className="btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
@@ -710,11 +710,7 @@ class CharacterSheet extends Component {
 
         {this.state.characterName.trim() && !this.props.requestInProgress && (
           <div>
-            <input
-              className="charSaveBtn btn-sm btn-primary"
-              type="submit"
-              value="Save character"
-            />
+            <input className="btn btn--dark" type="submit" value="Save character" />
           </div>
         )}
       </form>

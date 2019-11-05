@@ -11,15 +11,15 @@ const savingThrows = [
 
 function AbilityScores(props) {
   return (
-    <div className="container abilitiesST">
-      <div className="container abilities">
+    <div className="abilitiesST">
+      <div className="abilities">
         <h3 className="heading abilities__heading heading--3"> Ability Scores</h3>
         <ul>
           <li>
             <div>
               <label className="label abilities_label"> STR </label>
             </div>
-            <div className="row abilities__row">
+            <div>
               <input
                 className="input abilities__score input--small "
                 type="number"
@@ -40,7 +40,7 @@ function AbilityScores(props) {
             <div>
               <label className="label abilities_label"> DEX </label>
             </div>
-            <div className="row abilities__row">
+            <div>
               <input
                 className="input abilities__score input--small "
                 type="number"
@@ -61,7 +61,7 @@ function AbilityScores(props) {
             <div>
               <label className="label abilities_label"> CON </label>
             </div>
-            <div className="row abilities__row">
+            <div>
               <input
                 className="input abilities__score input--small "
                 type="number"
@@ -82,7 +82,7 @@ function AbilityScores(props) {
             <div>
               <label className="label abilities_label"> INT </label>
             </div>
-            <div className="row abilities__row">
+            <div>
               <input
                 className="input abilities__score input--small "
                 type="number"
@@ -103,7 +103,7 @@ function AbilityScores(props) {
             <div>
               <label className="label abilities_label"> WIS </label>
             </div>
-            <div className="row abilities__row">
+            <div>
               <input
                 className="input abilities__score input--small "
                 type="number"
@@ -124,7 +124,7 @@ function AbilityScores(props) {
             <div>
               <label className="label abilities_label"> CHA </label>
             </div>
-            <div className="row abilities__row">
+            <div>
               <input
                 className="input abilities__score input--small "
                 type="number"
@@ -144,14 +144,14 @@ function AbilityScores(props) {
         </ul>
       </div>
 
-      <div className="container stProf">
+      <div className="stProf">
         <div className="savingThrows">
           <h3 className="heading savingThrows__heading heading--3"> Saving Throws</h3>
           <ul>
             {savingThrows.map(savingThrow => {
               return (
                 <li key={savingThrow.name}>
-                  <div className="row savingThrows__row">
+                  <div>
                     <input
                       className="checkbox checkbox__st"
                       type="checkbox"
@@ -175,8 +175,8 @@ function AbilityScores(props) {
             })}
           </ul>
         </div>
-        <div className="container profInspPerc">
-          <div className="proficiency row proficiency__row">
+        <div className="profInspPerc">
+          <div className="proficiency">
             <label className="label proficiency__label"> Proficiency Bonus </label>
 
             <input
@@ -187,7 +187,7 @@ function AbilityScores(props) {
               readOnly
             />
           </div>
-          <div className="inspiration row inspiration__row">
+          <div className="inspiration">
             <label className="label inspiration__label"> Inspiration </label>
             <input
               className="input inspiration__score input--small "
@@ -197,7 +197,7 @@ function AbilityScores(props) {
               onChange={props.handleChange}
             />
           </div>
-          <div className="passPerc row passPerc__row">
+          <div className="passPerc">
             <label className="label pasPerc__label"> Passive Perception </label>
             <input
               className="input passPerc__mod input--small  input--readonly"

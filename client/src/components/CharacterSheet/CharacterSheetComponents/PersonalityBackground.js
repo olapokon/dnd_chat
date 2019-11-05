@@ -2,8 +2,8 @@ import React from 'react';
 
 function PersonalityBackground(props) {
   return (
-    <div className="container personalityBackground">
-      <div className="container background">
+    <div className="personalityBackground">
+      <div className="background">
         <h3 className="heading background__heading heading--3">Background</h3>
         <textarea
           maxLength="1600"
@@ -13,7 +13,7 @@ function PersonalityBackground(props) {
           onChange={props.handleChange}
         />
       </div>
-      <div className="container personality">
+      <div className="personality">
         <h3 className="heading personality__heading heading--3"> Personality </h3>
         <label className="label personality__label">Traits</label>
         <textarea

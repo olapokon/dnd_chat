@@ -2,8 +2,8 @@ import React from 'react';
 
 function CharacterInfo(props) {
   return (
-    <div className="container characterInfo">
-      <div className="row characterInfo__row">
+    <div className="characterInfo">
+      <div>
         <label className="label characterInfo__label">Character Name:</label>
         <input
           type="text"
@@ -13,7 +13,7 @@ function CharacterInfo(props) {
           onChange={props.handleChange}
         />
       </div>
-      <div className="row characterInfo__row">
+      <div>
         <label className="label characterInfo__label">Race:</label>
         <input
           type="text"

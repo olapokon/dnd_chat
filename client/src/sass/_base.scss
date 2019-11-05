@@ -51,59 +51,12 @@ a {
   font-size: 2rem;
 }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// ==========================================================
-
 .registrationLoginError {
   color: red;
   margin: 0;
 }
 
-#registrationLoginErrorInput {
+.registrationLoginErrorInput {
   border: solid red 2px;
   padding: 0px 3px 0px 3px;
-}
-
-#characterTable {
-  max-width: 900px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  border: solid gold 1px;
-  color: gold;
-  padding: 3px 4px 3px 4px;
-}
-
-#characterTable th {
-  border: solid gold 1px;
-  padding: 3px 4px 3px 4px;
-  text-align: center;
-}
-
-#characterTable td {
-  border: solid gold 1px;
-  padding: 3px 4px 3px 4px;
-}
-
-.totalLevelCell {
-  text-align: center;
-}
-
-#newCharacterButton {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#characterLink:hover {
-  text-shadow: -2px -1px 13px rgba(202, 40, 192, 1);
 }

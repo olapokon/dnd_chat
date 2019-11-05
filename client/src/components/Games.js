@@ -28,7 +28,7 @@ class Games extends Component {
   render() {
     return (
       <form className="games">
-        <h1 className="mainHeading mb--large">Create a chatroom</h1>
+        <h1 className="mainHeading mb-large">Create a chatroom</h1>
         <p className="center">Enter chatroom name</p>
         <p className="center">
           <input

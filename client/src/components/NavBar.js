@@ -3,44 +3,44 @@ import { NavLink } from 'react-router-dom';
 
 function NavBar(props) {
   return (
-    <nav id="mainNav" className="navbar">
-      <ul className="navbar-nav">
+    <nav className="navbar">
+      <ul>
         <li>
-          <NavLink className="nav-link" exact to="/">
+          <NavLink className="navbar__link" exact to="/">
             Home
           </NavLink>
         </li>
         {props.loggedIn && (
           <li>
-            <NavLink className="nav-link" exact to="/games">
+            <NavLink className="navbar__link" exact to="/games">
               Games
             </NavLink>
           </li>
         )}
         {props.loggedIn && (
           <li>
-            <NavLink className="nav-link" exact to="/profile">
+            <NavLink className="navbar__link" exact to="/profile">
               Profile
             </NavLink>
           </li>
         )}
         {props.loggedIn && (
           <li className="ml-auto">
-            <NavLink className="nav-link" to="/" onClick={props.logout}>
+            <NavLink className="navbar__link" to="/" onClick={props.logout}>
               Logout
             </NavLink>
           </li>
         )}
         {!props.loggedIn && (
           <li className="ml-auto">
-            <NavLink className="nav-link" exact to="/login">
+            <NavLink className="navbar__link" exact to="/login">
               Login
             </NavLink>
           </li>
         )}
         {!props.loggedIn && (
           <li>
-            <NavLink className="nav-link" to="/register">
+            <NavLink className="navbar__link" to="/register">
               Register
             </NavLink>
           </li>

@@ -2,14 +2,14 @@ import React from 'react';
 
 function ClassLevel(props) {
   return (
-    <div className="container character">
-      <div className="container classLevel">
+    <div className="character">
+      <div className="classLevel">
         <h3 className="heading classLevel__heading heading--3"> Class and Level </h3>
         <ul>
           {props.charClassArray.map((char, idx) => {
             return (
               <li key={idx}>
-                <div className="row classLevel__row">
+                <div>
                   <label className="label classLevel__label">Class:</label>
                   <input
                     type="text"
@@ -54,7 +54,7 @@ function ClassLevel(props) {
           })}
         </ul>
       </div>
-      <div className="container experience">
+      <div className="experience">
         <label className="label totalLevel__label">Total Level:</label>
         <input
           className="input totalLevel__input input--small input--clear"
@@ -64,7 +64,7 @@ function ClassLevel(props) {
           readOnly
         />
         <div>
-          <div className="row experience__row">
+          <div>
             <label className="label experience__label">Experience:</label>
             <input
               type="number"
@@ -74,7 +74,7 @@ function ClassLevel(props) {
               onChange={props.handleChange}
             />
           </div>
-          <div className="row">
+          <div>
             <label className="label addExp__label">Add Experience:</label>
             <input
               type="number"
@@ -91,7 +91,7 @@ function ClassLevel(props) {
               Add experience
             </button>
           </div>
-          <div className="row nextLevelExp__row">
+          <div>
             <label className="label nextLevelExp__label">Experience To Next Level:</label>
             <input
               type="number"

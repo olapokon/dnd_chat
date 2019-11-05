@@ -2,12 +2,12 @@ import React from 'react';
 
 function CombatStats(props) {
   return (
-    <div className="container combat">
+    <div className="combat">
       <h3 className="heading combat__heading heading--3">Combat</h3>
-      <div className="container combatStats">
-        <div className="container AcInitSpeed">
+      <div className="combatStats">
+        <div className="AcInitSpeed">
           <h4 className="heading combatStats__heading heading--4">Combat Stats</h4>
-          <div className="container armorClass">
+          <div className="armorClass">
             <label className="label combat__label">
               Armor Class
               <div>
@@ -21,7 +21,7 @@ function CombatStats(props) {
               </div>
             </label>
           </div>
-          <div className="container initiative">
+          <div className="initiative">
             <label className="label combat__label">
               Initiative
               <div>
@@ -35,7 +35,7 @@ function CombatStats(props) {
               </div>
             </label>
           </div>
-          <div className="container speed">
+          <div className="speed">
             <label className="label combat__label">
               Speed
               <div>
@@ -50,9 +50,9 @@ function CombatStats(props) {
             </label>
           </div>
         </div>
-        <div className="container hitPoints">
+        <div className="hitPoints">
           <h4 className="heading hitPoints__heading heading--4">Hit Points</h4>
-          <div className="row hitPoints__row">
+          <div>
             <label className="label combat__label">Maximum</label>
             <input
               type="number"
@@ -62,7 +62,7 @@ function CombatStats(props) {
               onChange={props.handleChange}
             />
           </div>
-          <div className="row hitPoints__row">
+          <div>
             <label className="label combat__label">Current</label>
             <input
               type="number"
@@ -72,7 +72,7 @@ function CombatStats(props) {
               onChange={props.handleChange}
             />
           </div>
-          <div className="row hitPoints__row">
+          <div>
             <label className="label combat__label">Temporary</label>
             <input
               type="number"
@@ -84,7 +84,7 @@ function CombatStats(props) {
           </div>
         </div>
       </div>
-      <div className="container attacks">
+      <div className="attacks">
         <h4 className="heading attacks__heading heading--4"> Attack and Spellcasting</h4>
 
         <table className="attackTable">
@@ -242,7 +242,7 @@ function CombatStats(props) {
           </tbody>
         </table>
       </div>
-      <div className="container featsAndTraits">
+      <div className="featsAndTraits">
         <h4 className="heading featsAndTraits__heading heading--4">Features and Traits </h4>
         <textarea
           name="features"
@@ -252,7 +252,7 @@ function CombatStats(props) {
           onChange={props.handleChange}
         />
       </div>
-      <div className="container deathSaves">
+      <div className="deathSaves">
         <h4 className="heading deathSaves__heading heading--4">Death Saves</h4>
         <ul>
           <li>

@@ -2,14 +2,14 @@ import React from 'react';
 
 function Spellcasting(props) {
   return (
-    <div className="container spellCastingBlock">
-      <div className="container spellCasting">
+    <div className="spellCastingBlock">
+      <div className="spellCasting">
         <h3 className="heading spellCasting__heading heading--3"> SpellCasting </h3>
         <ul className="list spellCasting__list">
           {props.spellCastingArray.map((spellCasting, idx) => {
             return (
               <li key={idx}>
-                <div className="row spellCasting__row">
+                <div>
                   <label className="label spellCasting__label">SpellCasting Class</label>
                   <input
                     type="text"
@@ -88,13 +88,13 @@ function Spellcasting(props) {
           })}
         </ul>
       </div>
-      <div className="container spells">
+      <div className="spells">
         <h3 className="heading spells__heading heading--3"> Spells</h3>
         <ul className="list spells__list">
           {props.spellsArray.map((spellLevel, idx) => {
             return (
               <li key={idx}>
-                <div className="row spells__row">
+                <div>
                   <label className="label spells__label">
                     Spell Level
                     <input
@@ -139,7 +139,7 @@ function Spellcasting(props) {
                   {spellLevel.spellList.map((spell, spidx) => {
                     return (
                       <li key={spidx}>
-                        <div className="row spell__row">
+                        <div>
                           <label className="label spell__label">
                             <input
                               className="checkbox spell__checkbox"

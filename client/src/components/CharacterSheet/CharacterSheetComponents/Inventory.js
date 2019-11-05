@@ -2,10 +2,10 @@ import React from 'react';
 
 function Inventory(props) {
   return (
-    <div className="container inventoryFull">
-      <div className="container equipment">
+    <div className="inventoryFull">
+      <div className="equipment">
         <h3 className="heading equipment__heading heading--3"> Equipment </h3>
-        <div className="container inventory">
+        <div className="inventory">
           <label className="label equipment__label">Equiped Items</label>
 
           <textarea
@@ -15,7 +15,7 @@ function Inventory(props) {
             onChange={props.handleChange}
           />
         </div>
-        <div className="container inventory">
+        <div className="inventory">
           <label className="label equipment__label">Inventory</label>
           <textarea
             name="inventory"
@@ -25,7 +25,7 @@ function Inventory(props) {
           />
         </div>
       </div>
-      <div className="container money">
+      <div className="money">
         <h3 className="heading money__heading heading--3"> Money </h3>
         <label className="label money__label">
           CP

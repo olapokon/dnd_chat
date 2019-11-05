@@ -140,18 +140,17 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div className="LoginForm">
+      <div className="loginForm">
         <h1 className="mainHeading">Login</h1>
         <form className="center">
           <div>
             <input
-              id={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
               type="text"
               name="username"
               placeholder="Username"
               value={this.state.username}
               onChange={this.handleChange}
-              className=""
+              className={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
             />
             {this.state.usernameError && (
               <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
