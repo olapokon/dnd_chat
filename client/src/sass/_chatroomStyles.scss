@@ -1,0 +1,94 @@
+.chatroom{
+    font-size: 1.4rem;
+}
+
+.sheetComp__btn {
+    font-size: inherit;
+    width: 10rem;
+    height: 4rem;
+    margin: 0.3rem;
+
+    &:focus {
+        outline: 0.3rem solid $highlightColor;
+    }
+}
+
+.userCount {
+    background-color: $defaultButtonColor;
+    font-size: 2rem;
+    padding: 1rem;
+    text-align: center;
+    color: #fff;
+  }
+
+.chatBar{
+    height: 3.7rem;
+    border: none;
+    &__input{
+        height: 3.7rem;
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+        text-align: left;
+        outline: none;
+    }
+
+    &__input:focus{
+        border: 0.2rem solid $highlightColor;
+    }
+
+    &__button {
+        width: 9rem;
+        height: 3.7rem;
+    }
+
+    .btn{
+        width: 7rem;
+        height: 3.7rem;
+        margin: 0.2rem;
+    }
+}
+
+.diceRoller {
+    &__input {
+        height: 3rem;
+        width: 3.5rem;
+    }
+        
+    &__button {
+        height: 3rem;
+        width: 3.5rem;
+    }
+}
+
+.chatSheetCompToggle{
+    .combat{
+        width:50rem;
+    }
+    .spellCastingBlock{
+        width: 74rem;
+    }
+    .personalityBackground{
+        width: 29rem;
+    }
+    z-index: 99;
+    overflow-y: auto;
+    margin-left: 12rem;
+    width: max-content;
+    max-height: 69.5rem;
+    max-width: 80rem;
+    min-width: 23rem;
+    background: white;
+    position: absolute;
+    padding: 1.5rem;
+    padding-bottom: 3rem;
+    border: 0.1rem solid $borderColor;
+    box-shadow: 0 0 0.8rem $borderColor;
+}
+
+.chatDisplay__message{
+    &--userMessage{
+        color: $defaultButtonColor;
+        padding: 0.3rem;
+        width: max-content;
+    }
+}

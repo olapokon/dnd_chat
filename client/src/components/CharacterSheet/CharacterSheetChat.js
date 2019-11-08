@@ -11,6 +11,7 @@ import CombatStats from './CharacterSheetComponents/CombatStats';
 import Inventory from './CharacterSheetComponents/Inventory';
 import PersonalityBackground from './CharacterSheetComponents/PersonalityBackground';
 import Spellcasting from './CharacterSheetComponents/Spellcasting';
+import CharacterNotes from './CharacterSheetComponents/CharacterNotes';
 
 import LoadMenu from './CharacterSheetComponents/LoadMenu';
 
@@ -635,11 +636,20 @@ class CharacterSheet extends Component {
             />
           </div>
         )}
+        {this.state.componentToggle.includes('characterNotes') && (
+          <div className="chatSheetCompToggle" id="sheetCharNotes">
+            <CharacterNotes
+              handleChange={this.handleChange}
+              hitDice={this.state.hitDice}
+              charNotes={this.state.charNotes}
+            />
+          </div>
+        )}
         <ul>
           <li className="chatroom__characterSheet__component">
             <button
               name="characterInfo"
-              className="btn btn--dark"
+              className="btn sheetComp__btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
@@ -649,7 +659,7 @@ class CharacterSheet extends Component {
           <li className="chatroom__characterSheet__component">
             <button
               name="abilityScores"
-              className="btn btn--dark"
+              className="btn sheetComp__btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
@@ -659,7 +669,7 @@ class CharacterSheet extends Component {
           <li className="chatroom__characterSheet__component">
             <button
               name="skills"
-              className="btn btn--dark"
+              className="btn sheetComp__btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
@@ -669,7 +679,7 @@ class CharacterSheet extends Component {
           <li className="chatroom__characterSheet__component">
             <button
               name="combatStats"
-              className="btn btn--dark"
+              className="btn sheetComp__btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
@@ -679,7 +689,7 @@ class CharacterSheet extends Component {
           <li className="chatroom__characterSheet__component">
             <button
               name="inventory"
-              className="btn btn--dark"
+              className="btn sheetComp__btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
@@ -689,7 +699,7 @@ class CharacterSheet extends Component {
           <li className="chatroom__characterSheet__component">
             <button
               name="personalityBackground"
-              className="btn btn--dark"
+              className="btn sheetComp__btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
@@ -699,11 +709,21 @@ class CharacterSheet extends Component {
           <li className="chatroom__characterSheet__component">
             <button
               name="spellcasting"
-              className="btn btn--dark"
+              className="btn sheetComp__btn btn--dark"
               type="button"
               onClick={this.handleToggle}
             >
               Spellcasting
+            </button>
+          </li>
+          <li className="chatroom__characterSheet__component">
+            <button
+              name="characterNotes"
+              className="btn sheetComp__btn btn--dark"
+              type="button"
+              onClick={this.handleToggle}
+            >
+              Character Notes
             </button>
           </li>
         </ul>

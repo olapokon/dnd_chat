@@ -151,10 +151,10 @@ class Chatroom extends Component {
               onChange={this.handleChange}
               maxLength="400"
               type="text"
-              className="chatBar__input"
+              className="input chatBar__input"
             />
             <div className="chatBar__button">
-              <button className="btn--dark" type="submit">
+              <button className="btn btn--dark" type="submit">
                 Send
               </button>
             </div>
