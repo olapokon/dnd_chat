@@ -15,9 +15,6 @@ import NotFound from './components/NotFound';
 import Loading from './components/Loading';
 import CharacterSheet from './components/CharacterSheet/CharacterSheet';
 
-//dokimastiko
-import CharacterSheetChat from './components/CharacterSheet/CharacterSheetChat';
-
 function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) {
   return (
     <Route
@@ -317,6 +314,7 @@ class App extends Component {
               )}
               <ProtectedRoute
                 path="/characterSheet"
+                version="standalone"
                 component={CharacterSheet}
                 loggedIn={this.state.loggedIn}
                 user={this.state.user}
@@ -324,17 +322,6 @@ class App extends Component {
                 selectCharacter={this.selectCharacter}
                 updateUser={this.updateUser}
                 deleteCharacter={this.deleteCharacter}
-                requestInProgress={this.state.requestInProgress}
-                changeRequestInProgress={this.changeRequestInProgress}
-              />
-              <ProtectedRoute
-                path="/characterSheetChat"
-                component={CharacterSheetChat}
-                loggedIn={this.state.loggedIn}
-                user={this.state.user}
-                selectedCharacter={this.state.selectedCharacter}
-                selectCharacter={this.selectCharacter}
-                updateUser={this.updateUser}
                 requestInProgress={this.state.requestInProgress}
                 changeRequestInProgress={this.changeRequestInProgress}
               />

@@ -43,6 +43,7 @@ class CharacterSheet extends Component {
     super(props);
     this.state = {
       uuid: '',
+      componentToggle: '',
       characterName: '',
       charClassArray: [{ class: '', level: 0 }],
       alignment: '',
@@ -186,11 +187,12 @@ class CharacterSheet extends Component {
     this.addRemoveSpellCastingClass = this.addRemoveSpellCastingClass.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
     this.handleDeleteCharacter = this.handleDeleteCharacter.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   componentDidMount() {
     // checking is there is a selectedCharacter in the App state, which means a sheet is being loaded
-    if (this.props.selectedCharacter === 'new') {
+    if (this.props.selectedCharacter && this.props.selectedCharacter === 'new') {
       return;
     } else if (this.props.selectedCharacter) {
       for (let i = 0; i < this.props.user.characterSheets.length; i++) {
@@ -237,6 +239,7 @@ class CharacterSheet extends Component {
       ...this.state
     };
     delete charData.expAdd;
+    delete charData.componentToggle; //chat version only
     //create new uuid if not already present (if character sheet has not been loaded from the database)
     if (!charData.uuid) {
       const newUuid = uuidv4();
@@ -512,129 +515,361 @@ class CharacterSheet extends Component {
     // this.setState({ ...this.initialState });
   }
 
+  //toggle sections of the character sheet in chat version
+  handleToggle(event) {
+    const name = event.target.name;
+    if (this.state.componentToggle !== name) {
+      this.setState({
+        componentToggle: name
+      });
+    } else {
+      this.setState({
+        componentToggle: ''
+      });
+    }
+  }
+
   render() {
-    return (
-      <div className="sheetContainer">
-        <form className="characterSheet" onSubmit={this.handleSubmit}>
+    //render depending on character sheet version
+    if (this.props.version === 'standalone') {
+      return (
+        <div className="sheetContainer">
+          <form className="characterSheet" onSubmit={this.handleSubmit}>
+            <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
+
+            <CharacterInfo
+              handleChange={this.handleChange}
+              characterName={this.state.characterName}
+              race={this.state.race}
+              alignment={this.state.alignment}
+            />
+
+            <div className="topWrapper">
+              <ClassLevel
+                handleChange={this.handleChange}
+                charClassArray={this.state.charClassArray}
+                handleChangeClass={this.handleChangeClass}
+                addClass={this.addClass}
+                removeClass={this.removeClass}
+                calculateTotalLevel={this.calculateTotalLevel}
+                exp={this.state.exp}
+                expAdd={this.state.expAdd}
+                addExperience={this.addExperience}
+                calculateExpToNextLevel={this.calculateExpToNextLevel}
+              />
+
+              <AbilityScores
+                handleChange={this.handleChange}
+                str={this.state.str}
+                dex={this.state.dex}
+                con={this.state.con}
+                int={this.state.int}
+                wis={this.state.wis}
+                cha={this.state.cha}
+                calculateModifier={this.calculateModifier}
+                charClassArray={this.state.charClassArray}
+                calculateProficiency={this.calculateProficiency}
+                inspiration={this.state.inspiration}
+                proficienciesArray={this.state.proficienciesArray}
+              />
+
+              <Skills
+                handleChange={this.handleChange}
+                str={this.state.str}
+                dex={this.state.dex}
+                con={this.state.con}
+                int={this.state.int}
+                wis={this.state.wis}
+                cha={this.state.cha}
+                calculateModifier={this.calculateModifier}
+                proficienciesArray={this.state.proficienciesArray}
+              />
+
+              <CombatStats
+                handleChange={this.handleChange}
+                armorClass={this.state.armorClass}
+                initiative={this.state.initiative}
+                hpMax={this.state.hpMax}
+                speed={this.state.speed}
+                dsSuccesses={this.state.dsSuccesses}
+                deathSaves={this.deathSaves}
+                handleDeathSaves={this.handleDeathSaves}
+                dsFails={this.state.dsFails}
+                attacksArray={this.state.attacksArray}
+                handleChangeAttack={this.handleChangeAttack}
+                addAttack={this.addAttack}
+                removeAttack={this.removeAttack}
+                features={this.state.features}
+              />
+            </div>
+            <div className="bottomWrapper">
+              <Inventory
+                handleChange={this.handleChange}
+                equipment={this.state.equipment}
+                inventory={this.state.inventory}
+                copper={this.state.copper}
+                silver={this.state.silver}
+                electrum={this.state.electrum}
+                gold={this.state.gold}
+                platinum={this.state.platinum}
+              />
+
+              <PersonalityBackground
+                handleChange={this.handleChange}
+                personality={this.state.personality}
+                ideals={this.state.ideals}
+                bonds={this.state.bonds}
+                flaws={this.state.flaws}
+                background={this.state.background}
+              />
+
+              <Spellcasting
+                spellsArray={this.state.spellsArray}
+                handleChangeSpells={this.handleChangeSpells}
+                spellCastingArray={this.state.spellCastingArray}
+                handleChangeSpellCasting={this.handleChangeSpellCasting}
+                addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
+              />
+              <CharacterNotes
+                handleChange={this.handleChange}
+                hitDice={this.state.hitDice}
+                charNotes={this.state.charNotes}
+              />
+              {this.state.characterName.trim() && !this.props.requestInProgress && (
+                <div>
+                  <input className="btn btn--dark" type="submit" value="Save" />
+                </div>
+              )}
+              {this.state.uuid && !this.props.requestInProgress && (
+                <div>
+                  <input
+                    className="btn btn--dark"
+                    type="button"
+                    onClick={this.handleDeleteCharacter}
+                    value="Delete Character"
+                  />
+                </div>
+              )}
+            </div>
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <form className="chatroom__characterSheet" onSubmit={this.handleSubmit}>
           <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
+          {this.state.componentToggle.includes('characterInfo') && (
+            <div className="chatSheetCompToggle">
+              <CharacterInfo
+                handleChange={this.handleChange}
+                characterName={this.state.characterName}
+                race={this.state.race}
+                alignment={this.state.alignment}
+              />
+              <ClassLevel
+                handleChange={this.handleChange}
+                charClassArray={this.state.charClassArray}
+                handleChangeClass={this.handleChangeClass}
+                addClass={this.addClass}
+                removeClass={this.removeClass}
+                calculateTotalLevel={this.calculateTotalLevel}
+                exp={this.state.exp}
+                expAdd={this.state.expAdd}
+                addExperience={this.addExperience}
+                calculateExpToNextLevel={this.calculateExpToNextLevel}
+              />
+            </div>
+          )}
+          {this.state.componentToggle.includes('abilityScores') && (
+            <div className="chatSheetCompToggle">
+              <AbilityScores
+                handleChange={this.handleChange}
+                str={this.state.str}
+                dex={this.state.dex}
+                con={this.state.con}
+                int={this.state.int}
+                wis={this.state.wis}
+                cha={this.state.cha}
+                calculateModifier={this.calculateModifier}
+                charClassArray={this.state.charClassArray}
+                calculateProficiency={this.calculateProficiency}
+                inspiration={this.state.inspiration}
+                proficienciesArray={this.state.proficienciesArray}
+              />
+            </div>
+          )}
+          {this.state.componentToggle.includes('skills') && (
+            <div className="chatSheetCompToggle">
+              <Skills
+                handleChange={this.handleChange}
+                str={this.state.str}
+                dex={this.state.dex}
+                con={this.state.con}
+                int={this.state.int}
+                wis={this.state.wis}
+                cha={this.state.cha}
+                calculateModifier={this.calculateModifier}
+                proficienciesArray={this.state.proficienciesArray}
+              />
+            </div>
+          )}
+          {this.state.componentToggle.includes('combatStats') && (
+            <div className="chatSheetCompToggle">
+              <CombatStats
+                handleChange={this.handleChange}
+                armorClass={this.state.armorClass}
+                initiative={this.state.initiative}
+                hpMax={this.state.hpMax}
+                hitDice={this.state.hitDice}
+                speed={this.state.speed}
+                dsSuccesses={this.state.dsSuccesses}
+                deathSaves={this.deathSaves}
+                handleDeathSaves={this.handleDeathSaves}
+                dsFails={this.state.dsFails}
+                attacksArray={this.state.attacksArray}
+                handleChangeAttack={this.handleChangeAttack}
+                addAttack={this.addAttack}
+                removeAttack={this.removeAttack}
+              />
+            </div>
+          )}
+          {this.state.componentToggle.includes('inventory') && (
+            <div className="chatSheetCompToggle">
+              <Inventory
+                handleChange={this.handleChange}
+                equipment={this.state.equipment}
+                inventory={this.state.inventory}
+                copper={this.state.copper}
+                silver={this.state.silver}
+                electrum={this.state.electrum}
+                gold={this.state.gold}
+                platinum={this.state.platinum}
+              />
+            </div>
+          )}
+          {this.state.componentToggle.includes('personalityBackground') && (
+            <div className="chatSheetCompToggle">
+              <PersonalityBackground
+                handleChange={this.handleChange}
+                personality={this.state.personality}
+                ideals={this.state.ideals}
+                bonds={this.state.bonds}
+                flaws={this.state.flaws}
+                background={this.state.background}
+              />
+            </div>
+          )}
+          {this.state.componentToggle.includes('spellcasting') && (
+            <div className="chatSheetCompToggle">
+              <Spellcasting
+                spellsArray={this.state.spellsArray}
+                handleChangeSpells={this.handleChangeSpells}
+                spellCastingArray={this.state.spellCastingArray}
+                handleChangeSpellCasting={this.handleChangeSpellCasting}
+                addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
+              />
+            </div>
+          )}
+          {this.state.componentToggle.includes('characterNotes') && (
+            <div className="chatSheetCompToggle" id="sheetCharNotes">
+              <CharacterNotes
+                handleChange={this.handleChange}
+                hitDice={this.state.hitDice}
+                charNotes={this.state.charNotes}
+              />
+            </div>
+          )}
+          <ul>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="characterInfo"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Character Info
+              </button>
+            </li>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="abilityScores"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Ability Scores
+              </button>
+            </li>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="skills"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Skills
+              </button>
+            </li>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="combatStats"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Combat Stats
+              </button>
+            </li>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="inventory"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Inventory
+              </button>
+            </li>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="personalityBackground"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Background
+              </button>
+            </li>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="spellcasting"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Spellcasting
+              </button>
+            </li>
+            <li className="chatroom__characterSheet__component">
+              <button
+                name="characterNotes"
+                className="btn sheetComp__btn btn--dark"
+                type="button"
+                onClick={this.handleToggle}
+              >
+                Character Notes
+              </button>
+            </li>
+          </ul>
 
-          <CharacterInfo
-            handleChange={this.handleChange}
-            characterName={this.state.characterName}
-            race={this.state.race}
-            alignment={this.state.alignment}
-          />
-
-          <div className="topWrapper">
-            <ClassLevel
-              handleChange={this.handleChange}
-              charClassArray={this.state.charClassArray}
-              handleChangeClass={this.handleChangeClass}
-              addClass={this.addClass}
-              removeClass={this.removeClass}
-              calculateTotalLevel={this.calculateTotalLevel}
-              exp={this.state.exp}
-              expAdd={this.state.expAdd}
-              addExperience={this.addExperience}
-              calculateExpToNextLevel={this.calculateExpToNextLevel}
-            />
-
-            <AbilityScores
-              handleChange={this.handleChange}
-              str={this.state.str}
-              dex={this.state.dex}
-              con={this.state.con}
-              int={this.state.int}
-              wis={this.state.wis}
-              cha={this.state.cha}
-              calculateModifier={this.calculateModifier}
-              charClassArray={this.state.charClassArray}
-              calculateProficiency={this.calculateProficiency}
-              inspiration={this.state.inspiration}
-              proficienciesArray={this.state.proficienciesArray}
-            />
-
-            <Skills
-              handleChange={this.handleChange}
-              str={this.state.str}
-              dex={this.state.dex}
-              con={this.state.con}
-              int={this.state.int}
-              wis={this.state.wis}
-              cha={this.state.cha}
-              calculateModifier={this.calculateModifier}
-              proficienciesArray={this.state.proficienciesArray}
-            />
-
-            <CombatStats
-              handleChange={this.handleChange}
-              armorClass={this.state.armorClass}
-              initiative={this.state.initiative}
-              hpMax={this.state.hpMax}
-              speed={this.state.speed}
-              dsSuccesses={this.state.dsSuccesses}
-              deathSaves={this.deathSaves}
-              handleDeathSaves={this.handleDeathSaves}
-              dsFails={this.state.dsFails}
-              attacksArray={this.state.attacksArray}
-              handleChangeAttack={this.handleChangeAttack}
-              addAttack={this.addAttack}
-              removeAttack={this.removeAttack}
-              features={this.state.features}
-            />
-          </div>
-          <div className="bottomWrapper">
-            <Inventory
-              handleChange={this.handleChange}
-              equipment={this.state.equipment}
-              inventory={this.state.inventory}
-              copper={this.state.copper}
-              silver={this.state.silver}
-              electrum={this.state.electrum}
-              gold={this.state.gold}
-              platinum={this.state.platinum}
-            />
-
-            <PersonalityBackground
-              handleChange={this.handleChange}
-              personality={this.state.personality}
-              ideals={this.state.ideals}
-              bonds={this.state.bonds}
-              flaws={this.state.flaws}
-              background={this.state.background}
-            />
-
-            <Spellcasting
-              spellsArray={this.state.spellsArray}
-              handleChangeSpells={this.handleChangeSpells}
-              spellCastingArray={this.state.spellCastingArray}
-              handleChangeSpellCasting={this.handleChangeSpellCasting}
-              addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
-            />
-            <CharacterNotes
-              handleChange={this.handleChange}
-              hitDice={this.state.hitDice}
-              charNotes={this.state.charNotes}
-            />
-            {this.state.characterName.trim() && !this.props.requestInProgress && (
-              <div>
-                <input className="btn btn--dark" type="submit" value="Save" />
-              </div>
-            )}
-            {this.state.uuid && !this.props.requestInProgress && (
-              <div>
-                <input
-                  className="btn btn--dark"
-                  type="button"
-                  onClick={this.handleDeleteCharacter}
-                  value="Delete Character"
-                />
-              </div>
-            )}
-          </div>
+          {this.state.characterName.trim() && !this.props.requestInProgress && (
+            <div>
+              <input className="btn btn--dark" type="submit" value="Save character" />
+            </div>
+          )}
         </form>
-      </div>
-    );
+      );
+    }
   }
 }
 

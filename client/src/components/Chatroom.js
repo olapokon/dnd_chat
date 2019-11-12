@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import DiceRoller from './DiceRoller';
 
-import CharacterSheetChat from './CharacterSheet/CharacterSheetChat';
+import CharacterSheet from './CharacterSheet/CharacterSheet';
 
 class Chatroom extends Component {
   constructor(props) {
@@ -93,7 +93,8 @@ class Chatroom extends Component {
     return (
       <div className="chatroom">
         <div className="chatroom__sidebar">
-          <CharacterSheetChat
+          <CharacterSheet
+            version="chat"
             user={this.props.user}
             updateUser={this.props.updateUser}
             requestInProgress={this.props.requestInProgress}
