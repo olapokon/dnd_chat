@@ -654,7 +654,7 @@ class CharacterSheet extends Component {
           </form>
         </div>
       );
-    } else {
+    } else if (this.props.version === 'chat') {
       return (
         <form className="chatroom__characterSheet" onSubmit={this.handleSubmit}>
           <LoadMenu user={this.props.user} handleLoad={this.handleLoad} />
