@@ -1,5 +1,6 @@
 .chatroom {
   font-size: 1.4rem;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .sheetComp__btn {
@@ -19,6 +20,14 @@
   padding: 1rem;
   text-align: center;
   color: #fff;
+  height: 93.7vh;
+}
+
+.chatName {
+  font-size: 2rem;
+  padding: 1rem;
+  text-align: center;
+  color: $defaultButtonColor;
 }
 
 .chatBar {
@@ -45,18 +54,6 @@
     width: 7rem;
     height: 3.7rem;
     margin: 0.2rem;
-  }
-}
-
-.diceRoller {
-  &__input {
-    height: 3rem;
-    width: 3.5rem;
-  }
-
-  &__button {
-    height: 3rem;
-    width: 3.5rem;
   }
 }
 
@@ -87,6 +84,7 @@
   &--userMessage {
     color: $defaultButtonColor;
     padding: 0.3rem;
+    padding-left: 0.8rem;
     width: max-content;
   }
 }
