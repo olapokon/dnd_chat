@@ -95,7 +95,7 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              id={
+              className={
                 this.state.passwordError
                   ? 'registrationLoginErrorInput'
                   : 'registrationPasswordInput'
@@ -110,7 +110,7 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              id={
+              className={
                 this.state.confirmError ? 'registrationLoginErrorInput' : 'registrationConfirmInput'
               }
               type="password"

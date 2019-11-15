@@ -160,13 +160,12 @@ class LoginForm extends Component {
           </div>
           <div>
             <input
-              id={this.state.passwordError ? 'registrationLoginErrorInput' : ''}
               type="password"
               name="password"
               placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
-              className=""
+              className={this.state.passwordError ? 'registrationLoginErrorInput' : ''}
             />
             {this.state.passwordError && (
               <InputError errorMessage={this.state.passwordErrorMessage} />
