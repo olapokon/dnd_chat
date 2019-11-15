@@ -1,15 +1,13 @@
 .chatroom {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
   display: grid;
-  grid-template-columns: 1fr 70vw;
+  grid-template-columns: 1fr 60vw 14vw;
 
   &__sidebar {
     margin-right: auto;
   }
 
   &__chat {
-    height: calc(100vh - 8rem);
+    height: calc(100vh - 6.5rem);
     display: grid;
     grid-template-rows: max-content 1fr 3rem;
   }
@@ -21,9 +19,8 @@
   font-size: 1.7rem;
 
   &__message {
-    width: 100%;
+    width: 60vw;
     word-wrap: break-word;
-    padding-left: 5px;
 
     &--userMessage {
       color: gray;
@@ -49,7 +46,7 @@
   width: 9em;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 
   &__input {
     width: 2rem;
