@@ -19,8 +19,9 @@
   font-size: 1.7rem;
 
   &__message {
-    width: 60vw;
+    width: 100%;
     word-wrap: break-word;
+    
 
     &--userMessage {
       color: gray;
