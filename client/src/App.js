@@ -248,22 +248,30 @@ class App extends Component {
               <Route
                 exact
                 path="/login"
-                render={() => (
-                  <LoginForm
-                    updateUserAndOpenSocket={this.updateUserAndOpenSocket}
-                    updateError={this.updateError}
-                  />
-                )}
+                render={() =>
+                  this.state.user ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <LoginForm
+                      updateUserAndOpenSocket={this.updateUserAndOpenSocket}
+                      updateError={this.updateError}
+                    />
+                  )
+                }
               />
               <Route
                 exact
                 path="/register"
-                render={() => (
-                  <RegistrationForm
-                    updateUserAndOpenSocket={this.updateUserAndOpenSocket}
-                    updateError={this.updateError}
-                  />
-                )}
+                render={() =>
+                  this.state.user ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <RegistrationForm
+                      updateUserAndOpenSocket={this.updateUserAndOpenSocket}
+                      updateError={this.updateError}
+                    />
+                  )
+                }
               />
               <ProtectedRoute
                 path="/games"
