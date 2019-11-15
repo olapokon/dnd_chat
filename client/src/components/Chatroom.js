@@ -103,14 +103,10 @@ class Chatroom extends Component {
           <DiceRoller handleDiceRoll={this.handleDiceRoll} />
         </div>
         <div className="chatroom__chat">
-          <div className="userCount">
-            <h3>
-              Chatroom: {this.props.currentChatroom ? this.props.currentChatroom.name : ''} User
-              count:{' '}
-              {this.props.currentChatroom &&
-                this.props.currentChatroom.userList &&
-                this.props.currentChatroom.userList.length}
-            </h3>
+          <div className="chatName">
+              <h3 className="heading--3">
+                {this.props.currentChatroom ? this.props.currentChatroom.name : ''}
+              </h3>
           </div>
           <div className="chatDisplay" ref={node => (this.node = node)}>
             {this.state.chatHistory.map((message, i) => {
@@ -160,6 +156,14 @@ class Chatroom extends Component {
               </button>
             </div>
           </form>
+        </div>
+        <div className="userCount">
+            <h3 className="heading--3">
+              Users:{' '}
+              {this.props.currentChatroom &&
+                this.props.currentChatroom.userList &&
+                this.props.currentChatroom.userList.length}
+            </h3>
         </div>
       </div>
     );
