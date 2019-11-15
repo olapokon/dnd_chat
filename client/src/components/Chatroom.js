@@ -104,9 +104,9 @@ class Chatroom extends Component {
         </div>
         <div className="chatroom__chat">
           <div className="chatName">
-              <h3 className="heading--3">
-                {this.props.currentChatroom ? this.props.currentChatroom.name : ''}
-              </h3>
+            <h3 className="heading--3">
+              {this.props.currentChatroom ? this.props.currentChatroom.name : ''}
+            </h3>
           </div>
           <div className="chatDisplay" ref={node => (this.node = node)}>
             {this.state.chatHistory.map((message, i) => {
@@ -158,12 +158,27 @@ class Chatroom extends Component {
           </form>
         </div>
         <div className="userCount">
-            <h3 className="heading--3">
-              Users:{' '}
-              {this.props.currentChatroom &&
-                this.props.currentChatroom.userList &&
-                this.props.currentChatroom.userList.length}
-            </h3>
+          <h3 className="heading--3">
+            Users:{' '}
+            {this.props.currentChatroom &&
+              this.props.currentChatroom.userList &&
+              this.props.currentChatroom.userList.length}
+          </h3>
+          {this.props.currentChatroom &&
+            this.props.currentChatroom.userList &&
+            this.props.currentChatroom.userList.map((user, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    backgroundColor: '#fff',
+                    color: 'gray'
+                  }}
+                >
+                  {user}
+                </div>
+              );
+            })}
         </div>
       </div>
     );
