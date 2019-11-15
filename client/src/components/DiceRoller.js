@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import d4 from '../img/d4.png';
+import d6 from '../img/d6.png';
+import d8 from '../img/d8.png';
+import d10 from '../img/d10.png';
+import d12 from '../img/d12.png';
+import d20 from '../img/d20.png';
+import d100 from '../img/d100.png';
 
 class DiceRoller extends Component {
   constructor(props) {
@@ -44,6 +51,87 @@ class DiceRoller extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleRoll = this.handleRoll.bind(this);
+  }
+
+  showDieImage(die, index){
+    if(die === 4){
+      return <input type="image" src={d4}
+                alt={"d"+ die}
+                className="diceRoller__button"
+                key={die}
+                name={die}
+                onClick={function(event) {
+                  this.handleRoll(event, index);
+                }.bind(this)}
+              />
+    }
+    if(die === 6){
+      return <input type="image" src={d6}
+                alt={"d"+ die}
+                className="diceRoller__button"
+                key={die}
+                name={die}
+                onClick={function(event) {
+                  this.handleRoll(event, index);
+                }.bind(this)}
+              />
+    }
+    if(die === 8){
+      return <input type="image" src={d8}
+                alt={"d"+ die}
+                className="diceRoller__button"
+                key={die}
+                name={die}
+                onClick={function(event) {
+                  this.handleRoll(event, index);
+                }.bind(this)}
+              />
+    }
+    if(die === 10){
+      return <input type="image" src={d10}
+                alt={"d"+ die}
+                className="diceRoller__button"
+                key={die}
+                name={die}
+                onClick={function(event) {
+                  this.handleRoll(event, index);
+                }.bind(this)}
+              />
+    }
+    if(die === 12){
+      return <input type="image" src={d12}
+                alt={"d"+ die}
+                className="diceRoller__button"
+                key={die}
+                name={die}
+                onClick={function(event) {
+                  this.handleRoll(event, index);
+                }.bind(this)}
+              />
+    }
+    if(die === 20){
+      return <input type="image" src={d20}
+                alt={"d"+ die}
+                className="diceRoller__button"
+                key={die}
+                name={die}
+                onClick={function(event) {
+                  this.handleRoll(event, index);
+                }.bind(this)}
+              />
+              
+    }
+    if(die === 100){
+      return <input type="image" src={d100}
+                alt={"d"+ die}
+                className="diceRoller__button"
+                key={die}
+                name={die}
+                onClick={function(event) {
+                  this.handleRoll(event, index);
+                }.bind(this)}
+              />
+    }
   }
 
   handleChange(event, index, field) {
@@ -103,17 +191,9 @@ class DiceRoller extends Component {
                   this.handleChange(event, index, 'number');
                 }.bind(this)}
               />
-              <button
-                className="diceRoller__button"
-                key={die.die}
-                name={die.die}
-                type="button"
-                onClick={function(event) {
-                  this.handleRoll(event, index);
-                }.bind(this)}
-              >
-                {die.die}
-              </button>
+
+              {this.showDieImage(die.die, index)}
+                
               <input
                 className="diceRoller__input"
                 key={`${die.die}Modifier`}
