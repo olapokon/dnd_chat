@@ -864,7 +864,7 @@ class CharacterSheet extends Component {
 
           {this.state.characterName.trim() && !this.props.requestInProgress && (
             <div>
-              <input className="btn btn--dark" type="submit" value="Save character" />
+              <input className="btn sheetComp__btn btn--danger" type="submit" value="Save character" />
             </div>
           )}
         </form>
