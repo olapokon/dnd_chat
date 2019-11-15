@@ -15,23 +15,12 @@ import NotFound from './components/NotFound';
 import Loading from './components/Loading';
 import CharacterSheet from './components/CharacterSheet/CharacterSheet';
 
-function ProtectedRoute({ key, path, component: Component, loggedIn, ...rest }) {
+function ProtectedRoute({ path, component: Component, loggedIn, ...rest }) {
   return (
     <Route
-      key={key}
       exact
       path={path}
       render={() => (loggedIn ? <Component {...rest} /> : <Redirect to="/" />)}
-    />
-  );
-}
-
-function ProtectedRouteChatroom({ path, component: Component, loggedIn, ...rest }) {
-  return (
-    <Route
-      exact
-      path={path}
-      render={props => (loggedIn ? <Component {...rest} {...props} /> : <Redirect to="/" />)}
     />
   );
 }
@@ -241,14 +230,14 @@ class App extends Component {
               style={{
                 backgroundColor: 'fuchsia',
                 color: 'white',
-                fontSize: '1em',
-                padding: '.5em'
+                fontSize: '2em',
+                padding: '0.7em',
+                textAlign: 'center'
               }}
             >
               {this.state.errorMessage}
             </div>
           )}
-
           <main>
             <Switch>
               <Route
@@ -292,7 +281,7 @@ class App extends Component {
                 deleteCharacter={this.deleteCharacter}
               />
               {this.state.socket && (
-                <ProtectedRouteChatroom
+                <ProtectedRoute
                   path="/chatroom/:chatroomKey"
                   component={Chatroom}
                   loggedIn={this.state.loggedIn}

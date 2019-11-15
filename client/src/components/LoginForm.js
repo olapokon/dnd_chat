@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
 
+import InputError from './InputError';
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -153,7 +155,7 @@ class LoginForm extends Component {
               className={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
             />
             {this.state.usernameError && (
-              <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
+              <InputError errorMessage={this.state.usernameErrorMessage} />
             )}
           </div>
           <div>
@@ -167,7 +169,7 @@ class LoginForm extends Component {
               className=""
             />
             {this.state.passwordError && (
-              <p className="registrationLoginError">{this.state.passwordErrorMessage}</p>
+              <InputError errorMessage={this.state.passwordErrorMessage} />
             )}
           </div>
           <div>

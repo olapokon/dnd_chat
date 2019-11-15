@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import InputError from './InputError';
+
 class RegistrationForm extends Component {
   constructor() {
     super();
@@ -80,11 +82,6 @@ class RegistrationForm extends Component {
         <form className="center">
           <div>
             <input
-              // id={
-              //   this.state.usernameError
-              //     ? 'registrationLoginErrorInput'
-              //     : 'registrationUsernameInput'
-              // }
               className={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
               type="text"
               name="username"
@@ -93,7 +90,7 @@ class RegistrationForm extends Component {
               onChange={this.handleChange}
             />
             {this.state.usernameError && (
-              <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
+              <InputError errorMessage={this.state.usernameErrorMessage} />
             )}
           </div>
           <div>
@@ -109,7 +106,7 @@ class RegistrationForm extends Component {
               value={this.state.password}
               onChange={this.handleChange}
             />
-            {this.state.passwordError && <p className="registrationLoginError">Invalid password</p>}
+            {this.state.passwordError && <InputError errorMessage="Invalid password" />}
           </div>
           <div>
             <input
@@ -122,9 +119,7 @@ class RegistrationForm extends Component {
               value={this.state.confirmPassword}
               onChange={this.handleChange}
             />
-            {this.state.confirmError && (
-              <p className="registrationLoginError">Passwords do not match</p>
-            )}
+            {this.state.confirmError && <InputError errorMessage="Passwords do not match" />}
           </div>
           <div>
             <input
