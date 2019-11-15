@@ -152,7 +152,7 @@ class LoginForm extends Component {
               placeholder="Username"
               value={this.state.username}
               onChange={this.handleChange}
-              className={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
+              className={this.state.usernameError ? 'input--error' : ''}
             />
             {this.state.usernameError && (
               <InputError errorMessage={this.state.usernameErrorMessage} />
@@ -165,7 +165,7 @@ class LoginForm extends Component {
               placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
-              className={this.state.passwordError ? 'registrationLoginErrorInput' : ''}
+              className={this.state.passwordError ? 'input--error' : ''}
             />
             {this.state.passwordError && (
               <InputError errorMessage={this.state.passwordErrorMessage} />

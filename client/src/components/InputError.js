@@ -1,7 +1,16 @@
 import React from 'react';
 
 function InputError({ errorMessage }) {
-  return <p className="registrationLoginError">{errorMessage}</p>;
+  return (
+    <p
+      style={{
+        color: 'red',
+        margin: 0
+      }}
+    >
+      {errorMessage}
+    </p>
+  );
 }
 
 export default InputError;

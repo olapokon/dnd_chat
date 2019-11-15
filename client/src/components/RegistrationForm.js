@@ -82,7 +82,7 @@ class RegistrationForm extends Component {
         <form className="center">
           <div>
             <input
-              className={this.state.usernameError ? 'registrationLoginErrorInput' : ''}
+              className={this.state.usernameError && 'input--error'}
               type="text"
               name="username"
               placeholder="Username"
@@ -95,11 +95,7 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              className={
-                this.state.passwordError
-                  ? 'registrationLoginErrorInput'
-                  : 'registrationPasswordInput'
-              }
+              className={this.state.passwordError && 'input--error'}
               type="password"
               name="password"
               placeholder="Password"
@@ -110,9 +106,7 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              className={
-                this.state.confirmError ? 'registrationLoginErrorInput' : 'registrationConfirmInput'
-              }
+              className={this.state.confirmError && 'input--error'}
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"

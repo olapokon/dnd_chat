@@ -51,12 +51,7 @@ a {
   font-size: 2rem;
 }
 
-.registrationLoginError {
-  color: red;
-  margin: 0;
-}
-
-.registrationLoginErrorInput {
+.input--error {
   border: solid red 2px;
   padding: 0px 3px 0px 3px;
 }
