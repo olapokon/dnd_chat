@@ -20,9 +20,11 @@ class Games extends Component {
 
   handleCreate(event) {
     event.preventDefault();
-    const newUuid = uuidv4();
-    this.props.createChatroom(newUuid, this.state.chatroomName);
-    this.props.history.push(`/chatroom/${newUuid}`);
+    if (this.state.chatroomName.trim()) {
+      const newUuid = uuidv4();
+      this.props.createChatroom(newUuid, this.state.chatroomName);
+      this.props.history.push(`/chatroom/${newUuid}`);
+    }
   }
 
   render() {
@@ -32,6 +34,8 @@ class Games extends Component {
         <p className="center">Enter chatroom name</p>
         <p className="center">
           <input
+            autoComplete="off"
+            className="input input--main"
             name="chatroomName"
             type="text"
             value={this.state.chatroomName}
@@ -40,7 +44,7 @@ class Games extends Component {
         </p>
         <p className="center">
           <input
-            className="btn btn--dark"
+            className="btn btn--large btn--dark"
             type="submit"
             value="Create chatroom"
             onClick={this.handleCreate}

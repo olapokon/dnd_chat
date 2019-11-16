@@ -3,6 +3,14 @@
 }
 
 .mb {
+  &-small {
+    margin-bottom: 0.5rem;
+  }
+
+  &-medium {
+    margin-bottom: 2rem;
+  }
+
   &-large {
     margin-bottom: 4rem;
   }

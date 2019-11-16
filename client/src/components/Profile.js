@@ -28,7 +28,7 @@ function Profile(props) {
                       {charSheet.characterName}
                     </NavLink>
                   </th>
-                  <td>
+                  <td className="center">
                     {charSheet.charClassArray.length > 1
                       ? (function() {
                           let charClass = '';
@@ -63,7 +63,7 @@ function Profile(props) {
       )}
       <div className="center">
         <NavLink
-          className="btn btn--dark"
+          className="btn btn--large btn--dark"
           exact
           to={'/characterSheet'}
           onClick={props.selectCharacter.bind(null, 'new')}

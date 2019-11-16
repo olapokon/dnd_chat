@@ -15,7 +15,7 @@ class LoginForm extends Component {
       usernameErrorMessage: '',
       passwordError: false,
       passwordErrorMessage: '',
-      // socket: socket() //=======================================================
+      // socket: socket()
       loginInProgress: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -152,7 +152,9 @@ class LoginForm extends Component {
               placeholder="Username"
               value={this.state.username}
               onChange={this.handleChange}
-              className={this.state.usernameError ? 'input--error' : ''}
+              className={
+                this.state.usernameError ? 'input input--main input--error' : 'input input--main'
+              }
             />
             {this.state.usernameError && (
               <InputError errorMessage={this.state.usernameErrorMessage} />
@@ -165,7 +167,11 @@ class LoginForm extends Component {
               placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
-              className={this.state.passwordError ? 'input--error' : ''}
+              className={
+                this.state.passwordError
+                  ? 'input input--main input--error mb-small'
+                  : 'input input--main mb-small'
+              }
             />
             {this.state.passwordError && (
               <InputError errorMessage={this.state.passwordErrorMessage} />
@@ -174,7 +180,7 @@ class LoginForm extends Component {
           <div>
             <input
               name="login"
-              className="btn btn--dark"
+              className="btn btn__loginRegister btn--large btn--dark"
               type="submit"
               value="Login"
               onClick={this.handleSubmit}
@@ -184,7 +190,7 @@ class LoginForm extends Component {
             <input
               onClick={this.handleGithubLogin}
               type="button"
-              className="btn btn--dark"
+              className="btn btn__loginRegister btn--large btn--dark"
               value="Github Login"
             />
           </div>

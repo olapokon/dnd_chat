@@ -82,7 +82,9 @@ class RegistrationForm extends Component {
         <form className="center">
           <div>
             <input
-              className={this.state.usernameError && 'input--error'}
+              className={
+                this.state.usernameError ? 'input input--main input--error' : 'input input--main'
+              }
               type="text"
               name="username"
               placeholder="Username"
@@ -95,7 +97,9 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              className={this.state.passwordError && 'input--error'}
+              className={
+                this.state.passwordError ? 'input input--main input--error' : 'input input--main'
+              }
               type="password"
               name="password"
               placeholder="Password"
@@ -106,7 +110,11 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              className={this.state.confirmError && 'input--error'}
+              className={
+                this.state.confirmError
+                  ? 'input input--main input--error mb-small'
+                  : 'input input--main mb-small'
+              }
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
@@ -117,7 +125,7 @@ class RegistrationForm extends Component {
           </div>
           <div>
             <input
-              className="btn btn--dark"
+              className="btn btn__loginRegister btn--large btn--dark"
               type="submit"
               value="Register"
               onClick={this.handleSubmit}

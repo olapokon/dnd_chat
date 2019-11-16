@@ -11,7 +11,7 @@ function Home(props) {
             Login to access the chatrooms or create a new character sheet.
           </p>
           <p className="center">
-            <NavLink className="btn btn--dark" exact to="/login">
+            <NavLink className="btn btn--large btn--dark" exact to="/login">
               Login
             </NavLink>
           </p>
@@ -22,10 +22,10 @@ function Home(props) {
             Create a new game in the Games tab or access the character sheet in the Profile tab.
           </p>
           <p className="center">
-            <NavLink className="btn btn--dark" exact to="/games">
+            <NavLink className="btn btn--large btn--dark" exact to="/games">
               Games
             </NavLink>{' '}
-            <NavLink className="btn btn--dark" exact to="/profile">
+            <NavLink className="btn btn--large btn--dark" exact to="/profile">
               Profile
             </NavLink>
           </p>

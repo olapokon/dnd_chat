@@ -195,6 +195,7 @@ class App extends Component {
           console.log(res.data.message);
           this.updateUser(res.data.user);
           this.changeRequestInProgress(false);
+          this.props.history.push('/profile');
         })
         .catch(error => {
           console.log(error);
@@ -224,20 +225,28 @@ class App extends Component {
         <div className="App">
           <NavBar loggedIn={this.state.loggedIn} logout={this.logout} />
 
-          {/* error handling */}
+          {/* main error display */}
           {this.state.errorDisplay && (
             <div
               style={{
-                backgroundColor: 'fuchsia',
-                color: 'white',
-                fontSize: '2em',
-                padding: '0.7em',
-                textAlign: 'center'
+                display: 'flex',
+                justifyContent: 'center'
               }}
             >
-              {this.state.errorMessage}
+              <div
+                style={{
+                  backgroundColor: 'fuchsia',
+                  color: 'white',
+                  padding: '0.7em',
+                  textAlign: 'center',
+                  width: '50rem'
+                }}
+              >
+                {this.state.errorMessage}
+              </div>
             </div>
           )}
+
           <main>
             <Switch>
               <Route

@@ -511,8 +511,6 @@ class CharacterSheet extends Component {
 
   handleDeleteCharacter() {
     this.props.deleteCharacter(this.state.uuid);
-    this.props.history.push('/profile');
-    // this.setState({ ...this.initialState });
   }
 
   //toggle sections of the character sheet in chat version
@@ -630,20 +628,22 @@ class CharacterSheet extends Component {
                 handleChangeSpellCasting={this.handleChangeSpellCasting}
                 addRemoveSpellCastingClass={this.addRemoveSpellCastingClass}
               />
+
               <CharacterNotes
                 handleChange={this.handleChange}
                 hitDice={this.state.hitDice}
                 charNotes={this.state.charNotes}
               />
+
               {this.state.characterName.trim() && !this.props.requestInProgress && (
                 <div>
-                  <input className="btn btn--dark" type="submit" value="Save" />
+                  <input className="btn btn--large btn--dark" type="submit" value="Save" />
                 </div>
               )}
               {this.state.uuid && !this.props.requestInProgress && (
                 <div>
                   <input
-                    className="btn btn--dark"
+                    className="btn btn--large btn--dark"
                     type="button"
                     onClick={this.handleDeleteCharacter}
                     value="Delete Character"
@@ -864,7 +864,11 @@ class CharacterSheet extends Component {
 
           {this.state.characterName.trim() && !this.props.requestInProgress && (
             <div>
-              <input className="btn sheetComp__btn btn--danger" type="submit" value="Save character" />
+              <input
+                className="btn sheetComp__btn btn--danger"
+                type="submit"
+                value="Save character"
+              />
             </div>
           )}
         </form>
