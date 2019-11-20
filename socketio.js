@@ -88,7 +88,8 @@ module.exports = function(io) {
       io.to(currentChatroom).emit('chat message', {
         username: socket.request.user.username,
         type,
-        message: message
+        message: message,
+        timestamp: new Date().toLocaleTimeString()
       });
     });
 
