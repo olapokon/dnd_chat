@@ -23,7 +23,6 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    //=======================================================
     if (!this.state.socket) {
       this.setState(
         {
@@ -34,11 +33,16 @@ class LoginForm extends Component {
             if (user.user) {
               this.popupWindow.close();
               this.state.socket.emit('close');
-              this.props.changeRequestInProgress(true);
+              this.props.changeRequestInProgress(false);
               this.props.updateUserAndOpenSocket(user.user);
+              this.props.history.push('/');
             }
-            this.props.history.push('/');
-          }); // ========================================
+            if (user.error) {
+              this.popupWindow.close();
+              this.props.changeRequestInProgress(false);
+              this.props.updateError(user.error);
+            }
+          });
         }
       );
     }
@@ -47,16 +51,21 @@ class LoginForm extends Component {
   componentDidUpdate() {
     // socket listening for a github login event from the server
     if (this.state.socket) {
-      this.state.socket.off('github login'); // ========================================
+      this.state.socket.off('github login');
       this.state.socket.on('github login', user => {
         if (user.user) {
           this.popupWindow.close();
           this.state.socket.emit('close');
           this.props.changeRequestInProgress(false);
           this.props.updateUserAndOpenSocket(user.user);
+          this.props.history.push('/');
         }
-        this.props.history.push('/');
-      }); // ========================================
+        if (user.error) {
+          this.popupWindow.close();
+          this.props.changeRequestInProgress(false);
+          this.props.updateError(user.error);
+        }
+      });
     }
   }
 
@@ -126,10 +135,14 @@ class LoginForm extends Component {
   handleGithubLogin(event) {
     event.preventDefault();
     if (!this.props.requestInProgress) {
+      this.setState({ usernameError: false, passwordError: false });
+      this.props.changeRequestInProgress(true);
       console.log(this.state.socket.id);
       this.popupWindow = window.open(
-        // for development, include the localhost path http://localhost:3001/githubLogin etc
+        // for development, include the express localhost path http://localhost:3001/githubLogin etc
+        // for production `/githubLogin?socketId=${this.state.socket.id}`
         `/githubLogin?socketId=${this.state.socket.id}`,
+        // `http://localhost:3001/githubLogin?socketId=${this.state.socket.id}`,
         '',
         `toolbar=no, location=no, directories=no, status=no, menubar=no, 
   scrollbars=no, resizable=no, copyhistory=no, width=${600}, 
