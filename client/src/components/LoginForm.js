@@ -14,9 +14,8 @@ class LoginForm extends Component {
       usernameError: false,
       usernameErrorMessage: '',
       passwordError: false,
-      passwordErrorMessage: '',
+      passwordErrorMessage: ''
       // socket: socket()
-      loginInProgress: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,7 +34,7 @@ class LoginForm extends Component {
             if (user.user) {
               this.popupWindow.close();
               this.state.socket.emit('close');
-              this.setState({ loginInProgress: true });
+              this.props.changeRequestInProgress(true);
               this.props.updateUserAndOpenSocket(user.user);
             }
             this.props.history.push('/');
@@ -53,7 +52,7 @@ class LoginForm extends Component {
         if (user.user) {
           this.popupWindow.close();
           this.state.socket.emit('close');
-          this.setState({ loginInProgress: false });
+          this.props.changeRequestInProgress(false);
           this.props.updateUserAndOpenSocket(user.user);
         }
         this.props.history.push('/');
@@ -73,7 +72,7 @@ class LoginForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    if (!this.state.loginInProgress) {
+    if (!this.props.requestInProgress) {
       await this.setState({ usernameError: false, passwordError: false });
 
       let loginError = 0;
@@ -87,7 +86,7 @@ class LoginForm extends Component {
       }
 
       if (!loginError) {
-        this.setState({ loginInProgress: true });
+        this.props.changeRequestInProgress(true);
         axios
           .post('/login', {
             username: this.state.username,
@@ -106,11 +105,11 @@ class LoginForm extends Component {
                   passwordErrorMessage: res.data.authenticationError
                 });
               }
-              this.setState({ loginInProgress: false });
+              this.props.changeRequestInProgress(false);
               throw new Error(res.data.authenticationError);
             }
             if (res.data.user) {
-              this.setState({ loginInProgress: false });
+              this.props.changeRequestInProgress(false);
               this.props.updateUserAndOpenSocket(res.data.user);
             }
           })
@@ -126,8 +125,7 @@ class LoginForm extends Component {
 
   handleGithubLogin(event) {
     event.preventDefault();
-    if (!this.state.loginInProgress) {
-      // this.setState({ loginInProgress: true });
+    if (!this.props.requestInProgress) {
       console.log(this.state.socket.id);
       this.popupWindow = window.open(
         // for development, include the localhost path http://localhost:3001/githubLogin etc
@@ -152,6 +150,7 @@ class LoginForm extends Component {
               placeholder="Username"
               value={this.state.username}
               onChange={this.handleChange}
+              disabled={this.props.requestInProgress}
               className={
                 this.state.usernameError ? 'input input--main input--error' : 'input input--main'
               }
@@ -167,6 +166,7 @@ class LoginForm extends Component {
               placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
+              disabled={this.props.requestInProgress}
               className={
                 this.state.passwordError
                   ? 'input input--main input--error mb-small'
@@ -183,11 +183,13 @@ class LoginForm extends Component {
               className="btn btn__loginRegister btn--large btn--dark"
               type="submit"
               value="Login"
+              disabled={this.props.requestInProgress}
               onClick={this.handleSubmit}
             />
           </div>
           <div>
             <input
+              disabled={this.props.requestInProgress}
               onClick={this.handleGithubLogin}
               type="button"
               className="btn btn__loginRegister btn--large btn--dark"

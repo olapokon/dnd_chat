@@ -185,7 +185,10 @@ class App extends Component {
   }
 
   deleteCharacter(id) {
-    if (window.confirm('Are you sure you wish to permanently delete this character?')) {
+    if (
+      window.confirm('Are you sure you wish to permanently delete this character?') &&
+      !this.state.requestInProgress
+    ) {
       this.changeRequestInProgress(true);
       axios
         .post('/characterSheetDelete', {
@@ -264,6 +267,8 @@ class App extends Component {
                     <LoginForm
                       updateUserAndOpenSocket={this.updateUserAndOpenSocket}
                       updateError={this.updateError}
+                      requestInProgress={this.state.requestInProgress}
+                      changeRequestInProgress={this.changeRequestInProgress}
                     />
                   )
                 }
@@ -278,6 +283,8 @@ class App extends Component {
                     <RegistrationForm
                       updateUserAndOpenSocket={this.updateUserAndOpenSocket}
                       updateError={this.updateError}
+                      requestInProgress={this.state.requestInProgress}
+                      changeRequestInProgress={this.changeRequestInProgress}
                     />
                   )
                 }
