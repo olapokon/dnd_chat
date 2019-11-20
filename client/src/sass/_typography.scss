@@ -6,9 +6,15 @@
 .mainHeading {
   font-family: med1;
   font-size: 6.4rem;
-  color: black;
+  color: #fff;
   text-align: center;
-  margin-top: 5rem;
+  // margin-top: 5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $highlightColor;
+  height: 35vh;
 }
 
 .heading {
