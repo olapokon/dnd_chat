@@ -233,7 +233,8 @@ class App extends Component {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                backgroundColor: '#fd701e'
               }}
             >
               <div
