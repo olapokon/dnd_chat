@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import DiceRoller from './DiceRoller';
+import defaultUserImage from '../img/default_user_image.png';
 
 import CharacterSheet from './CharacterSheet/CharacterSheet';
 
@@ -104,18 +105,29 @@ class Chatroom extends Component {
         </div>
         <div className="chatroom__chat">
           <div className="chatName">
-            <h3 className="heading--3">
+            <h4 className="heading--4">
               {this.props.currentChatroom ? this.props.currentChatroom.name : ''}
-            </h3>
+            </h4>
           </div>
           <div className="chatDisplay" ref={node => (this.node = node)}>
             {this.state.chatHistory.map((message, i) => {
               if (message.type === 'user message') {
                 return (
-                  <div
-                    key={i}
-                    className="chatDisplay__message chatDisplay__message--userMessage"
-                  >{`${message.username}: ${message.message}`}</div>
+                  <div className="chatDisplay__messageBlock">
+                    <img src={defaultUserImage} alt="test" className="chatDisplay__image"/>
+                    <div className="chatDisplay__timestampMessage">
+                      <div
+                        key={i}
+                        className="chatDisplay__message chatDisplay__messageHeader">
+                        {`${message.username} - ${message.timestamp}`}
+                      </div>
+                      <div className="chatDisplay__separator"></div>
+                      <div key={i}
+                        className="chatDisplay__message chatDisplay__message--userMessage">
+                        {`${message.message}`}
+                      </div>
+                    </div>
+                  </div>
                 );
               } else if (message.type === 'dice roll') {
                 return (
@@ -157,23 +169,21 @@ class Chatroom extends Component {
             </div>
           </form>
         </div>
-        <div className="userCount">
-          <h3 className="heading--3">
+        <div className="userList">
+          <h4 className="userList__userCount heading--4">
             Users:{' '}
             {this.props.currentChatroom &&
               this.props.currentChatroom.userList &&
               this.props.currentChatroom.userList.length}
-          </h3>
+          </h4>
           {this.props.currentChatroom &&
             this.props.currentChatroom.userList &&
             this.props.currentChatroom.userList.map((user, index) => {
               return (
                 <div
+                  className="userList__users"
                   key={index}
-                  style={{
-                    backgroundColor: '#fff',
-                    color: 'gray'
-                  }}
+                  
                 >
                   {user}
                 </div>
