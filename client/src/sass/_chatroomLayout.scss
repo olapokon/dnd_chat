@@ -1,15 +1,20 @@
 .chatroom {
   display: grid;
-  grid-template-columns: 1fr 60vw 14vw;
+  //grid-template-columns: 1fr 80vw 14vw;
+  grid-template-columns: 1fr 10fr 1.5fr;
 
   &__sidebar {
-    margin-right: auto;
+    //margin-right: auto;
   }
 
   &__chat {
     height: calc(100vh - 6.5rem);
     display: grid;
     grid-template-rows: max-content 1fr 3rem;
+  }
+
+  &__characterSheet{
+    background: $defaultButtonColor;
   }
 }
 
@@ -44,7 +49,7 @@
 }
 
 .diceRoller {
-  width: 9em;
+  padding-left: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -56,4 +61,8 @@
   &__button {
     width: 2rem;
   }
+}
+
+.chatDisplay__messageBlock{
+  display:flex;
 }
