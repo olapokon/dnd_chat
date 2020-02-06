@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import DiceRoller from './DiceRoller';
 import defaultUserImage from '../img/default_user_image.png';
+import d20 from '../img/d20.png';
 
 import CharacterSheet from './CharacterSheet/CharacterSheet';
 
@@ -76,7 +77,7 @@ class Chatroom extends Component {
       const messageData = {
         type: 'dice roll',
         chatroomName: this.props.currentChatroom.name,
-        message: `${rollData.rolls.length}${rollData.dieType}${modifier}: ${rollData.total}`
+        message: `${rollData.rolls.length}${rollData.dieType}${modifier}: (${rollData.rolls}) Total = ${rollData.total} `
       };
       this.props.emitChatMessage(messageData);
     }
@@ -114,7 +115,7 @@ class Chatroom extends Component {
               if (message.type === 'user message') {
                 return (
                   <div className="chatDisplay__messageBlock">
-                    <img src={defaultUserImage} alt="test" className="chatDisplay__image"/>
+                    <img src={defaultUserImage} alt="test" className="chatDisplay__userImage"/>
                     <div className="chatDisplay__timestampMessage">
                       <div
                         key={i}
@@ -131,10 +132,22 @@ class Chatroom extends Component {
                 );
               } else if (message.type === 'dice roll') {
                 return (
-                  <div
-                    key={i}
-                    className="chatDisplay__message chatDisplay__message--diceRoll"
-                  >{`${message.username} rolls ${message.message}.`}</div>
+
+                  <div className="chatDisplay__messageBlock">
+                    <img src={defaultUserImage} alt="test" className="chatDisplay__userImage"/>
+                    <div className="chatDisplay__timestampMessage">
+                      <div
+                        key={i}
+                        className="chatDisplay__message chatDisplay__messageHeader">
+                        {`${message.username} - ${message.timestamp}`}
+                      </div>
+                      <div className="chatDisplay__separator"></div>
+                      <div key={i}
+                        className="chatDisplay__message chatDisplay__message--diceRoll">
+                        <img src={d20} alt="test" className="chatDisplay__dieImage"/>{`${message.message}`}
+                      </div>
+                    </div>
+                  </div>
                 );
               } else if (message.type === 'chat notification') {
                 return (
@@ -171,7 +184,7 @@ class Chatroom extends Component {
         </div>
         <div className="userList">
           <h4 className="userList__userCount heading--4">
-            Users:{' '}
+            Users {' '}
             {this.props.currentChatroom &&
               this.props.currentChatroom.userList &&
               this.props.currentChatroom.userList.length}
@@ -180,12 +193,15 @@ class Chatroom extends Component {
             this.props.currentChatroom.userList &&
             this.props.currentChatroom.userList.map((user, index) => {
               return (
-                <div
-                  className="userList__users"
-                  key={index}
-                  
-                >
-                  {user}
+                <div className="userList__usersBlock">
+                  <img src={defaultUserImage} alt="test" className="userList__userImage"/>
+                  <div
+                    className="userList__users"
+                    key={index}
+                    
+                  >
+                    {user}
+                  </div>
                 </div>
               );
             })}
