@@ -1,13 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Profile.css';
 
 function Profile(props) {
   return (
-    <div id="profile">
-      <h2 id="profileHeader">{props.user.username}'s characters</h2>
+    <div className="profile">
+      <h2 className="mainHeading mb-large">{props.user.username}'s characters</h2>
       {props.user.characterSheets && (
-        <table id="characterTable">
+        <table className="characterTable mb-large">
           <thead>
             <tr>
               <th scope="col">Character Name</th>
@@ -19,16 +18,17 @@ function Profile(props) {
             {props.user.characterSheets.map(charSheet => {
               return (
                 <tr key={charSheet.uuid}>
-                  <th id="characterLink" scope="row">
+                  <th scope="row">
                     <NavLink
                       exact
                       to={'/characterSheet'}
                       onClick={props.selectCharacter.bind(null, charSheet.uuid)}
+                      className="characterTable__link"
                     >
                       {charSheet.characterName}
                     </NavLink>
                   </th>
-                  <td>
+                  <td className="center">
                     {charSheet.charClassArray.length > 1
                       ? (function() {
                           let charClass = '';
@@ -44,7 +44,7 @@ function Profile(props) {
                         })()
                       : charSheet.charClassArray[0].class}
                   </td>
-                  <td className="totalLevelCell">
+                  <td className="center">
                     {charSheet.charClassArray.length > 1
                       ? (function() {
                           let totalLevel = 0;
@@ -61,9 +61,9 @@ function Profile(props) {
           </tbody>
         </table>
       )}
-      <div id="newCharacterButton">
+      <div className="center">
         <NavLink
-          className="btn btn-primary btn-lg"
+          className="btn btn--large btn--dark"
           exact
           to={'/characterSheet'}
           onClick={props.selectCharacter.bind(null, 'new')}

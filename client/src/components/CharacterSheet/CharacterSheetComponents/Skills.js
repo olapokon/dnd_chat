@@ -23,29 +23,31 @@ const skills = [
 
 function Skills(props) {
   return (
-    <div className="skills leftFloat">
-      <h3> Skills: </h3>
+    <div className="skills">
+      <h3 className="heading skills_heading heading--3"> Skills</h3>
       <ul>
         {skills.map(skill => {
           return (
-            <li key={skill.name}>
-              <input
-                className="skillBox"
-                type="checkbox"
-                name={skill.name}
-                onChange={props.handleChange}
-                checked={props.proficienciesArray.includes(skill.name)}
-              />
-              <input
-                className="skill smallInput"
-                type="number"
-                value={props.calculateModifier(
-                  props[skill.relatedAttribute],
-                  props.proficienciesArray.includes(skill.name)
-                )}
-                readOnly
-              />
-              <label>{skill.displayName}</label>
+            <li key={skill.name} className="skillList">
+              <div>
+                <input
+                  className="checkbox skills__checkbox"
+                  type="checkbox"
+                  name={skill.name}
+                  onChange={props.handleChange}
+                  checked={props.proficienciesArray.includes(skill.name)}
+                />
+                <input
+                  className="input skills__input input--small  input--readonly"
+                  type="number"
+                  value={props.calculateModifier(
+                    props[skill.relatedAttribute],
+                    props.proficienciesArray.includes(skill.name)
+                  )}
+                  readOnly
+                />
+                <label className="label skills__label">{skill.displayName}</label>
+              </div>
             </li>
           );
         })}

@@ -59,13 +59,26 @@ module.exports = function(app, db, io) {
   app.get('/github/callback', function(req, res, next) {
     passport.authenticate('github', function(err, user, info) {
       if (err) {
+        io.to(req.session.socketId).emit('github login', {
+          error: err.message
+        });
         return next(err);
       }
       if (!user) {
-        return res.json(info);
+        io.to(req.session.socketId).emit('github login', {
+          error: 'github log in failed'
+        });
+        return res.json({
+          message: 'github log in failed'
+        });
       }
       req.logIn(user, function(err) {
-        if (err) return next(err);
+        if (err) {
+          io.to(req.session.socketId).emit('github login', {
+            error: err.message
+          });
+          return next(err);
+        }
         io.to(req.session.socketId).emit('github login', {
           user: {
             _id: user['_id'],

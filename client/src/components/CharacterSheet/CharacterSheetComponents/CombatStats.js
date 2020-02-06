@@ -2,231 +2,258 @@ import React from 'react';
 
 function CombatStats(props) {
   return (
-    <div className="combatWrapper wrapperSettings leftFloat">
-      <h3>Combat</h3>
-      <div className="acStatsWrapper leftFloat">
-        <ul className="acStatsList">
-          <li>
-            <label>
-              Armor Class:
+    <div className="combat">
+      <h3 className="heading combat__heading heading--3">Combat</h3>
+      <div className="combatStats">
+        <div className="AcInitSpeed">
+          <h4 className="heading combatStats__heading heading--4">Combat Stats</h4>
+          <div className="armorClass">
+            <label className="label combat__label">
+              Armor Class
               <div>
                 <input
                   type="number"
                   name="armorClass"
-                  className="smallInput"
+                  className="input armorClass__input input--large "
                   value={props.armorClass}
                   onChange={props.handleChange}
                 />
               </div>
             </label>
-          </li>
-          <li>
-            <label>
-              Initiative:
+          </div>
+          <div className="initiative">
+            <label className="label combat__label">
+              Initiative
               <div>
                 <input
                   type="number"
                   name="initiative"
-                  className="smallInput"
+                  className="input initiative__input input--large "
                   value={props.initiative}
                   onChange={props.handleChange}
                 />
               </div>
             </label>
-          </li>
-          <li>
-            <label>
-              Speed:
+          </div>
+          <div className="speed">
+            <label className="label combat__label">
+              Speed
               <div>
                 <input
                   type="number"
                   name="speed"
-                  className="smallInput"
+                  className="input speed__input input--large "
                   value={props.speed}
                   onChange={props.handleChange}
                 />
-                ft
               </div>
             </label>
-          </li>
-        </ul>
-      </div>
-      <div className="wrapperSettings">
-        Hit Points
-        <ul>
-          <li>
-            <label>Maximum</label>
+          </div>
+        </div>
+        <div className="hitPoints">
+          <h4 className="heading hitPoints__heading heading--4">Hit Points</h4>
+          <div>
+            <label className="label combat__label">Maximum</label>
             <input
               type="number"
               name="hpMax"
-              className="midInput"
+              className="input maxHp__input input--mid "
               value={props.hpMax}
               onChange={props.handleChange}
             />
-          </li>
-          <li>
-            <label>Current</label>
+          </div>
+          <div>
+            <label className="label combat__label">Current</label>
             <input
               type="number"
               name="hpCurrent"
-              className="midInput"
+              className="input currentHp__input input--mid "
               value={props.hpCurrent}
               onChange={props.handleChange}
             />
-          </li>
-          <li>
-            <label>Temporary</label>
+          </div>
+          <div>
+            <label className="label combat__label">Temporary</label>
             <input
               type="number"
               name="hpTemp"
-              id="hpTemp"
-              className="midInput"
+              className="input tempHp__input input--mid "
               value={props.hpTemp}
               onChange={props.handleChange}
             />
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
-      <div className="attackWrapper">
-        <h4> Attack and Spellcasting: </h4>
-        <ul className="attacksList">
-          <button type="button" onClick={props.addAttack}>
-            Add attack
-          </button>
-          {props.attacksArray.map((attack, idx) => {
-            return (
-              <li key={idx}>
-                <label>Name(item/spell)</label>
-                <input
-                  type="text"
-                  name="attackName"
-                  className="attack"
-                  value={attack.attackName}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <label>Attack Bonus</label>
-                <input
-                  type="number"
-                  name="attackBonus"
-                  className="attack smallInput"
-                  value={attack.attackBonus}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <label>Damage Primary</label>
-                <input
-                  type="number"
-                  name="atkDmgDno"
-                  className="attack smallInput"
-                  value={attack.atkDmgDno}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <select
-                  name="atkDmgDice"
-                  className="attack"
-                  value={attack.atkDmgDice}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                >
-                  <option value="" disabled>
-                    Dmg Die
-                  </option>
-                  <option value="d4">d4</option>
-                  <option value="d6">d6</option>
-                  <option value="d8">d8</option>
-                  <option value="d10">d10</option>
-                  <option value="d12">d12</option>
-                  <option value="d20">d20</option>
-                  <option value="d100">d100</option>
-                </select>
-                <label>Damage Secondary</label>
-                <input
-                  type="number"
-                  name="atkDmgDnoSec"
-                  className="attack smallInput"
-                  value={attack.atkDmgDnoSec}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <select
-                  name="atkDmgDiceSec"
-                  className="attack"
-                  value={attack.atkDmgDiceSec}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                >
-                  <option value="" disabled>
-                    Dmg Die
-                  </option>
-                  <option value="d4">d4</option>
-                  <option value="d6">d6</option>
-                  <option value="d8">d8</option>
-                  <option value="d10">d10</option>
-                  <option value="d12">d12</option>
-                  <option value="d20">d20</option>
-                  <option value="d100">d100</option>
-                </select>
-                <label>Damage Bonus</label>
-                <input
-                  type="number"
-                  name="damageBonus"
-                  className="attack smallInput"
-                  value={attack.damageBonus}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <label>Damage Type</label>
-                <input
-                  type="text"
-                  name="damageType"
-                  className="attack"
-                  value={attack.damageType}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                <label>Range</label>
-                <input
-                  type="number"
-                  name="attackRange"
-                  className="attack smallInput"
-                  value={attack.attackRange}
-                  onChange={function(event) {
-                    props.handleChangeAttack(event, idx);
-                  }}
-                />
-                ft
-                {idx > 0 && (
-                  <button type="button" onClick={props.removeAttack.bind(null, idx)}>
-                    Remove attack
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+      <div className="attacks">
+        <h4 className="heading attacks__heading heading--4"> Attack and Spellcasting</h4>
+
+        <table className="attackTable">
+          <thead>
+            <tr>
+              <th className="tableHeader attackTable__tableHeader">Name(item/spell)</th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--small tableHeader--wrap">
+                Attack Bonus
+              </th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--mid tableHeader--wrap">
+                Damage (No/Die)
+              </th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--mid tableHeader--wrap">
+                Sec Effect (No/Die)
+              </th>
+              <th className="tableHeader attackTable__tableHeader tableHeader--small tableHeader--wrap">
+                Damage Bonus
+              </th>
+              <th className="tableHeader attackTable__tableHeader">Range</th>
+              <th className="tableHeader attackTable__tableHeader"></th>
+              <th className="tableHeader attackTable__tableHeader"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.attacksArray.map((attack, idx) => {
+              return (
+                <tr key={idx}>
+                  <td className="column attackTable__column">
+                    <input
+                      type="text"
+                      name="attackName"
+                      className="input input__attackName input--big input--btmBorder"
+                      value={attack.attackName}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="attackBonus"
+                      className="input input__attackBonus input--small  input--btmBorder"
+                      value={attack.attackBonus}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="atkDmgDno"
+                      className="input input__attackDice input--small  input--btmBorder"
+                      value={attack.atkDmgDno}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                    <select
+                      name="atkDmgDice"
+                      className="select select__dmgDice btn--white btn--dropDown btn--btmBorder"
+                      value={attack.atkDmgDice}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    >
+                      <option value="" disabled>
+                        Die
+                      </option>
+                      <option value="d4">d4</option>
+                      <option value="d6">d6</option>
+                      <option value="d8">d8</option>
+                      <option value="d10">d10</option>
+                      <option value="d12">d12</option>
+                      <option value="d20">d20</option>
+                    </select>
+                  </td>
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="atkDmgDnoSec"
+                      className="input input__attackDice input--small  input--btmBorder"
+                      value={attack.atkDmgDnoSec}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                    <select
+                      name="atkDmgDiceSec"
+                      className="select select__dmgDice btn--white btn--dropDown btn--btmBorder"
+                      value={attack.atkDmgDiceSec}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    >
+                      <option value="" disabled>
+                        Die
+                      </option>
+                      <option value="d4">d4</option>
+                      <option value="d6">d6</option>
+                      <option value="d8">d8</option>
+                      <option value="d10">d10</option>
+                      <option value="d12">d12</option>
+                      <option value="d20">d20</option>
+                    </select>
+                  </td>
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="damageBonus"
+                      className="input input__dmgBonus input--small  input--btmBorder"
+                      value={attack.damageBonus}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+
+                  <td className="column attackTable__column">
+                    <input
+                      type="number"
+                      name="attackRange"
+                      className="input input__atkRange input--mid  input--btmBorder"
+                      value={attack.attackRange}
+                      onChange={function(event) {
+                        props.handleChangeAttack(event, idx);
+                      }}
+                    />
+                  </td>
+                  <td className="column attackTable__column">
+                    {idx > 0 && (
+                      <button
+                        type="button"
+                        className="btn btn__removeAtk btn--danger "
+                        onClick={props.removeAttack.bind(null, idx)}
+                      >
+                        -
+                      </button>
+                    )}
+                    {idx === 0 && (
+                      <button
+                        type="button"
+                        className="btn btn__addAtk btn--dark "
+                        onClick={props.addAttack}
+                      >
+                        +
+                      </button>
+                    )}
+                  </td>
+                  <td className="column attackTable__column"></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
       <div className="featsAndTraits">
-        <h3>Features and Traits: </h3>
+        <h4 className="heading featsAndTraits__heading heading--4">Features and Traits </h4>
         <textarea
-          maxLength="1600"
           name="features"
-          className="feats"
+          id="feats"
+          className="tArea featsAndTraits__tArea"
           value={props.features}
           onChange={props.handleChange}
         />
       </div>
-      <div className="deathSavesWrapper">
-        <h3>Death Saves</h3>
+      <div className="deathSaves">
+        <h4 className="heading deathSaves__heading heading--4">Death Saves</h4>
         <ul>
           <li>
             <label>Successes</label>
@@ -239,21 +266,21 @@ function CombatStats(props) {
             <input
               type="checkbox"
               name="dsSuccess1"
-              className="dsSuccess"
+              className="checkbox checkbox__dsSuccess"
               checked={props.deathSaves('dsSuccess1')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsSuccess2"
-              className="dsSuccess"
+              className="checkbox checkbox__dsSuccess"
               checked={props.deathSaves('dsSuccess2')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsSuccess3"
-              className="dsSuccess"
+              className="checkbox checkbox__dsSuccess"
               checked={props.deathSaves('dsSuccess3')}
               onChange={props.handleDeathSaves}
             />
@@ -269,21 +296,21 @@ function CombatStats(props) {
             <input
               type="checkbox"
               name="dsFail1"
-              className="dsFail"
+              className="checkbox checkbox__dsFail"
               checked={props.deathSaves('dsFail1')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsFail2"
-              className="dsFail"
+              className="checkbox checkbox__dsFail"
               checked={props.deathSaves('dsFail2')}
               onChange={props.handleDeathSaves}
             />
             <input
               type="checkbox"
               name="dsFail3"
-              className="dsFail"
+              className="checkbox checkbox__dsFail"
               checked={props.deathSaves('dsFail3')}
               onChange={props.handleDeathSaves}
             />

@@ -1,0 +1,68 @@
+.chatroom {
+  display: grid;
+  //grid-template-columns: 1fr 80vw 14vw;
+  grid-template-columns: 1fr 10fr 1.5fr;
+
+  &__sidebar {
+    //margin-right: auto;
+  }
+
+  &__chat {
+    height: calc(100vh - 6.5rem);
+    display: grid;
+    grid-template-rows: max-content 1fr 3rem;
+  }
+
+  &__characterSheet{
+    background: $defaultButtonColor;
+  }
+}
+
+.chatDisplay {
+  overflow: scroll;
+  overflow-x: hidden;
+  font-size: 1.7rem;
+
+  &__message {
+    width: 100%;
+    word-wrap: break-word;
+    
+
+    &--userMessage {
+      color: gray;
+    }
+
+    &--diceRoll {
+      color: blue;
+    }
+
+    &--notification {
+      color: orange;
+    }
+  }
+}
+
+.chatBar {
+  //border: solid orange 1px;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+.diceRoller {
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  &__input {
+    width: 2rem;
+  }
+
+  &__button {
+    width: 2rem;
+  }
+}
+
+.chatDisplay__messageBlock{
+  display:flex;
+}

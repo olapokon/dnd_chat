@@ -1,0 +1,23 @@
+.navbar {
+  font-size: 2rem;
+  background-color: $highlightColor;
+
+  & ul {
+    display: flex;
+  }
+
+  &__link:link,
+  &__link:visited {
+    color: white;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+  }
+
+  //&__link:hover {
+  //   color: $highlightColor;
+  //   background-color: white;
+  // }
+}

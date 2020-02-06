@@ -1,0 +1,37 @@
+@font-face {
+  font-family: med1;
+  src: url(./Plakat-Fraktur_Black.ttf);
+}
+
+.mainHeading {
+  font-family: med1;
+  font-size: 6.4rem;
+  color: #fff;
+  text-align: center;
+  // margin-top: 5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $highlightColor;
+  height: 35vh;
+}
+
+.heading {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+
+  &--3 {
+    font-size: 2.5rem;
+  }
+  &--4 {
+    font-size: 2.1rem;
+  }
+}
+
+.input,
+.tArea,
+.btn {
+  font-family: 'Times New Roman';
+}

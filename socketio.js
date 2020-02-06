@@ -56,7 +56,7 @@ module.exports = function(io) {
         console.log(`socket.request.user._id: ` + socket.request.user['_id']);
         // const userId = socket.request.user['_id'];
         if (!chatroomList[chatroomKey].userList.includes(username)) {
-          console.log(`${chatroomList[chatroomKey].userList} does not include ${username}`);
+          // console.log(`${chatroomList[chatroomKey].userList} does not include ${username}`);
           chatroomList[chatroomKey].userList.push(username);
         }
         //emit updated list
@@ -64,9 +64,6 @@ module.exports = function(io) {
         console.log('sending chatroom data');
         console.log(chatroomList[currentChatroom]);
 
-        //an yparxei to dwmatio sth lista, add user to userlist
-        //an oxi, create neo chatroom sth lista
-        //emit join ktl
         socket.broadcast.to(currentChatroom).emit('chat message', {
           username: socket.request.user.username,
           type: 'chat notification',
@@ -88,7 +85,8 @@ module.exports = function(io) {
       io.to(currentChatroom).emit('chat message', {
         username: socket.request.user.username,
         type,
-        message: message
+        message: message,
+        timestamp: new Date().toLocaleTimeString()
       });
     });
 

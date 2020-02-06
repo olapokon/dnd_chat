@@ -1,0 +1,180 @@
+.sheetContainer {
+  font-family: 'Times New Roman';
+  color: #212529;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.topWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  grid-template-rows: repeat(3, max-content);
+  grid-gap: 4rem;
+}
+
+.bottomWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: repeat(3, max-content);
+  grid-gap: 3rem;
+}
+
+.spellCastingBlock {
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+}
+
+//abilities and saving throws layout
+.abilitiesST {
+  grid-column-start: 1;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  display: flex;
+  justify-content: space-between;
+
+  .profInspPerc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+  }
+}
+
+.skills {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.combat {
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+//combat layout
+.combatStats {
+  display: flex;
+
+  .AcInitSpeed {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+  }
+
+  .combatStats__heading {
+    flex-basis: 100%;
+    text-align: left;
+  }
+
+  .hitPoints__heading {
+    text-align: left;
+  }
+
+  .hitPoints {
+    text-align: right;
+  }
+}
+.deathSaves__heading {
+  flex-basis: 100%;
+  text-align: left;
+}
+
+.deathSaves {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  text-align: right;
+
+  .checkbox {
+    margin: 0.3rem;
+  }
+}
+
+// inventory layout
+.inventoryFull {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+
+  .money {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+
+    &__heading {
+      order: 6;
+      align-self: flex-start;
+    }
+  }
+
+  .equipment {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+    width: 60rem;
+    &__heading {
+      flex-basis: 100%;
+    }
+
+    .inventory {
+      display: flex;
+      flex-direction: column;
+      .tArea {
+        height: 15rem;
+      }
+    }
+  }
+}
+
+// background and personality layout
+.personalityBackground {
+  width: 100%;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  display: flex;
+  flex-direction: column;
+
+  .background {
+    .tArea {
+      height: 15rem;
+    }
+  }
+
+  .personality {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+//notes layout
+.charNotes {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 62rem;
+
+  &__heading {
+    flex-basis: 100%;
+    text-align: left;
+  }
+
+  .hitDice {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notes {
+    display: flex;
+    flex-direction: column;
+  }
+}

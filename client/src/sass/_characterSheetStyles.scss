@@ -1,0 +1,122 @@
+.sheetContainer {
+  font-size: 1.4rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// text area styles
+.tArea {
+  font-size: inherit;
+  height: 11rem;
+  width: 28rem;
+  resize: none;
+  border: 0.1rem solid $tAreaBorderColor;
+  padding: 0.7rem 1.1rem 0.7rem 1.1rem;
+}
+
+// focus styles
+.input,
+.tArea,
+.select {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  outline: none;
+}
+
+.input:focus,
+.tArea:focus,
+.select:focus {
+  box-shadow: 0 0 0.5rem $highlightColor;
+  border: 0.1rem solid $highlightColor;
+}
+
+// select inputs styles
+.select {
+  font-size: inherit;
+  font-family: inherit;
+  height: 3rem;
+  border: 0.1rem solid $borderColor;
+  background-color: $backgroundColor;
+
+  &__dmgDice {
+    width: 4.6rem;
+    height: 3rem;
+    border: 0.1rem solid $backgroundColor;
+    border-bottom: 0.1rem solid $borderColor;
+    background-color: $backgroundColor;
+    margin-left: 0em;
+    line-height: 2.3em;
+    padding-right: 0;
+    padding-left: 0.2rem;
+  }
+}
+
+// combat
+.attackTable {
+  border-collapse: separate;
+  text-align: center;
+  align-content: center;
+
+  .tableHeader {
+    &--small {
+      width: 4.5rem;
+    }
+    &--mid {
+      width: 9.5rem;
+    }
+  }
+
+  .input__atkRange {
+    width: 4.6rem;
+    text-align: center;
+    padding-left: 0.6rem;
+    padding-right: 0.8rem;
+  }
+
+  .input__atkRange::-webkit-inner-spin-button,
+  .input__atkRange::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.featsAndTraits__tArea {
+  width: 45rem;
+  height: 15rem;
+}
+
+// inventory
+.inventoryFull {
+  .money__input {
+    width: 8rem;
+  }
+}
+
+//spells
+.spells {
+  .input--big {
+    width: 20rem;
+  }
+}
+
+// notes
+.hitDice {
+  .tArea {
+    width: 15rem;
+    height: 15rem;
+  }
+}
+
+.notes {
+  .tArea {
+    width: 45rem;
+    height: 15rem;
+  }
+}

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import InputError from './InputError';
+
 class RegistrationForm extends Component {
   constructor() {
     super();
@@ -24,112 +26,113 @@ class RegistrationForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    await this.setState({
-      usernameError: false,
-      passwordError: false,
-      confirmError: false
-    });
+    if (!this.props.requestInProgress) {
+      await this.setState({
+        usernameError: false,
+        passwordError: false,
+        confirmError: false
+      });
 
-    let registrationError = 0;
-    if (!this.state.password.trim()) {
-      this.setState({ passwordError: true });
-      registrationError = 1;
-    }
-    if (this.state.password !== this.state.confirmPassword) {
-      this.setState({ confirmError: true });
-      registrationError = 1;
-    }
-    if (!this.state.username.trim()) {
-      this.setState({ usernameError: true, usernameErrorMessage: 'Invalid username' });
-      registrationError = 1;
-    }
+      let registrationError = 0;
+      if (!this.state.password.trim()) {
+        this.setState({ passwordError: true });
+        registrationError = 1;
+      }
+      if (this.state.password !== this.state.confirmPassword) {
+        this.setState({ confirmError: true });
+        registrationError = 1;
+      }
+      if (!this.state.username.trim()) {
+        this.setState({ usernameError: true, usernameErrorMessage: 'Invalid username' });
+        registrationError = 1;
+      }
 
-    if (!registrationError) {
-      axios
-        .post('/register', {
-          username: this.state.username,
-          password: this.state.password
-        })
-        .then(res => {
-          console.log(res.data);
-          //custom "error" set on the /register POST route in routes.js
-          if (!res.data.error) {
-            this.props.updateUserAndOpenSocket(res.data.user);
-          } else {
-            //this.props.updateError(res.data.error);
-            this.setState({ usernameError: true, usernameErrorMessage: res.data.error });
-            throw new Error(res.data.error);
-          }
-        })
-        .then(() => {
-          this.props.history.push('/');
-        })
-        .catch(error => {
-          console.log(error);
-          this.setState({
-            checkingLoginStatus: false
+      if (!registrationError) {
+        this.props.changeRequestInProgress(true);
+        axios
+          .post('/register', {
+            username: this.state.username,
+            password: this.state.password
+          })
+          .then(res => {
+            console.log(res.data);
+            //custom "error" set on the /register POST route in routes.js
+            if (!res.data.error) {
+              this.props.updateUserAndOpenSocket(res.data.user);
+            } else {
+              //this.props.updateError(res.data.error);
+              this.setState({ usernameError: true, usernameErrorMessage: res.data.error });
+              throw new Error(res.data.error);
+            }
+          })
+          .then(() => {
+            this.props.history.push('/');
+          })
+          .catch(error => {
+            console.log(error);
+            this.props.changeRequestInProgress(false);
           });
-        });
+      }
     }
   }
 
   render() {
     return (
-      <div id="registrationForm">
-        <h1 id="header">Register</h1>
+      <div className="registrationForm">
+        <h1 className="mainHeading">Register</h1>
         <form className="center">
           <div>
             <input
-              id={
-                this.state.usernameError
-                  ? 'registrationLoginErrorInput'
-                  : 'registrationUsernameInput'
+              className={
+                this.state.usernameError ? 'input input--main input--error' : 'input input--main'
               }
               type="text"
               name="username"
               placeholder="Username"
               value={this.state.username}
+              disabled={this.props.requestInProgress}
               onChange={this.handleChange}
             />
             {this.state.usernameError && (
-              <p className="registrationLoginError">{this.state.usernameErrorMessage}</p>
+              <InputError errorMessage={this.state.usernameErrorMessage} />
             )}
           </div>
           <div>
             <input
-              id={
-                this.state.passwordError
-                  ? 'registrationLoginErrorInput'
-                  : 'registrationPasswordInput'
+              className={
+                this.state.passwordError ? 'input input--main input--error' : 'input input--main'
               }
               type="password"
               name="password"
               placeholder="Password"
               value={this.state.password}
+              disabled={this.props.requestInProgress}
               onChange={this.handleChange}
             />
-            {this.state.passwordError && <p className="registrationLoginError">Invalid password</p>}
+            {this.state.passwordError && <InputError errorMessage="Invalid password" />}
           </div>
           <div>
             <input
-              id={
-                this.state.confirmError ? 'registrationLoginErrorInput' : 'registrationConfirmInput'
+              className={
+                this.state.confirmError
+                  ? 'input input--main input--error mb-small'
+                  : 'input input--main mb-small'
               }
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
               value={this.state.confirmPassword}
+              disabled={this.props.requestInProgress}
               onChange={this.handleChange}
             />
-            {this.state.confirmError && (
-              <p className="registrationLoginError">Passwords do not match</p>
-            )}
+            {this.state.confirmError && <InputError errorMessage="Passwords do not match" />}
           </div>
           <div>
             <input
-              className="btn btn-primary btn-lg center"
+              className="btn btn__loginRegister btn--large btn--dark"
               type="submit"
               value="Register"
+              disabled={this.props.requestInProgress}
               onClick={this.handleSubmit}
             />
           </div>

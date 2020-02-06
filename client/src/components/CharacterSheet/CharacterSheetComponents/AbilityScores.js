@@ -11,181 +11,196 @@ const savingThrows = [
 
 function AbilityScores(props) {
   return (
-    <div>
-      <div className="abilityScores leftFloat">
-        <h3> Ability Scores: </h3>
+    <div className="abilitiesST">
+      <div className="abilities">
+        <h3 className="heading abilities__heading heading--3"> Ability Scores</h3>
         <ul>
           <li>
             <div>
-              <label> STR: </label>
+              <label className="label abilities_label"> STR </label>
             </div>
-            <input
-              className="abScore smallInput"
-              type="number"
-              name="str"
-              value={props.str}
-              onChange={props.handleChange}
-            />
-            <input
-              className="abModifier smallInput"
-              type="number"
-              name="strMod"
-              value={props.str && props.calculateModifier(props.str, false)}
-              readOnly
-            />
+            <div>
+              <input
+                className="input abilities__score input--small "
+                type="number"
+                name="str"
+                value={props.str}
+                onChange={props.handleChange}
+              />
+              <input
+                className="input abilities__mod input--small  input--readonly"
+                type="number"
+                name="strMod"
+                value={props.str && props.calculateModifier(props.str, false)}
+                readOnly
+              />
+            </div>
           </li>
           <li>
             <div>
-              <label> DEX: </label>
+              <label className="label abilities_label"> DEX </label>
             </div>
-            <input
-              className="abScore smallInput"
-              type="number"
-              name="dex"
-              value={props.dex}
-              onChange={props.handleChange}
-            />
-            <input
-              className="abModifier smallInput"
-              type="number"
-              name="dexMod"
-              value={props.dex && props.calculateModifier(props.dex, false)}
-              readOnly
-            />
+            <div>
+              <input
+                className="input abilities__score input--small "
+                type="number"
+                name="dex"
+                value={props.dex}
+                onChange={props.handleChange}
+              />
+              <input
+                className="input abilities__mod input--small  input--readonly"
+                type="number"
+                name="dexMod"
+                value={props.dex && props.calculateModifier(props.dex, false)}
+                readOnly
+              />
+            </div>
           </li>
           <li>
             <div>
-              <label> CON: </label>
+              <label className="label abilities_label"> CON </label>
             </div>
-            <input
-              className="abScore smallInput"
-              type="number"
-              name="con"
-              value={props.con}
-              onChange={props.handleChange}
-            />
-            <input
-              className="abModifier smallInput"
-              type="number"
-              name="conMod"
-              value={props.con && props.calculateModifier(props.con, false)}
-              readOnly
-            />
+            <div>
+              <input
+                className="input abilities__score input--small "
+                type="number"
+                name="con"
+                value={props.con}
+                onChange={props.handleChange}
+              />
+              <input
+                className="input abilities__mod input--small  input--readonly"
+                type="number"
+                name="conMod"
+                value={props.con && props.calculateModifier(props.con, false)}
+                readOnly
+              />
+            </div>
           </li>
           <li>
             <div>
-              <label> INT: </label>
+              <label className="label abilities_label"> INT </label>
             </div>
-            <input
-              className="abScore smallInput"
-              type="number"
-              name="int"
-              value={props.int}
-              onChange={props.handleChange}
-            />
-            <input
-              className="abModifier smallInput"
-              type="number"
-              name="intMod"
-              value={props.int && props.calculateModifier(props.int, false)}
-              readOnly
-            />
+            <div>
+              <input
+                className="input abilities__score input--small "
+                type="number"
+                name="int"
+                value={props.int}
+                onChange={props.handleChange}
+              />
+              <input
+                className="input abilities__mod input--small  input--readonly"
+                type="number"
+                name="intMod"
+                value={props.int && props.calculateModifier(props.int, false)}
+                readOnly
+              />
+            </div>
           </li>
           <li>
             <div>
-              <label> WIS: </label>
+              <label className="label abilities_label"> WIS </label>
             </div>
-            <input
-              className="abScore smallInput"
-              type="number"
-              name="wis"
-              value={props.wis}
-              onChange={props.handleChange}
-            />
-            <input
-              className="abModifier smallInput"
-              type="number"
-              name="wisMod"
-              value={props.wis && props.calculateModifier(props.wis, false)}
-              readOnly
-            />
+            <div>
+              <input
+                className="input abilities__score input--small "
+                type="number"
+                name="wis"
+                value={props.wis}
+                onChange={props.handleChange}
+              />
+              <input
+                className="input abilities__mod input--small  input--readonly"
+                type="number"
+                name="wisMod"
+                value={props.wis && props.calculateModifier(props.wis, false)}
+                readOnly
+              />
+            </div>
           </li>
           <li>
             <div>
-              <label> CHA: </label>
+              <label className="label abilities_label"> CHA </label>
             </div>
-            <input
-              className="abScore smallInput"
-              type="number"
-              name="cha"
-              value={props.cha}
-              onChange={props.handleChange}
-            />
-            <input
-              className="abModifier smallInput"
-              type="number"
-              name="chaMod"
-              value={props.cha && props.calculateModifier(props.cha, false)}
-              readOnly
-            />
+            <div>
+              <input
+                className="input abilities__score input--small "
+                type="number"
+                name="cha"
+                value={props.cha}
+                onChange={props.handleChange}
+              />
+              <input
+                className="input abilities__mod input--small  input--readonly"
+                type="number"
+                name="chaMod"
+                value={props.cha && props.calculateModifier(props.cha, false)}
+                readOnly
+              />
+            </div>
           </li>
         </ul>
       </div>
 
-      <div className="savingThrowsProf leftFloat">
+      <div className="stProf">
         <div className="savingThrows">
-          <h3> Saving Throws: </h3>
+          <h3 className="heading savingThrows__heading heading--3"> Saving Throws</h3>
           <ul>
             {savingThrows.map(savingThrow => {
               return (
                 <li key={savingThrow.name}>
-                  <input
-                    className="savThrowBox"
-                    type="checkbox"
-                    name={savingThrow.name}
-                    onChange={props.handleChange}
-                    checked={props.proficienciesArray.includes(savingThrow.name)}
-                  />
-                  <input
-                    className="savThrow smallInput"
-                    type="number"
-                    value={props.calculateModifier(
-                      props[savingThrow.relatedAttribute],
-                      props.proficienciesArray.includes(savingThrow.name)
-                    )}
-                    readOnly
-                  />
-                  <label>{savingThrow.displayName}</label>
+                  <div>
+                    <input
+                      className="checkbox checkbox__st"
+                      type="checkbox"
+                      name={savingThrow.name}
+                      onChange={props.handleChange}
+                      checked={props.proficienciesArray.includes(savingThrow.name)}
+                    />
+                    <input
+                      className="input savingTrows__mod input--small  input--readonly"
+                      type="number"
+                      value={props.calculateModifier(
+                        props[savingThrow.relatedAttribute],
+                        props.proficienciesArray.includes(savingThrow.name)
+                      )}
+                      readOnly
+                    />
+                    <label>{savingThrow.displayName}</label>
+                  </div>
                 </li>
               );
             })}
           </ul>
         </div>
-        <div>
-          <label> Proficiency Bonus: </label>
-          <input
-            className="smallInput"
-            type="number"
-            name="proficiency"
-            value={props.charClassArray[0].level && props.calculateProficiency()}
-            readOnly
-          />
-        </div>
-        <div>
-          <label> Inspiration: </label>
-          <input
-            className="smallInput"
-            type="number"
-            name="inspiration"
-            value={props.inspiration}
-            onChange={props.handleChange}
-          />
-        </div>
-        <div>
-          <label>
-            Passive Perception:
+        <div className="profInspPerc">
+          <div className="proficiency">
+            <label className="label proficiency__label"> Proficiency Bonus </label>
+
             <input
-              className="smallInput"
+              className="input proficiency__mod input--small  input--readonly"
+              type="number"
+              name="proficiency"
+              value={props.charClassArray[0].level && props.calculateProficiency()}
+              readOnly
+            />
+          </div>
+          <div className="inspiration">
+            <label className="label inspiration__label"> Inspiration </label>
+            <input
+              className="input inspiration__score input--small "
+              type="number"
+              name="inspiration"
+              value={props.inspiration}
+              onChange={props.handleChange}
+            />
+          </div>
+          <div className="passPerc">
+            <label className="label pasPerc__label"> Passive Perception </label>
+            <input
+              className="input passPerc__mod input--small  input--readonly"
               type="number"
               name="passivePerception"
               value={
@@ -194,7 +209,7 @@ function AbilityScores(props) {
               }
               readOnly
             />
-          </label>
+          </div>
         </div>
       </div>
     </div>
