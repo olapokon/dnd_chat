@@ -136,7 +136,7 @@ class LoginForm extends Component {
     event.preventDefault();
     if (!this.props.requestInProgress) {
       this.setState({ usernameError: false, passwordError: false });
-      this.props.changeRequestInProgress(true);
+      // this.props.changeRequestInProgress(true);
       console.log(this.state.socket.id);
       this.popupWindow = window.open(
         // for development, include the express localhost path http://localhost:3001/githubLogin etc
