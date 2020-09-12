@@ -28,41 +28,41 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(process.env.DATABASE, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connected to the database');
+db.once('open', function () {
+	console.log('Connected to the database');
 });
 const sessionStore = new MongoStore({ mongooseConnection: db });
 
 //mongoose session
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    key: 'express.sid',
-    store: sessionStore
-  })
+	session({
+		secret: process.env.SESSION_SECRET,
+		resave: false,
+		saveUninitialized: false,
+		key: 'express.sid',
+		store: sessionStore,
+	})
 );
 
 //auth
 auth(app, db);
 
 function onAuthorizeFail(data, message, error, accept) {
-  if (error) {
-    throw new Error(message);
-  }
-  console.log('Unauthenticated user, opening guest socket');
-  accept(null, true);
+	if (error) {
+		throw new Error(message);
+	}
+	console.log('Unauthenticated user, opening guest socket');
+	accept(null, true);
 }
 
 //io
 io.use(
-  passportSocketIo.authorize({
-    key: 'express.sid',
-    secret: process.env.SESSION_SECRET,
-    store: sessionStore,
-    fail: onAuthorizeFail
-  })
+	passportSocketIo.authorize({
+		key: 'express.sid',
+		secret: process.env.SESSION_SECRET,
+		store: sessionStore,
+		fail: onAuthorizeFail,
+	})
 );
 
 socketio(io);
@@ -71,12 +71,12 @@ socketio(io);
 routes(app, db, io);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
+	app.use(express.static('client/build'));
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
 }
 
-http.listen(port, function() {
-  console.log(`Server is listening on port ${port}`);
+http.listen(port, function () {
+	console.log(`Server is listening on port ${port}`);
 });
