@@ -25,17 +25,19 @@ module.exports = function (app, db) {
 		new LocalStrategy(function (username, password, done) {
 			User.findOne({ username: username, provider: 'local' }, function (err, user) {
 				if (err) return done(err);
-				if (!user)
+				if (!user) {
 					return done(null, false, {
 						authenticationError: 'User does not exist',
 						errorField: 'username',
 					});
+				}
 				if (user.password && !bcrypt.compareSync(password, user.password)) {
 					return done(null, false, {
 						authenticationError: 'Incorrect password',
 						errorField: 'password',
 					});
-				} else if (user.password && bcrypt.compareSync(password, user.password)) {
+				}
+				if (user.password && bcrypt.compareSync(password, user.password)) {
 					console.log(`User ${username} has logged in.`);
 					return done(null, user);
 				}
@@ -62,21 +64,20 @@ module.exports = function (app, db) {
 					}
 					if (user) {
 						return done(null, user);
-					} else {
-						const newUser = new User({
-							username: profile.username,
-							characterSheets: [],
-							providerId: profile.id,
-							provider: 'GitHub',
-						});
-						newUser.save(function (err, user) {
-							if (err) {
-								return done(err);
-							}
-							console.log(`User ${user.username} saved to the database`);
-							done(null, newUser);
-						});
 					}
+					const newUser = new User({
+						username: profile.username,
+						characterSheets: [],
+						providerId: profile.id,
+						provider: 'GitHub',
+					});
+					newUser.save(function (err, user) {
+						if (err) {
+							return done(err);
+						}
+						console.log(`User ${user.username} saved to the database`);
+						done(null, newUser);
+					});
 				});
 			}
 		)

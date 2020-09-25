@@ -26,57 +26,55 @@ class RegistrationForm extends Component {
 
 	async handleSubmit(event) {
 		event.preventDefault();
-		if (!this.props.requestInProgress) {
-			await this.setState({
-				usernameError: false,
-				passwordError: false,
-				confirmError: false,
-			});
-
-			let registrationError = 0;
-			if (!this.state.password.trim()) {
-				this.setState({ passwordError: true });
-				registrationError = 1;
-			}
-			if (this.state.password !== this.state.confirmPassword) {
-				this.setState({ confirmError: true });
-				registrationError = 1;
-			}
-			if (!this.state.username.trim()) {
-				this.setState({ usernameError: true, usernameErrorMessage: 'Invalid username' });
-				registrationError = 1;
-			}
-
-			if (!registrationError) {
-				this.props.changeRequestInProgress(true);
-				axios
-					.post('/register', {
-						username: this.state.username,
-						password: this.state.password,
-					})
-					.then((res) => {
-						console.log(res.data);
-						//custom "error" set on the /register POST route in routes.js
-						if (!res.data.error) {
-							this.props.updateUserAndOpenSocket(res.data.user);
-						} else {
-							//this.props.updateError(res.data.error);
-							this.setState({
-								usernameError: true,
-								usernameErrorMessage: res.data.error,
-							});
-							throw new Error(res.data.error);
-						}
-					})
-					.then(() => {
-						this.props.history.push('/');
-					})
-					.catch((error) => {
-						console.log(error);
-						this.props.changeRequestInProgress(false);
-					});
-			}
+		if (this.props.requestInProgress) {
+			return;
 		}
+		await this.setState({
+			usernameError: false,
+			passwordError: false,
+			confirmError: false,
+		});
+
+		if (!this.state.password.trim()) {
+			this.setState({ passwordError: true });
+			return;
+		}
+		if (this.state.password !== this.state.confirmPassword) {
+			this.setState({ confirmError: true });
+			return;
+		}
+		if (!this.state.username.trim()) {
+			this.setState({ usernameError: true, usernameErrorMessage: 'Invalid username' });
+			return;
+		}
+
+		this.props.changeRequestInProgress(true);
+		axios
+			.post('/register', {
+				username: this.state.username,
+				password: this.state.password,
+			})
+			.then((res) => {
+				console.log(res.data);
+				//custom "error" set on the /register POST route in routes.js
+				if (!res.data.error) {
+					this.props.updateUserAndOpenSocket(res.data.user);
+				} else {
+					//this.props.updateError(res.data.error);
+					this.setState({
+						usernameError: true,
+						usernameErrorMessage: res.data.error,
+					});
+					throw new Error(res.data.error);
+				}
+			})
+			.then(() => {
+				this.props.history.push('/');
+			})
+			.catch((error) => {
+				console.log(error);
+				this.props.changeRequestInProgress(false);
+			});
 	}
 
 	render() {

@@ -54,110 +54,107 @@ class DiceRoller extends Component {
 	}
 
 	showDieImage(die, index) {
-		if (die === 4) {
-			return (
-				<input
-					type="image"
-					src={d4}
-					alt={'d' + die}
-					className="diceRoller__button"
-					key={die}
-					name={die}
-					onClick={function (event) {
-						this.handleRoll(event, index);
-					}.bind(this)}
-				/>
-			);
-		}
-		if (die === 6) {
-			return (
-				<input
-					type="image"
-					src={d6}
-					alt={'d' + die}
-					className="diceRoller__button"
-					key={die}
-					name={die}
-					onClick={function (event) {
-						this.handleRoll(event, index);
-					}.bind(this)}
-				/>
-			);
-		}
-		if (die === 8) {
-			return (
-				<input
-					type="image"
-					src={d8}
-					alt={'d' + die}
-					className="diceRoller__button"
-					key={die}
-					name={die}
-					onClick={function (event) {
-						this.handleRoll(event, index);
-					}.bind(this)}
-				/>
-			);
-		}
-		if (die === 10) {
-			return (
-				<input
-					type="image"
-					src={d10}
-					alt={'d' + die}
-					className="diceRoller__button"
-					key={die}
-					name={die}
-					onClick={function (event) {
-						this.handleRoll(event, index);
-					}.bind(this)}
-				/>
-			);
-		}
-		if (die === 12) {
-			return (
-				<input
-					type="image"
-					src={d12}
-					alt={'d' + die}
-					className="diceRoller__button"
-					key={die}
-					name={die}
-					onClick={function (event) {
-						this.handleRoll(event, index);
-					}.bind(this)}
-				/>
-			);
-		}
-		if (die === 20) {
-			return (
-				<input
-					type="image"
-					src={d20}
-					alt={'d' + die}
-					className="diceRoller__button"
-					key={die}
-					name={die}
-					onClick={function (event) {
-						this.handleRoll(event, index);
-					}.bind(this)}
-				/>
-			);
-		}
-		if (die === 100) {
-			return (
-				<input
-					type="image"
-					src={d100}
-					alt={'d' + die}
-					className="diceRoller__button"
-					key={die}
-					name={die}
-					onClick={function (event) {
-						this.handleRoll(event, index);
-					}.bind(this)}
-				/>
-			);
+		switch (die) {
+			case 4:
+				return (
+					<input
+						type="image"
+						src={d4}
+						alt={'d' + die}
+						className="diceRoller__button"
+						key={die}
+						name={die}
+						onClick={function (event) {
+							this.handleRoll(event, index);
+						}.bind(this)}
+					/>
+				);
+			case 6:
+				return (
+					<input
+						type="image"
+						src={d6}
+						alt={'d' + die}
+						className="diceRoller__button"
+						key={die}
+						name={die}
+						onClick={function (event) {
+							this.handleRoll(event, index);
+						}.bind(this)}
+					/>
+				);
+			case 8:
+				return (
+					<input
+						type="image"
+						src={d8}
+						alt={'d' + die}
+						className="diceRoller__button"
+						key={die}
+						name={die}
+						onClick={function (event) {
+							this.handleRoll(event, index);
+						}.bind(this)}
+					/>
+				);
+			case 10:
+				return (
+					<input
+						type="image"
+						src={d10}
+						alt={'d' + die}
+						className="diceRoller__button"
+						key={die}
+						name={die}
+						onClick={function (event) {
+							this.handleRoll(event, index);
+						}.bind(this)}
+					/>
+				);
+			case 12:
+				return (
+					<input
+						type="image"
+						src={d12}
+						alt={'d' + die}
+						className="diceRoller__button"
+						key={die}
+						name={die}
+						onClick={function (event) {
+							this.handleRoll(event, index);
+						}.bind(this)}
+					/>
+				);
+			case 20:
+				return (
+					<input
+						type="image"
+						src={d20}
+						alt={'d' + die}
+						className="diceRoller__button"
+						key={die}
+						name={die}
+						onClick={function (event) {
+							this.handleRoll(event, index);
+						}.bind(this)}
+					/>
+				);
+			case 100:
+				return (
+					<input
+						type="image"
+						src={d100}
+						alt={'d' + die}
+						className="diceRoller__button"
+						key={die}
+						name={die}
+						onClick={function (event) {
+							this.handleRoll(event, index);
+						}.bind(this)}
+					/>
+				);
+			default:
+				break;
 		}
 	}
 
@@ -179,26 +176,24 @@ class DiceRoller extends Component {
 		const modifier = Math.floor(this.state.dice[index].modifier);
 		const dieType = `d${this.state.dice[index].die}`;
 		const rollsArray = [];
-		if (numberOfDice >= 1) {
-			for (let i = 0; i < numberOfDice; i++) {
-				const roll = Math.floor(Math.random() * die + 1);
-				rollsArray.push(roll);
-			}
-			const totalRoll = rollsArray.reduce(function (acc, el) {
-				return acc + el;
-			});
-			const finalRoll = {
-				dieType,
-				rolls: rollsArray,
-				modifier,
-				total: totalRoll + +modifier,
-			};
-			//console.log(finalRoll);
+		if (numberOfDice < 1) {
+			return;
+		}
+		for (let i = 0; i < numberOfDice; i++) {
+			const roll = Math.floor(Math.random() * die + 1);
+			rollsArray.push(roll);
+		}
+		const totalRoll = rollsArray.reduce((acc, el) => acc + el);
+		const finalRoll = {
+			dieType,
+			rolls: rollsArray,
+			modifier,
+			total: totalRoll + +modifier,
+		};
 
-			//send roll result to chatroom if applicable
-			if (this.props.handleDiceRoll) {
-				this.props.handleDiceRoll(finalRoll);
-			}
+		//send roll result to chatroom if applicable
+		if (this.props.handleDiceRoll) {
+			this.props.handleDiceRoll(finalRoll);
 		}
 	}
 

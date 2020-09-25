@@ -98,35 +98,35 @@ module.exports = function (app, db, io) {
 		User.findOne({ username: req.body.username, provider: 'local' }, function (err, user) {
 			if (err) {
 				return next(err);
-			} else if (user) {
+			}
+			if (user) {
 				return res.json({ error: 'Username is unavailable' });
-			} else {
-				const newUser = new User({
-					username: req.body.username,
-					password: hash,
-					characterSheets: [],
-					// providerId: '',
-					provider: 'local',
-				});
-				newUser.save(function (err, user) {
+			}
+			const newUser = new User({
+				username: req.body.username,
+				password: hash,
+				characterSheets: [],
+				// providerId: '',
+				provider: 'local',
+			});
+			newUser.save(function (err, user) {
+				if (err) {
+					return next(err);
+				}
+				console.log('New user saved to the database');
+				req.login(user, function (err) {
 					if (err) {
 						return next(err);
 					}
-					console.log('New user saved to the database');
-					req.login(user, function (err) {
-						if (err) {
-							return next(err);
-						}
-						return res.json({
-							user: {
-								_id: user['_id'],
-								username: user.username,
-								characterSheets: user.characterSheets,
-							},
-						});
+					return res.json({
+						user: {
+							_id: user['_id'],
+							username: user.username,
+							characterSheets: user.characterSheets,
+						},
 					});
 				});
-			}
+			});
 		});
 	});
 
@@ -135,36 +135,36 @@ module.exports = function (app, db, io) {
 		User.findOne({ _id: req.user['_id'] }, function (err, user) {
 			if (err) {
 				return next(err);
-			} else if (!user) {
-				return res.json({ error: 'User not found' });
-			} else {
-				for (let i = 0; i < user.characterSheets.length; i++) {
-					if (user.characterSheets[i].uuid === req.body.uuid) {
-						//delete character sheet with same uuid if found
-						console.log('deleting existing charsheet');
-						user.characterSheets.splice(i, 1);
-					}
-				}
-				const newCharacterSheet = {
-					...req.body,
-				};
-				//insert new character sheet
-				user.characterSheets.push(newCharacterSheet);
-				user.save(function (err, user) {
-					if (err) {
-						return next(err);
-					}
-					console.log('Updated user doc: ' + user);
-					res.json({
-						message: 'Character sheet saved',
-						user: {
-							_id: user['_id'],
-							username: user.username,
-							characterSheets: user.characterSheets,
-						},
-					});
-				});
 			}
+			if (!user) {
+				return res.json({ error: 'User not found' });
+			}
+			for (let i = 0; i < user.characterSheets.length; i++) {
+				if (user.characterSheets[i].uuid === req.body.uuid) {
+					//delete character sheet with same uuid if found
+					console.log('deleting existing charsheet');
+					user.characterSheets.splice(i, 1);
+				}
+			}
+			const newCharacterSheet = {
+				...req.body,
+			};
+			//insert new character sheet
+			user.characterSheets.push(newCharacterSheet);
+			user.save(function (err, user) {
+				if (err) {
+					return next(err);
+				}
+				console.log('Updated user doc: ' + user);
+				res.json({
+					message: 'Character sheet saved',
+					user: {
+						_id: user['_id'],
+						username: user.username,
+						characterSheets: user.characterSheets,
+					},
+				});
+			});
 		});
 	});
 
@@ -172,29 +172,29 @@ module.exports = function (app, db, io) {
 		User.findOne({ _id: req.user['_id'] }, function (err, user) {
 			if (err) {
 				return next(err);
-			} else if (!user) {
-				return res.json({ error: 'User not found' });
-			} else {
-				for (let i = 0; i < user.characterSheets.length; i++) {
-					if (user.characterSheets[i].uuid === req.body.uuid) {
-						user.characterSheets.splice(i, 1);
-						console.log('Character sheet deleted');
-					}
-				}
-				user.save(function (err, user) {
-					if (err) {
-						return next(err);
-					}
-					res.json({
-						message: 'Character sheet deleted',
-						user: {
-							_id: user['_id'],
-							username: user.username,
-							characterSheets: user.characterSheets,
-						},
-					});
-				});
 			}
+			if (!user) {
+				return res.json({ error: 'User not found' });
+			}
+			for (let i = 0; i < user.characterSheets.length; i++) {
+				if (user.characterSheets[i].uuid === req.body.uuid) {
+					user.characterSheets.splice(i, 1);
+					console.log('Character sheet deleted');
+				}
+			}
+			user.save(function (err, user) {
+				if (err) {
+					return next(err);
+				}
+				res.json({
+					message: 'Character sheet deleted',
+					user: {
+						_id: user['_id'],
+						username: user.username,
+						characterSheets: user.characterSheets,
+					},
+				});
+			});
 		});
 	});
 
@@ -202,9 +202,8 @@ module.exports = function (app, db, io) {
 		if (req.user) {
 			req.logout();
 			return res.json({ message: 'logout complete' });
-		} else {
-			return res.json({ message: 'logout failed' });
 		}
+		return res.json({ message: 'logout failed' });
 	});
 
 	//error handler

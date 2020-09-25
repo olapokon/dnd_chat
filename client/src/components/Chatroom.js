@@ -59,28 +59,30 @@ class Chatroom extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		if (this.state.chatInput.trim()) {
-			const messageData = {
-				type: 'user message',
-				chatroomName: this.props.chatroomName,
-				message: this.state.chatInput,
-			};
-			this.props.emitChatMessage(messageData);
-			this.setState({ chatInput: '' });
+		if (!this.state.chatInput.trim()) {
+			return;
 		}
+		const messageData = {
+			type: 'user message',
+			chatroomName: this.props.chatroomName,
+			message: this.state.chatInput,
+		};
+		this.props.emitChatMessage(messageData);
+		this.setState({ chatInput: '' });
 	}
 
 	//emit result of dice roll from DiceRoller
 	handleDiceRoll(rollData) {
-		if (this.props.currentChatroom) {
-			const modifier = rollData.modifier > 0 ? ` + ${rollData.modifier}` : '';
-			const messageData = {
-				type: 'dice roll',
-				chatroomName: this.props.currentChatroom.name,
-				message: `${rollData.rolls.length}${rollData.dieType}${modifier}: (${rollData.rolls}) Total = ${rollData.total} `,
-			};
-			this.props.emitChatMessage(messageData);
+		if (!this.props.currentChatroom) {
+			return;
 		}
+		const modifier = rollData.modifier > 0 ? ` + ${rollData.modifier}` : '';
+		const messageData = {
+			type: 'dice roll',
+			chatroomName: this.props.currentChatroom.name,
+			message: `${rollData.rolls.length}${rollData.dieType}${modifier}: (${rollData.rolls}) Total = ${rollData.total} `,
+		};
+		this.props.emitChatMessage(messageData);
 	}
 
 	//messageData arriving is an object with 'username', 'type', and 'message' keys

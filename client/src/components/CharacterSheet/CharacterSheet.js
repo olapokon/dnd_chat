@@ -194,12 +194,14 @@ class CharacterSheet extends Component {
 		// checking is there is a selectedCharacter in the App state, which means a sheet is being loaded
 		if (this.props.selectedCharacter && this.props.selectedCharacter === 'new') {
 			return;
-		} else if (this.props.selectedCharacter) {
-			for (let i = 0; i < this.props.user.characterSheets.length; i++) {
-				if (this.props.user.characterSheets[i].uuid === this.props.selectedCharacter) {
-					const charSheet = { ...this.props.user.characterSheets[i] };
-					this.setState({ ...charSheet });
-				}
+		}
+		if (!this.props.selectedCharacter) {
+			return;
+		}
+		for (let i = 0; i < this.props.user.characterSheets.length; i++) {
+			if (this.props.user.characterSheets[i].uuid === this.props.selectedCharacter) {
+				const charSheet = { ...this.props.user.characterSheets[i] };
+				this.setState({ ...charSheet });
 			}
 		}
 	}
@@ -275,14 +277,15 @@ class CharacterSheet extends Component {
 		const charUuid = target.value;
 		if (charUuid === 'new') {
 			this.setState({ ...this.initialState });
-		} else {
-			if (this.props.user) {
-				for (let i = 0; i < this.props.user.characterSheets.length; i++) {
-					if (this.props.user.characterSheets[i].uuid === charUuid) {
-						const charSheet = { ...this.props.user.characterSheets[i] };
-						this.setState({ ...charSheet });
-					}
-				}
+			return;
+		}
+		if (!this.props.user) {
+			return;
+		}
+		for (let i = 0; i < this.props.user.characterSheets.length; i++) {
+			if (this.props.user.characterSheets[i].uuid === charUuid) {
+				const charSheet = { ...this.props.user.characterSheets[i] };
+				this.setState({ ...charSheet });
 			}
 		}
 	}

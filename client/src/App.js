@@ -59,13 +59,14 @@ class App extends Component {
 	}
 
 	componentDidUpdate() {
-		if (this.state.socket) {
-			this.state.socket.removeChatroomListListener();
-			this.state.socket.addChatroomListListener((chatroom) => {
-				const currentChatroom = chatroom;
-				this.setState({ currentChatroom });
-			});
+		if (!this.state.socket) {
+			return;
 		}
+		this.state.socket.removeChatroomListListener();
+		this.state.socket.addChatroomListListener((chatroom) => {
+			const currentChatroom = chatroom;
+			this.setState({ currentChatroom });
+		});
 	}
 
 	componentWillUnmount() {
@@ -210,9 +211,9 @@ class App extends Component {
 	changeRequestInProgress(status) {
 		if (status === true) {
 			this.setState({ requestInProgress: true });
-		} else {
-			this.setState({ requestInProgress: false });
+			return;
 		}
+		this.setState({ requestInProgress: false });
 	}
 
 	render() {
@@ -223,138 +224,135 @@ class App extends Component {
 					<Loading />
 				</div>
 			);
-		} else {
-			return (
-				<div className="App">
-					<NavBar loggedIn={this.state.loggedIn} logout={this.logout} />
+		}
+		return (
+			<div className="App">
+				<NavBar loggedIn={this.state.loggedIn} logout={this.logout} />
 
-					{/* main error display */}
-					{this.state.errorDisplay && (
+				{/* main error display */}
+				{this.state.errorDisplay && (
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							backgroundColor: '#fd701e',
+						}}
+					>
 						<div
 							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								backgroundColor: '#fd701e',
+								backgroundColor: 'fuchsia',
+								color: 'white',
+								padding: '0.7em',
+								textAlign: 'center',
+								width: '50rem',
 							}}
 						>
-							<div
-								style={{
-									backgroundColor: 'fuchsia',
-									color: 'white',
-									padding: '0.7em',
-									textAlign: 'center',
-									width: '50rem',
-								}}
-							>
-								{this.state.errorMessage}
-							</div>
+							{this.state.errorMessage}
 						</div>
-					)}
+					</div>
+				)}
 
-					<main>
-						<Switch>
-							<Route
-								exact
-								path="/"
-								render={(props) => (
-									<Home user={this.state.user} loggedIn={this.state.loggedIn} />
-								)}
-							/>
-							<Route
-								exact
-								path="/login"
-								render={() =>
-									this.state.user ? (
-										<Redirect to="/" />
-									) : (
-										<LoginForm
-											updateUserAndOpenSocket={this.updateUserAndOpenSocket}
-											updateError={this.updateError}
-											requestInProgress={this.state.requestInProgress}
-											changeRequestInProgress={this.changeRequestInProgress}
-										/>
-									)
-								}
-							/>
-							<Route
-								exact
-								path="/register"
-								render={() =>
-									this.state.user ? (
-										<Redirect to="/" />
-									) : (
-										<RegistrationForm
-											updateUserAndOpenSocket={this.updateUserAndOpenSocket}
-											updateError={this.updateError}
-											requestInProgress={this.state.requestInProgress}
-											changeRequestInProgress={this.changeRequestInProgress}
-										/>
-									)
-								}
-							/>
-							<ProtectedRoute
-								path="/games"
-								component={Games}
-								loggedIn={this.state.loggedIn}
-								createChatroom={
-									this.state.socket && this.state.socket.createChatroom
-								}
-								// updateCurrentChatroomKey={this.updateCurrentChatroomKey}
-							/>
-							<ProtectedRoute
-								path="/profile"
-								component={Profile}
-								loggedIn={this.state.loggedIn}
-								user={this.state.user}
-								selectCharacter={this.selectCharacter}
-								deleteCharacter={this.deleteCharacter}
-							/>
-							{this.state.socket && (
-								<ProtectedRoute
-									path="/chatroom/:chatroomKey"
-									component={Chatroom}
-									loggedIn={this.state.loggedIn}
-									user={this.state.user}
-									updateUser={this.updateUser}
-									chatroomKey={this.state.currentChatroomKey}
-									currentChatroom={this.state.currentChatroom}
-									emitChatMessage={this.state.socket.emitChatMessage}
-									addChatMessageHandler={this.state.socket.addChatMessageHandler}
-									removeChatMessageHandler={
-										this.state.socket.removeChatMessageHandler
-									}
-									enterChatroom={this.state.socket.enterChatroom}
-									exitChatroom={this.state.socket.exitChatroom}
-									addChatroomErrorListener={
-										this.state.socket.addChatroomErrorListener
-									}
-									removeChatroomErrorListener={
-										this.state.socket.removeChatroomErrorListener
-									}
-									updateError={this.updateError}
-									requestInProgress={this.state.requestInProgress}
-									changeRequestInProgress={this.changeRequestInProgress}
-								/>
+				<main>
+					<Switch>
+						<Route
+							exact
+							path="/"
+							render={(props) => (
+								<Home user={this.state.user} loggedIn={this.state.loggedIn} />
 							)}
+						/>
+						<Route
+							exact
+							path="/login"
+							render={() =>
+								this.state.user ? (
+									<Redirect to="/" />
+								) : (
+									<LoginForm
+										updateUserAndOpenSocket={this.updateUserAndOpenSocket}
+										updateError={this.updateError}
+										requestInProgress={this.state.requestInProgress}
+										changeRequestInProgress={this.changeRequestInProgress}
+									/>
+								)
+							}
+						/>
+						<Route
+							exact
+							path="/register"
+							render={() =>
+								this.state.user ? (
+									<Redirect to="/" />
+								) : (
+									<RegistrationForm
+										updateUserAndOpenSocket={this.updateUserAndOpenSocket}
+										updateError={this.updateError}
+										requestInProgress={this.state.requestInProgress}
+										changeRequestInProgress={this.changeRequestInProgress}
+									/>
+								)
+							}
+						/>
+						<ProtectedRoute
+							path="/games"
+							component={Games}
+							loggedIn={this.state.loggedIn}
+							createChatroom={this.state.socket && this.state.socket.createChatroom}
+							// updateCurrentChatroomKey={this.updateCurrentChatroomKey}
+						/>
+						<ProtectedRoute
+							path="/profile"
+							component={Profile}
+							loggedIn={this.state.loggedIn}
+							user={this.state.user}
+							selectCharacter={this.selectCharacter}
+							deleteCharacter={this.deleteCharacter}
+						/>
+						{this.state.socket && (
 							<ProtectedRoute
-								path="/characterSheet"
-								version="standalone"
-								component={CharacterSheet}
+								path="/chatroom/:chatroomKey"
+								component={Chatroom}
 								loggedIn={this.state.loggedIn}
 								user={this.state.user}
-								selectedCharacter={this.state.selectedCharacter}
-								selectCharacter={this.selectCharacter}
 								updateUser={this.updateUser}
-								deleteCharacter={this.deleteCharacter}
+								chatroomKey={this.state.currentChatroomKey}
+								currentChatroom={this.state.currentChatroom}
+								emitChatMessage={this.state.socket.emitChatMessage}
+								addChatMessageHandler={this.state.socket.addChatMessageHandler}
+								removeChatMessageHandler={
+									this.state.socket.removeChatMessageHandler
+								}
+								enterChatroom={this.state.socket.enterChatroom}
+								exitChatroom={this.state.socket.exitChatroom}
+								addChatroomErrorListener={
+									this.state.socket.addChatroomErrorListener
+								}
+								removeChatroomErrorListener={
+									this.state.socket.removeChatroomErrorListener
+								}
+								updateError={this.updateError}
 								requestInProgress={this.state.requestInProgress}
 								changeRequestInProgress={this.changeRequestInProgress}
 							/>
-							<Route render={() => <NotFound />} />
-						</Switch>
-					</main>
-				</div>
-			);
-		}
+						)}
+						<ProtectedRoute
+							path="/characterSheet"
+							version="standalone"
+							component={CharacterSheet}
+							loggedIn={this.state.loggedIn}
+							user={this.state.user}
+							selectedCharacter={this.state.selectedCharacter}
+							selectCharacter={this.selectCharacter}
+							updateUser={this.updateUser}
+							deleteCharacter={this.deleteCharacter}
+							requestInProgress={this.state.requestInProgress}
+							changeRequestInProgress={this.changeRequestInProgress}
+						/>
+						<Route render={() => <NotFound />} />
+					</Switch>
+				</main>
+			</div>
+		);
 	}
 }
 
